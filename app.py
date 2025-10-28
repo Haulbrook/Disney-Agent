@@ -27,13 +27,20 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for Light Blue & Silver Disney Theme with Sparkles
+# Custom CSS for Magical Disney Theme with Animations
 st.markdown("""
 <style>
+    /* Import a whimsical font */
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
+
+    * {
+        font-family: 'Nunito', sans-serif !important;
+    }
+
     /* Sparkle animation */
     @keyframes sparkle {
-        0%, 100% { opacity: 0; transform: scale(0); }
-        50% { opacity: 1; transform: scale(1); }
+        0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+        50% { opacity: 1; transform: scale(1) rotate(180deg); }
     }
 
     @keyframes shimmer {
@@ -41,44 +48,149 @@ st.markdown("""
         100% { background-position: 1000px 0; }
     }
 
-    /* Main background - light airy blue */
+    /* Button shimmy/bounce animation */
+    @keyframes shimmy {
+        0%, 100% { transform: translateX(0) rotate(0deg); }
+        25% { transform: translateX(-5px) rotate(-2deg); }
+        75% { transform: translateX(5px) rotate(2deg); }
+    }
+
+    @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+    }
+
+    /* Fireworks animation */
+    @keyframes firework {
+        0% {
+            transform: translate(0, 0) scale(0);
+            opacity: 1;
+        }
+        50% {
+            opacity: 1;
+        }
+        100% {
+            transform: translate(var(--tx), var(--ty)) scale(1);
+            opacity: 0;
+        }
+    }
+
+    /* Floating sparkles */
+    @keyframes float {
+        0%, 100% { transform: translateY(0) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(180deg); }
+    }
+
+    /* Magical pulse */
+    @keyframes magicPulse {
+        0%, 100% {
+            box-shadow: 0 0 5px rgba(135, 206, 235, 0.5),
+                        0 0 10px rgba(135, 206, 235, 0.3),
+                        0 0 15px rgba(135, 206, 235, 0.2);
+        }
+        50% {
+            box-shadow: 0 0 20px rgba(135, 206, 235, 0.8),
+                        0 0 30px rgba(135, 206, 235, 0.6),
+                        0 0 40px rgba(135, 206, 235, 0.4);
+        }
+    }
+
+    /* Main background - light airy blue with floating sparkles */
     .main {
         background: linear-gradient(180deg, #f0f8ff 0%, #e6f3ff 50%, #ffffff 100%);
+        position: relative;
+    }
+
+    .main::before, .main::after {
+        content: '✨';
+        position: fixed;
+        font-size: 24px;
+        animation: float 4s infinite ease-in-out;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .main::before {
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+    }
+
+    .main::after {
+        top: 60%;
+        right: 15%;
+        animation-delay: 2s;
     }
 
     /* Sidebar - light blue gradient */
     [data-testid="stSidebar"] {
         background: linear-gradient(180deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
+        position: relative;
     }
 
-    /* Main header with sparkle effect */
+    [data-testid="stSidebar"]::before {
+        content: '⭐';
+        position: absolute;
+        top: 10%;
+        right: 10%;
+        font-size: 20px;
+        animation: sparkle 2s infinite;
+    }
+
+    /* Main header with sparkle effect and fireworks */
     .main-header {
         text-align: center;
-        font-size: 3em;
-        font-weight: bold;
-        padding: 30px;
+        font-size: 3.5em;
+        font-weight: 900;
+        padding: 40px;
         background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 50%, #add8e6 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         position: relative;
-        text-shadow: 2px 2px 4px rgba(135, 206, 235, 0.3);
+        animation: magicPulse 3s infinite;
+        letter-spacing: 2px;
     }
 
-    /* Countdown box - light blue with silver shimmer */
+    /* Fireworks container */
+    .main-header::before {
+        content: '🎆';
+        position: absolute;
+        top: -20px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 2em;
+        animation: firework 3s infinite;
+        --tx: -100px;
+        --ty: -100px;
+    }
+
+    .main-header::after {
+        content: '🎇';
+        position: absolute;
+        top: -20px;
+        right: 10%;
+        font-size: 1.5em;
+        animation: firework 3s infinite 1s;
+        --tx: 100px;
+        --ty: -80px;
+    }
+
+    /* Countdown box - Magical with shimmer and stars */
     .countdown-box {
         background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 50%, #add8e6 100%);
-        padding: 35px;
-        border-radius: 20px;
+        padding: 40px;
+        border-radius: 25px;
         color: #ffffff;
         text-align: center;
-        font-size: 2em;
-        font-weight: bold;
+        font-size: 2.2em;
+        font-weight: 900;
         margin: 20px 0;
-        box-shadow: 0 8px 20px rgba(135, 206, 235, 0.4),
+        box-shadow: 0 10px 30px rgba(135, 206, 235, 0.5),
                     inset 0 1px 0 rgba(255,255,255,0.6);
-        border: 2px solid rgba(192, 192, 192, 0.3);
+        border: 3px solid rgba(255, 215, 0, 0.5);
         position: relative;
         overflow: hidden;
+        animation: magicPulse 4s infinite;
     }
 
     .countdown-box::before {
@@ -91,27 +203,39 @@ st.markdown("""
         background: linear-gradient(
             45deg,
             transparent 30%,
-            rgba(255, 255, 255, 0.3) 50%,
+            rgba(255, 255, 255, 0.4) 50%,
             transparent 70%
         );
         animation: shimmer 3s infinite;
     }
 
-    /* Checklist items - white with light blue accents */
+    .countdown-box::after {
+        content: '🌟';
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 1.5em;
+        animation: sparkle 2s infinite;
+    }
+
+    /* Checklist items - Playful with bounce */
     .checklist-item {
-        padding: 15px;
-        margin: 8px 0;
-        border-radius: 12px;
-        border-left: 4px solid #87ceeb;
+        padding: 18px;
+        margin: 10px 0;
+        border-radius: 15px;
+        border-left: 5px solid #87ceeb;
         background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
         color: #2c3e50 !important;
-        box-shadow: 0 2px 8px rgba(135, 206, 235, 0.2);
+        box-shadow: 0 3px 10px rgba(135, 206, 235, 0.3);
         transition: all 0.3s ease;
+        cursor: pointer;
     }
 
     .checklist-item:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(135, 206, 235, 0.3);
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: 0 6px 20px rgba(135, 206, 235, 0.4);
+        border-left-color: #ffd700;
+        animation: bounce 0.5s ease-in-out;
     }
 
     .checklist-item strong {
@@ -122,18 +246,27 @@ st.markdown("""
         color: #546e7a !important;
     }
 
-    /* Idea cards - white with silver border and sparkle */
+    /* Idea cards - Magical with sparkle and shimmy */
     .idea-card {
-        padding: 20px;
-        margin: 12px 0;
-        border-radius: 15px;
+        padding: 25px;
+        margin: 15px 0;
+        border-radius: 20px;
         background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
-        box-shadow: 0 4px 15px rgba(135, 206, 235, 0.25);
-        border: 2px solid #c0c0c0;
-        border-left: 5px solid #87ceeb;
+        box-shadow: 0 5px 20px rgba(135, 206, 235, 0.3);
+        border: 3px solid rgba(255, 215, 0, 0.3);
+        border-left: 6px solid #87ceeb;
         color: #2c3e50 !important;
         position: relative;
         overflow: hidden;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .idea-card:hover {
+        transform: scale(1.03) rotate(1deg);
+        box-shadow: 0 8px 30px rgba(135, 206, 235, 0.5);
+        animation: shimmy 0.6s ease-in-out;
+        border-color: rgba(255, 215, 0, 0.6);
     }
 
     .idea-card::after {
@@ -141,7 +274,7 @@ st.markdown("""
         position: absolute;
         top: 10px;
         right: 10px;
-        font-size: 1.5em;
+        font-size: 2em;
         animation: sparkle 2s infinite;
     }
 
@@ -158,22 +291,46 @@ st.markdown("""
         color: #607d8b !important;
     }
 
-    /* Buttons - light blue gradient with silver shine */
+    /* Buttons - Magical with shimmy animation */
     .stButton>button {
         background: linear-gradient(135deg, #87ceeb 0%, #5dade2 100%);
         color: white;
-        border: 2px solid rgba(192, 192, 192, 0.5);
-        border-radius: 10px;
-        padding: 12px 24px;
-        font-weight: 600;
-        box-shadow: 0 4px 10px rgba(135, 206, 235, 0.3);
+        border: 3px solid rgba(255, 215, 0, 0.4);
+        border-radius: 15px;
+        padding: 14px 28px;
+        font-weight: 700;
+        font-size: 16px;
+        box-shadow: 0 4px 15px rgba(135, 206, 235, 0.4);
         transition: all 0.3s ease;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .stButton>button::before {
+        content: '✨';
+        position: absolute;
+        left: 10px;
+        animation: sparkle 1.5s infinite;
+    }
+
+    .stButton>button::after {
+        content: '✨';
+        position: absolute;
+        right: 10px;
+        animation: sparkle 1.5s infinite 0.5s;
     }
 
     .stButton>button:hover {
         background: linear-gradient(135deg, #5dade2 0%, #3498db 100%);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(135, 206, 235, 0.4);
+        animation: shimmy 0.5s ease-in-out, bounce 0.5s ease-in-out;
+        box-shadow: 0 8px 25px rgba(135, 206, 235, 0.6);
+        border-color: rgba(255, 215, 0, 0.8);
+        transform: scale(1.05);
+    }
+
+    .stButton>button:active {
+        transform: scale(0.95);
     }
 
     /* Priority colors - adjusted for light theme */
@@ -378,7 +535,9 @@ if 'trip_details' not in st.session_state:
         st.session_state.checklist = saved_data.get('checklist', [])
         st.session_state.ideas = saved_data.get('ideas', [])
         st.session_state.chat_history = saved_data.get('chat_history', [])
-        st.session_state.rejected_items = saved_data.get('rejected_items', set())
+        # Ensure rejected_items is always a set (Firebase returns it as a list)
+        rejected = saved_data.get('rejected_items', set())
+        st.session_state.rejected_items = set(rejected) if isinstance(rejected, (list, set)) else set()
         st.session_state.pending_suggestions = saved_data.get('pending_suggestions', [])
     else:
         st.session_state.trip_details = None
@@ -399,6 +558,10 @@ if 'chat_history' not in st.session_state:
 
 if 'rejected_items' not in st.session_state:
     st.session_state.rejected_items = set()
+else:
+    # Ensure it's always a set, even if it somehow became a list
+    if not isinstance(st.session_state.rejected_items, set):
+        st.session_state.rejected_items = set(st.session_state.rejected_items)
 
 if 'pending_suggestions' not in st.session_state:
     st.session_state.pending_suggestions = []
@@ -515,7 +678,9 @@ def main():
                                 st.session_state.checklist = trip_data.get('checklist', [])
                                 st.session_state.ideas = trip_data.get('ideas', [])
                                 st.session_state.chat_history = trip_data.get('chat_history', [])
-                                st.session_state.rejected_items = trip_data.get('rejected_items', set())
+                                # Ensure rejected_items is always a set (Firebase returns it as a list)
+                                rejected = trip_data.get('rejected_items', set())
+                                st.session_state.rejected_items = set(rejected) if isinstance(rejected, (list, set)) else set()
                                 st.session_state.pending_suggestions = trip_data.get('pending_suggestions', [])
                             st.success(f"✅ Joined trip: **{join_trip_code}**")
                             st.rerun()
