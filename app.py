@@ -409,6 +409,40 @@ def main():
     # Header
     st.markdown('<h1 class="main-header">🏰 Disney Trip Planning Agent ✨</h1>', unsafe_allow_html=True)
 
+    # Debug: Firebase Status (collapsible)
+    with st.expander("🔍 Debug: Firebase Connection Status", expanded=False):
+        firebase = get_firebase_manager()
+
+        st.write("**Firebase Status:**")
+        if firebase.is_enabled():
+            st.success("✅ Firebase is ENABLED and connected!")
+            st.write(f"Project: disney-trip-aigent")
+        else:
+            st.error("❌ Firebase is NOT enabled")
+
+        st.write("\n**Checking Streamlit Secrets:**")
+        try:
+            if 'firebase' in st.secrets:
+                st.success("✅ 'firebase' section found in secrets")
+
+                # Check each field
+                fields_to_check = ['type', 'project_id', 'private_key_id', 'private_key', 'client_email']
+                for field in fields_to_check:
+                    if field in st.secrets['firebase']:
+                        value = st.secrets['firebase'][field]
+                        if field == 'private_key':
+                            # Show first 50 chars of private key
+                            st.write(f"✅ `{field}`: {value[:50]}...")
+                        else:
+                            st.write(f"✅ `{field}`: {value}")
+                    else:
+                        st.error(f"❌ Missing field: `{field}`")
+            else:
+                st.error("❌ 'firebase' section NOT found in secrets")
+                st.info("Add Firebase credentials to Streamlit Cloud Secrets")
+        except Exception as e:
+            st.error(f"Error reading secrets: {e}")
+
     # Check for API key
     if not st.session_state.agent:
         st.error("⚠️ OpenAI API key not configured!")
