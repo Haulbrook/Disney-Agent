@@ -8,6 +8,8 @@ from datetime import datetime, timedelta
 from dotenv import load_dotenv
 import time
 import pytz
+import pickle
+from pathlib import Path
 
 from src.agents.trip_planner_agent import TripPlannerAgent
 from src.models.trip_data import TripDetails, ChecklistItem, IdeaSuggestion
@@ -24,7 +26,7 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for Disney theming
+# Custom CSS for Disney theming with better contrast
 st.markdown("""
 <style>
     .main-header {
@@ -54,6 +56,13 @@ st.markdown("""
         border-radius: 8px;
         border-left: 4px solid #667eea;
         background-color: #f8f9fa;
+        color: #212529 !important;
+    }
+    .checklist-item strong {
+        color: #212529 !important;
+    }
+    .checklist-item small {
+        color: #495057 !important;
     }
     .idea-card {
         padding: 15px;
@@ -62,6 +71,16 @@ st.markdown("""
         background: white;
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         border-left: 4px solid #764ba2;
+        color: #212529 !important;
+    }
+    .idea-card h3 {
+        color: #0047AB !important;
+    }
+    .idea-card p {
+        color: #212529 !important;
+    }
+    .idea-card small {
+        color: #495057 !important;
     }
     .stButton>button {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -74,19 +93,106 @@ st.markdown("""
     .priority-high { border-left-color: #dc3545; }
     .priority-medium { border-left-color: #ffc107; }
     .priority-low { border-left-color: #28a745; }
+
+    /* Fix input text visibility */
+    .stTextInput > div > div > input {
+        color: #212529 !important;
+        background-color: white !important;
+    }
+    .stNumberInput > div > div > input {
+        color: #212529 !important;
+        background-color: white !important;
+    }
+    .stDateInput > div > div > input {
+        color: #212529 !important;
+        background-color: white !important;
+    }
+    .stSelectbox > div > div > div {
+        color: #212529 !important;
+        background-color: white !important;
+    }
+    .stMultiSelect > div > div > div {
+        color: #212529 !important;
+        background-color: white !important;
+    }
+
+    /* Sidebar text */
+    .css-1d391kg, .css-1lcbmhc, .css-1629p8f {
+        color: #212529 !important;
+    }
+
+    /* Labels */
+    label {
+        color: #212529 !important;
+        font-weight: 500 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
+# Data persistence functions
+DATA_DIR = Path.home() / ".disney_trip_planner"
+DATA_FILE = DATA_DIR / "trip_data.pkl"
+
+def save_trip_data():
+    """Save trip data to disk"""
+    try:
+        DATA_DIR.mkdir(exist_ok=True)
+        data = {
+            'trip_details': st.session_state.trip_details,
+            'checklist': st.session_state.checklist,
+            'ideas': st.session_state.ideas,
+            'chat_history': st.session_state.chat_history
+        }
+        with open(DATA_FILE, 'wb') as f:
+            pickle.dump(data, f)
+    except Exception as e:
+        st.warning(f"Could not save trip data: {e}")
+
+def load_trip_data():
+    """Load trip data from disk"""
+    try:
+        if DATA_FILE.exists():
+            with open(DATA_FILE, 'rb') as f:
+                data = pickle.load(f)
+                return data
+    except Exception as e:
+        st.warning(f"Could not load trip data: {e}")
+    return None
+
+# Get API key from Streamlit secrets or environment
+def get_api_key():
+    """Get API key from secrets or environment"""
+    # Try Streamlit secrets first (for cloud deployment)
+    try:
+        if 'OPENAI_API_KEY' in st.secrets:
+            return st.secrets['OPENAI_API_KEY']
+    except:
+        pass
+
+    # Fall back to environment variable (for local)
+    return os.getenv('OPENAI_API_KEY')
+
 # Initialize session state
 if 'agent' not in st.session_state:
-    api_key = os.getenv('OPENAI_API_KEY')
+    api_key = get_api_key()
     if api_key:
         st.session_state.agent = TripPlannerAgent(api_key)
     else:
         st.session_state.agent = None
 
 if 'trip_details' not in st.session_state:
-    st.session_state.trip_details = None
+    # Try to load saved data
+    saved_data = load_trip_data()
+    if saved_data:
+        st.session_state.trip_details = saved_data.get('trip_details')
+        st.session_state.checklist = saved_data.get('checklist', [])
+        st.session_state.ideas = saved_data.get('ideas', [])
+        st.session_state.chat_history = saved_data.get('chat_history', [])
+    else:
+        st.session_state.trip_details = None
+        st.session_state.checklist = []
+        st.session_state.ideas = []
+        st.session_state.chat_history = []
 
 if 'checklist' not in st.session_state:
     st.session_state.checklist = []
@@ -105,39 +211,52 @@ def main():
 
     # Check for API key
     if not st.session_state.agent:
-        st.error("⚠️ OpenAI API key not found!")
-        st.info("Please create a `.env` file with your `OPENAI_API_KEY`")
-        api_key = st.text_input("Or enter your API key here:", type="password")
-        if api_key:
-            st.session_state.agent = TripPlannerAgent(api_key)
-            st.rerun()
+        st.error("⚠️ OpenAI API key not configured!")
+        st.info("The API key should be configured in Streamlit Cloud secrets or your .env file")
+        st.markdown("""
+        **For Streamlit Cloud:** Add `OPENAI_API_KEY` in your app settings → Secrets
+
+        **For Local:** Create a `.env` file with `OPENAI_API_KEY=your_key_here`
+        """)
         return
 
     # Sidebar - Trip Setup
     with st.sidebar:
-        st.header("🎯 Trip Details")
+        st.header("🎯 Your Trip Details")
+
+        # Load saved values if available
+        default_destination = st.session_state.trip_details.destination if st.session_state.trip_details else "Walt Disney World"
+        default_start = st.session_state.trip_details.start_date.date() if st.session_state.trip_details else datetime.now().date() + timedelta(days=90)
+        default_end = st.session_state.trip_details.end_date.date() if st.session_state.trip_details else datetime.now().date() + timedelta(days=94)
+        default_party = st.session_state.trip_details.party_size if st.session_state.trip_details else 4
+        default_ages = ", ".join(map(str, st.session_state.trip_details.ages)) if st.session_state.trip_details else "8, 10, 35, 37"
+        default_interests = st.session_state.trip_details.interests if st.session_state.trip_details else ["Character Meet & Greets", "Fireworks & Parades"]
+        default_budget = st.session_state.trip_details.budget_range if st.session_state.trip_details else "Moderate"
+        default_needs = st.session_state.trip_details.special_needs if st.session_state.trip_details else []
 
         destination = st.selectbox(
             "Destination",
             ["Walt Disney World", "Disneyland Resort", "Disneyland Paris",
-             "Tokyo Disney Resort", "Hong Kong Disneyland", "Shanghai Disney Resort"]
+             "Tokyo Disney Resort", "Hong Kong Disneyland", "Shanghai Disney Resort"],
+            index=["Walt Disney World", "Disneyland Resort", "Disneyland Paris",
+                   "Tokyo Disney Resort", "Hong Kong Disneyland", "Shanghai Disney Resort"].index(default_destination)
         )
 
         trip_date = st.date_input(
             "Trip Start Date",
-            value=datetime.now() + timedelta(days=90),
-            min_value=datetime.now()
+            value=default_start,
+            min_value=datetime.now().date()
         )
 
         trip_end_date = st.date_input(
             "Trip End Date",
-            value=datetime.now() + timedelta(days=94),
+            value=default_end,
             min_value=trip_date
         )
 
-        party_size = st.number_input("Party Size", min_value=1, max_value=20, value=4)
+        party_size = st.number_input("Party Size", min_value=1, max_value=20, value=default_party)
 
-        ages_input = st.text_input("Ages (comma-separated)", "8, 10, 35, 37")
+        ages_input = st.text_input("Ages (comma-separated)", default_ages)
         ages = [int(age.strip()) for age in ages_input.split(',') if age.strip().isdigit()]
 
         interests = st.multiselect(
@@ -145,18 +264,20 @@ def main():
             ["Thrill Rides", "Character Meet & Greets", "Shows & Entertainment",
              "Dining Experiences", "Shopping", "Relaxation", "Photography",
              "Fireworks & Parades", "Water Parks", "Resort Activities"],
-            default=["Character Meet & Greets", "Fireworks & Parades"]
+            default=default_interests
         )
 
         budget = st.selectbox(
             "Budget Range",
-            ["Budget-Friendly", "Moderate", "Deluxe", "No Budget Constraints"]
+            ["Budget-Friendly", "Moderate", "Deluxe", "No Budget Constraints"],
+            index=["Budget-Friendly", "Moderate", "Deluxe", "No Budget Constraints"].index(default_budget)
         )
 
         special_needs = st.multiselect(
             "Special Considerations",
             ["Wheelchair Access", "Dietary Restrictions", "First-Time Visitors",
-             "Celebrating Special Occasion", "Traveling with Toddlers", "Traveling with Teens"]
+             "Celebrating Special Occasion", "Traveling with Toddlers", "Traveling with Teens"],
+            default=default_needs
         )
 
         if st.button("🚀 Create/Update Trip Plan", use_container_width=True):
@@ -188,12 +309,26 @@ def main():
                     st.session_state.trip_details
                 )
 
-                st.success("✅ Trip plan created!")
+                # Save data
+                save_trip_data()
+
+                st.success("✅ Trip plan created and saved!")
                 st.rerun()
 
     # Main content
     if not st.session_state.trip_details:
         st.info("👈 Start by entering your trip details in the sidebar and click 'Create Trip Plan'")
+        st.markdown("""
+        ### Welcome to Your Disney Trip Planning Agent! 🎉
+
+        This AI-powered assistant will help you with:
+        - ✅ **Comprehensive packing checklists** (never forget the essentials!)
+        - 💡 **Creative trip ideas** and suggestions
+        - ⏰ **Countdown timer** to your magical adventure
+        - 🤖 **AI assistant** for all your Disney questions
+
+        **Your trip details will be saved automatically** so you can come back anytime!
+        """)
         return
 
     # Countdown Timer
@@ -270,6 +405,7 @@ def main():
                 )
                 if checked != item.completed:
                     st.session_state.checklist[idx].completed = checked
+                    save_trip_data()  # Auto-save on change
 
             with col2:
                 priority_class = f"priority-{item.priority}"
@@ -284,6 +420,7 @@ def main():
             with col3:
                 if st.button("🗑️", key=f"delete_{idx}"):
                     st.session_state.checklist.pop(idx)
+                    save_trip_data()
                     st.rerun()
 
         # Add custom item
@@ -307,6 +444,7 @@ def main():
                 completed=False
             )
             st.session_state.checklist.append(new_item)
+            save_trip_data()
             st.success(f"✅ Added: {new_item_text}")
             st.rerun()
 
@@ -329,6 +467,7 @@ def main():
                         focus=focus
                     )
                     st.session_state.ideas.extend(new_ideas)
+                    save_trip_data()
                     st.rerun()
 
         # Display ideas
@@ -345,6 +484,7 @@ def main():
             with col2:
                 if st.button("💾" if not idea.saved else "❤️", key=f"save_idea_{idx}"):
                     st.session_state.ideas[idx].saved = not idea.saved
+                    save_trip_data()
                     st.rerun()
 
     # Tab 3: AI Assistant
@@ -379,6 +519,9 @@ def main():
                 "role": "assistant",
                 "content": response
             })
+
+            # Save chat history
+            save_trip_data()
 
             st.rerun()
 
@@ -417,6 +560,24 @@ def main():
         st.write(f"**Budget:** {st.session_state.trip_details.budget_range}")
         if st.session_state.trip_details.special_needs:
             st.write(f"**Special Considerations:** {', '.join(st.session_state.trip_details.special_needs)}")
+
+        st.markdown("---")
+        st.subheader("Data Management")
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("💾 Save Trip Data"):
+                save_trip_data()
+                st.success("Trip data saved!")
+        with col2:
+            if st.button("🗑️ Clear All Data"):
+                st.session_state.trip_details = None
+                st.session_state.checklist = []
+                st.session_state.ideas = []
+                st.session_state.chat_history = []
+                if DATA_FILE.exists():
+                    DATA_FILE.unlink()
+                st.success("All data cleared!")
+                st.rerun()
 
 
 if __name__ == "__main__":

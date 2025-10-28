@@ -52,7 +52,7 @@ budget constraints, and timeframes when making recommendations."""
         phase = get_trip_phase(trip_details.start_date)
         days_until = (trip_details.start_date - datetime.now(pytz.UTC)).days
 
-        prompt = f"""Generate a comprehensive Disney trip checklist for the following trip:
+        prompt = f"""Generate a comprehensive Disney trip PERSONAL PREPARATION checklist for the following trip:
 
 Destination: {trip_details.destination}
 Trip Date: {trip_details.start_date.strftime('%B %d, %Y')}
@@ -64,27 +64,51 @@ Special Needs: {', '.join(trip_details.special_needs) if trip_details.special_ne
 
 Planning Phase: {phase}
 
-Create a checklist with:
-1. Time-sensitive items (booking, reservations)
-2. Pre-trip preparations (what to buy, arrange)
-3. Packing essentials
-4. Day-of-travel items
-5. IMPORTANT: Include easily forgotten items (phone chargers, portable batteries, medications, rain gear, etc.)
-6. Disney-specific items (MagicBands, park tickets confirmation, Genie+ planning, etc.)
+IMPORTANT: This traveler has ALREADY taken care of ALL park and hotel transactions including:
+- Park tickets (already purchased)
+- Dining reservations (not needed)
+- Hotel booking (already done)
+- Parking pass (already secured)
+- Dining plans (already arranged)
+- Transportation (already handled)
+
+DO NOT include any of the above items.
+
+Focus ONLY on PERSONAL PREPARATION tasks:
+1. Shopping/purchasing items to bring (clothes, toiletries, gear, accessories)
+2. Packing essentials (what to actually pack in suitcases/bags)
+3. Technology prep (chargers, batteries, apps to download, etc.)
+4. Health prep (medications, first aid, prescriptions, health documents)
+5. Home preparation (mail hold, pet care, house security, etc.)
+6. Day-before/day-of travel tasks
+7. CRITICAL: Easily forgotten items that people always wish they brought:
+   - Phone/camera chargers and portable batteries
+   - Rain gear (ponchos, umbrellas)
+   - Comfortable walking shoes (broken in)
+   - Sunscreen, lip balm, aloe vera
+   - Pain relievers, band-aids, blister prevention
+   - Snacks and refillable water bottles
+   - Cooling towels, handheld fans
+   - Autograph books and pens (for kids)
+   - Small backpack or park bag
+   - Extra ziplock bags (for wet items/phones)
+   - Hand sanitizer and wet wipes
+   - Compression socks for long days
+   - Stroller/carrier accessories if needed
 
 For each item, specify:
-- The task description
-- Category (booking, shopping, packing, documents, tech, disney-specific, etc.)
+- The task description (be specific and action-oriented)
+- Category (shopping, packing, health, tech, home-prep, travel-day, etc.)
 - Priority (high, medium, low)
 - Suggested deadline (relative to trip date)
 
 Return ONLY a valid JSON array of checklist items with this structure:
 [
   {{
-    "text": "Book park reservations",
-    "category": "booking",
+    "text": "Purchase portable phone charger/power bank",
+    "category": "shopping",
     "priority": "high",
-    "deadline": "60 days before"
+    "deadline": "2 weeks before"
   }}
 ]"""
 
