@@ -3,7 +3,8 @@ Disney Trip Planning Agent - AI-powered trip planning assistant
 """
 import os
 import json
-from typing import List, Dict, Any
+import re
+from typing import List, Dict, Any, Tuple
 from openai import OpenAI
 from datetime import datetime
 import pytz
@@ -40,6 +41,22 @@ Your role is to help families plan magical Disney vacations by:
 2. Brainstorming creative ideas and suggestions
 3. Anticipating needs (both obvious and easily forgotten)
 4. Providing actionable, specific advice
+5. PROACTIVELY suggesting checklist items when appropriate
+
+IMPORTANT CHECKLIST MANAGEMENT:
+- When you identify something the traveler should remember to pack or prepare, you can suggest adding it to their checklist
+- Use this special format ANYWHERE in your response: [ADD_ITEM: item_description | category | priority]
+  - item_description: Clear, actionable description (e.g., "Pack portable phone charger")
+  - category: shopping, packing, health, tech, home-prep, or travel-day
+  - priority: high, medium, or low
+- You can suggest multiple items in one response
+- Examples:
+  * "That's a great idea! [ADD_ITEM: Pack cooling towels for hot days | packing | medium]"
+  * "Don't forget [ADD_ITEM: Download My Disney Experience app | tech | high] before you go!"
+  * "Based on your party having young kids, [ADD_ITEM: Bring stroller or carrier | packing | high] would be helpful."
+
+When user explicitly asks you to "add to checklist" or "remind me", definitely suggest the item.
+When you notice they might need something based on context, proactively suggest it.
 
 Be enthusiastic, helpful, and thorough. Consider different age groups, special needs,
 budget constraints, and timeframes when making recommendations."""
@@ -291,6 +308,40 @@ Return as a simple JSON array of strings:
         except Exception as e:
             print(f"Error suggesting forgotten items: {e}")
             return []
+
+    @staticmethod
+    def parse_item_suggestions(response_text: str) -> Tuple[str, List[Dict[str, str]]]:
+        """
+        Parse AI response for item suggestions and return cleaned text + suggested items
+
+        Returns:
+            Tuple of (cleaned_response_text, list_of_suggested_items)
+            Each suggested item is a dict with keys: text, category, priority
+        """
+        # Pattern to match [ADD_ITEM: description | category | priority]
+        pattern = r'\[ADD_ITEM:\s*([^|]+)\s*\|\s*([^|]+)\s*\|\s*([^\]]+)\s*\]'
+
+        # Find all matches
+        matches = re.findall(pattern, response_text)
+
+        suggested_items = []
+        for match in matches:
+            description, category, priority = match
+            suggested_items.append({
+                'text': description.strip(),
+                'category': category.strip().lower(),
+                'priority': priority.strip().lower()
+            })
+
+        # Remove the [ADD_ITEM...] tags from the response text
+        cleaned_text = re.sub(pattern, '', response_text)
+
+        # Clean up any double spaces or newlines left behind
+        cleaned_text = re.sub(r'\n\s*\n\s*\n', '\n\n', cleaned_text)
+        cleaned_text = re.sub(r'  +', ' ', cleaned_text)
+        cleaned_text = cleaned_text.strip()
+
+        return cleaned_text, suggested_items
 
     def _get_fallback_checklist(self) -> List[ChecklistItem]:
         """Fallback checklist if AI generation fails"""

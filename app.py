@@ -304,7 +304,8 @@ def save_trip_data():
             'checklist': st.session_state.checklist,
             'ideas': st.session_state.ideas,
             'chat_history': st.session_state.chat_history,
-            'rejected_items': st.session_state.get('rejected_items', set())
+            'rejected_items': st.session_state.get('rejected_items', set()),
+            'pending_suggestions': st.session_state.get('pending_suggestions', [])
         }
         with open(DATA_FILE, 'wb') as f:
             pickle.dump(data, f)
@@ -352,12 +353,14 @@ if 'trip_details' not in st.session_state:
         st.session_state.ideas = saved_data.get('ideas', [])
         st.session_state.chat_history = saved_data.get('chat_history', [])
         st.session_state.rejected_items = saved_data.get('rejected_items', set())
+        st.session_state.pending_suggestions = saved_data.get('pending_suggestions', [])
     else:
         st.session_state.trip_details = None
         st.session_state.checklist = []
         st.session_state.ideas = []
         st.session_state.chat_history = []
         st.session_state.rejected_items = set()
+        st.session_state.pending_suggestions = []
 
 if 'checklist' not in st.session_state:
     st.session_state.checklist = []
@@ -370,6 +373,9 @@ if 'chat_history' not in st.session_state:
 
 if 'rejected_items' not in st.session_state:
     st.session_state.rejected_items = set()
+
+if 'pending_suggestions' not in st.session_state:
+    st.session_state.pending_suggestions = []
 
 
 def main():
@@ -696,11 +702,71 @@ def main():
     with tab3:
         st.header("🤖 AI Trip Planning Assistant")
         st.write("Ask me anything about your Disney trip!")
+        st.info("💡 **Pro tip:** I can help you add items to your checklist! Just tell me what you need to remember, or I'll proactively suggest items based on our conversation.")
 
         # Chat interface
         for message in st.session_state.chat_history:
             with st.chat_message(message["role"]):
                 st.write(message["content"])
+
+        # Display any pending suggested items from the last AI response
+        if 'pending_suggestions' in st.session_state and st.session_state.pending_suggestions:
+            st.markdown("---")
+            st.markdown("### ✨ Suggested Checklist Items")
+            st.write("The AI assistant has some suggestions for your checklist:")
+
+            for idx, suggestion in enumerate(st.session_state.pending_suggestions):
+                col1, col2, col3 = st.columns([4, 1, 1])
+                with col1:
+                    priority_emoji = {"high": "🔴", "medium": "🟡", "low": "🟢"}
+                    emoji = priority_emoji.get(suggestion.get('priority', 'medium'), '🟡')
+                    st.markdown(f"{emoji} **{suggestion['text']}**")
+                    st.caption(f"Category: {suggestion['category']} | Priority: {suggestion['priority']}")
+                with col2:
+                    if st.button("➕ Add", key=f"add_suggestion_{idx}"):
+                        # Add to checklist
+                        from src.utils.helpers import generate_checklist_id
+                        new_item = ChecklistItem(
+                            id=generate_checklist_id(),
+                            text=suggestion['text'],
+                            category=suggestion['category'],
+                            priority=suggestion['priority'],
+                            completed=False
+                        )
+                        st.session_state.checklist.append(new_item)
+
+                        # Remove this suggestion from pending
+                        st.session_state.pending_suggestions.pop(idx)
+
+                        # Save data
+                        save_trip_data()
+
+                        st.success(f"✅ Added '{suggestion['text']}' to your checklist!")
+                        st.rerun()
+                with col3:
+                    if st.button("❌ Skip", key=f"skip_suggestion_{idx}"):
+                        # Add to rejected items
+                        rejected_text = suggestion['text'].lower().strip()
+                        st.session_state.rejected_items.add(rejected_text)
+
+                        # Remove this suggestion from pending
+                        st.session_state.pending_suggestions.pop(idx)
+
+                        # Save data
+                        save_trip_data()
+                        st.rerun()
+
+            if st.button("❌ Skip All Suggestions"):
+                # Add all to rejected items
+                for suggestion in st.session_state.pending_suggestions:
+                    rejected_text = suggestion['text'].lower().strip()
+                    st.session_state.rejected_items.add(rejected_text)
+
+                st.session_state.pending_suggestions = []
+                save_trip_data()
+                st.rerun()
+
+            st.markdown("---")
 
         # User input
         user_question = st.chat_input("Ask a question about your trip...")
@@ -719,10 +785,27 @@ def main():
                     user_question
                 )
 
-            # Add assistant message
+            # Parse response for suggested items
+            from src.agents.trip_planner_agent import TripPlannerAgent
+            cleaned_response, suggested_items = TripPlannerAgent.parse_item_suggestions(response)
+
+            # Filter out duplicates and rejected items
+            if suggested_items:
+                existing_items = {item.text.lower().strip() for item in st.session_state.checklist}
+                filtered_suggestions = []
+
+                for suggestion in suggested_items:
+                    suggestion_lower = suggestion['text'].lower().strip()
+                    if suggestion_lower not in existing_items and suggestion_lower not in st.session_state.rejected_items:
+                        filtered_suggestions.append(suggestion)
+
+                # Store filtered suggestions in session state
+                st.session_state.pending_suggestions = filtered_suggestions
+
+            # Add cleaned assistant message (without [ADD_ITEM...] tags)
             st.session_state.chat_history.append({
                 "role": "assistant",
-                "content": response
+                "content": cleaned_response
             })
 
             # Save chat history
