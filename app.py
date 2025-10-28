@@ -26,105 +26,267 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for Disney theming with better contrast
+# Custom CSS for Light Blue & Silver Disney Theme with Sparkles
 st.markdown("""
 <style>
+    /* Sparkle animation */
+    @keyframes sparkle {
+        0%, 100% { opacity: 0; transform: scale(0); }
+        50% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes shimmer {
+        0% { background-position: -1000px 0; }
+        100% { background-position: 1000px 0; }
+    }
+
+    /* Main background - light airy blue */
+    .main {
+        background: linear-gradient(180deg, #f0f8ff 0%, #e6f3ff 50%, #ffffff 100%);
+    }
+
+    /* Sidebar - light blue gradient */
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
+    }
+
+    /* Main header with sparkle effect */
     .main-header {
         text-align: center;
-        color: #0047AB;
         font-size: 3em;
         font-weight: bold;
-        padding: 20px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        padding: 30px;
+        background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 50%, #add8e6 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        position: relative;
+        text-shadow: 2px 2px 4px rgba(135, 206, 235, 0.3);
     }
+
+    /* Countdown box - light blue with silver shimmer */
     .countdown-box {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        padding: 30px;
-        border-radius: 15px;
-        color: white;
+        background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 50%, #add8e6 100%);
+        padding: 35px;
+        border-radius: 20px;
+        color: #ffffff;
         text-align: center;
         font-size: 2em;
         font-weight: bold;
         margin: 20px 0;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 8px 20px rgba(135, 206, 235, 0.4),
+                    inset 0 1px 0 rgba(255,255,255,0.6);
+        border: 2px solid rgba(192, 192, 192, 0.3);
+        position: relative;
+        overflow: hidden;
     }
+
+    .countdown-box::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            45deg,
+            transparent 30%,
+            rgba(255, 255, 255, 0.3) 50%,
+            transparent 70%
+        );
+        animation: shimmer 3s infinite;
+    }
+
+    /* Checklist items - white with light blue accents */
     .checklist-item {
-        padding: 10px;
-        margin: 5px 0;
-        border-radius: 8px;
-        border-left: 4px solid #667eea;
-        background-color: #f8f9fa;
-        color: #212529 !important;
-    }
-    .checklist-item strong {
-        color: #212529 !important;
-    }
-    .checklist-item small {
-        color: #495057 !important;
-    }
-    .idea-card {
         padding: 15px;
-        margin: 10px 0;
-        border-radius: 10px;
-        background: white;
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        border-left: 4px solid #764ba2;
-        color: #212529 !important;
+        margin: 8px 0;
+        border-radius: 12px;
+        border-left: 4px solid #87ceeb;
+        background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+        color: #2c3e50 !important;
+        box-shadow: 0 2px 8px rgba(135, 206, 235, 0.2);
+        transition: all 0.3s ease;
     }
+
+    .checklist-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(135, 206, 235, 0.3);
+    }
+
+    .checklist-item strong {
+        color: #1e88e5 !important;
+    }
+
+    .checklist-item small {
+        color: #546e7a !important;
+    }
+
+    /* Idea cards - white with silver border and sparkle */
+    .idea-card {
+        padding: 20px;
+        margin: 12px 0;
+        border-radius: 15px;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+        box-shadow: 0 4px 15px rgba(135, 206, 235, 0.25);
+        border: 2px solid #c0c0c0;
+        border-left: 5px solid #87ceeb;
+        color: #2c3e50 !important;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .idea-card::after {
+        content: '✨';
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 1.5em;
+        animation: sparkle 2s infinite;
+    }
+
     .idea-card h3 {
-        color: #0047AB !important;
+        color: #1e88e5 !important;
+        font-weight: 600;
     }
+
     .idea-card p {
-        color: #212529 !important;
+        color: #37474f !important;
     }
+
     .idea-card small {
-        color: #495057 !important;
+        color: #607d8b !important;
     }
+
+    /* Buttons - light blue gradient with silver shine */
     .stButton>button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #87ceeb 0%, #5dade2 100%);
         color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 10px 20px;
-        font-weight: bold;
+        border: 2px solid rgba(192, 192, 192, 0.5);
+        border-radius: 10px;
+        padding: 12px 24px;
+        font-weight: 600;
+        box-shadow: 0 4px 10px rgba(135, 206, 235, 0.3);
+        transition: all 0.3s ease;
     }
-    .priority-high { border-left-color: #dc3545; }
-    .priority-medium { border-left-color: #ffc107; }
-    .priority-low { border-left-color: #28a745; }
 
-    /* Fix input text visibility */
-    .stTextInput > div > div > input {
-        color: #212529 !important;
-        background-color: white !important;
+    .stButton>button:hover {
+        background: linear-gradient(135deg, #5dade2 0%, #3498db 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 15px rgba(135, 206, 235, 0.4);
     }
-    .stNumberInput > div > div > input {
-        color: #212529 !important;
-        background-color: white !important;
+
+    /* Priority colors - adjusted for light theme */
+    .priority-high {
+        border-left-color: #e74c3c;
+        background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
     }
+    .priority-medium {
+        border-left-color: #f39c12;
+        background: linear-gradient(135deg, #fffef5 0%, #fff8e1 100%);
+    }
+    .priority-low {
+        border-left-color: #27ae60;
+        background: linear-gradient(135deg, #f5fff5 0%, #e8f5e9 100%);
+    }
+
+    /* Input fields - white with light blue focus */
+    .stTextInput > div > div > input,
+    .stNumberInput > div > div > input,
     .stDateInput > div > div > input {
-        color: #212529 !important;
+        color: #2c3e50 !important;
         background-color: white !important;
+        border: 2px solid #b0e0e6 !important;
+        border-radius: 8px;
     }
-    .stSelectbox > div > div > div {
-        color: #212529 !important;
-        background-color: white !important;
+
+    .stTextInput > div > div > input:focus,
+    .stNumberInput > div > div > input:focus,
+    .stDateInput > div > div > input:focus {
+        border-color: #87ceeb !important;
+        box-shadow: 0 0 10px rgba(135, 206, 235, 0.3);
     }
+
+    .stSelectbox > div > div > div,
     .stMultiSelect > div > div > div {
-        color: #212529 !important;
+        color: #2c3e50 !important;
         background-color: white !important;
+        border: 2px solid #b0e0e6 !important;
+        border-radius: 8px;
     }
 
-    /* Sidebar text */
-    .css-1d391kg, .css-1lcbmhc, .css-1629p8f {
-        color: #212529 !important;
-    }
-
-    /* Labels */
+    /* Labels - dark text for readability */
     label {
-        color: #212529 !important;
-        font-weight: 500 !important;
+        color: #1e88e5 !important;
+        font-weight: 600 !important;
+    }
+
+    /* Tabs styling */
+    .stTabs [data-baseweb="tab-list"] {
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        border-radius: 10px;
+        padding: 5px;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        color: #1e88e5 !important;
+        font-weight: 600;
+    }
+
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, #87ceeb 0%, #5dade2 100%);
+        color: white !important;
+        border-radius: 8px;
+    }
+
+    /* Progress bar - light blue */
+    .stProgress > div > div > div {
+        background: linear-gradient(90deg, #87ceeb 0%, #5dade2 100%);
+    }
+
+    /* Metrics - light styled */
+    [data-testid="stMetricValue"] {
+        color: #1e88e5 !important;
+        font-weight: 700;
+    }
+
+    /* Chat messages */
+    .stChatMessage {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%) !important;
+        border: 1px solid #b0e0e6;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(135, 206, 235, 0.15);
+    }
+
+    /* Sparkle decorations throughout */
+    h1::before, h2::before {
+        content: '✨ ';
+    }
+
+    h1::after, h2::after {
+        content: ' ✨';
+    }
+
+    /* Silver shimmer effect on hover for cards */
+    .checklist-item::before,
+    .idea-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(192, 192, 192, 0.2),
+            transparent
+        );
+        transition: left 0.5s;
+    }
+
+    .checklist-item:hover::before,
+    .idea-card:hover::before {
+        left: 100%;
     }
 </style>
 """, unsafe_allow_html=True)
