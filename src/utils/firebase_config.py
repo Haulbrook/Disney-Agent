@@ -45,9 +45,26 @@ class FirebaseManager:
             firebase_creds = None
             try:
                 if 'firebase' in st.secrets:
-                    firebase_creds = dict(st.secrets['firebase'])
-            except:
-                pass
+                    # Convert Streamlit secrets to dictionary
+                    firebase_creds = {
+                        'type': st.secrets['firebase'].get('type'),
+                        'project_id': st.secrets['firebase'].get('project_id'),
+                        'private_key_id': st.secrets['firebase'].get('private_key_id'),
+                        'private_key': st.secrets['firebase'].get('private_key'),
+                        'client_email': st.secrets['firebase'].get('client_email'),
+                        'client_id': st.secrets['firebase'].get('client_id'),
+                        'auth_uri': st.secrets['firebase'].get('auth_uri'),
+                        'token_uri': st.secrets['firebase'].get('token_uri'),
+                        'auth_provider_x509_cert_url': st.secrets['firebase'].get('auth_provider_x509_cert_url'),
+                        'client_x509_cert_url': st.secrets['firebase'].get('client_x509_cert_url'),
+                        'universe_domain': st.secrets['firebase'].get('universe_domain', 'googleapis.com')
+                    }
+                    # Verify we have the required fields
+                    if not firebase_creds.get('project_id') or not firebase_creds.get('private_key'):
+                        firebase_creds = None
+            except Exception as e:
+                print(f"Error reading Streamlit secrets: {e}")
+                firebase_creds = None
 
             # Fall back to environment variable
             if not firebase_creds:
@@ -61,8 +78,13 @@ class FirebaseManager:
                 firebase_admin.initialize_app(cred)
                 self.db = firestore.client()
                 self.enabled = True
+                print("Firebase initialized successfully!")
+            else:
+                print("No Firebase credentials found")
         except Exception as e:
             print(f"Firebase initialization failed: {e}")
+            import traceback
+            traceback.print_exc()
             self.enabled = False
 
     def is_enabled(self) -> bool:
