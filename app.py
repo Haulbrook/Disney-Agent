@@ -14,6 +14,7 @@ from pathlib import Path
 from src.agents.trip_planner_agent import TripPlannerAgent
 from src.models.trip_data import TripDetails, ChecklistItem, IdeaSuggestion
 from src.utils.helpers import calculate_countdown, format_countdown, get_trip_phase
+from src.utils.firebase_config import get_firebase_manager
 
 # Load environment variables
 load_dotenv()
@@ -296,31 +297,56 @@ DATA_DIR = Path.home() / ".disney_trip_planner"
 DATA_FILE = DATA_DIR / "trip_data.pkl"
 
 def save_trip_data():
-    """Save trip data to disk"""
+    """Save trip data to Firebase and local disk"""
+    data = {
+        'trip_details': st.session_state.trip_details,
+        'checklist': st.session_state.checklist,
+        'ideas': st.session_state.ideas,
+        'chat_history': st.session_state.chat_history,
+        'rejected_items': st.session_state.get('rejected_items', set()),
+        'pending_suggestions': st.session_state.get('pending_suggestions', [])
+    }
+
+    # Try Firebase first if trip code is set
+    trip_code = st.session_state.get('trip_code')
+    if trip_code:
+        firebase = get_firebase_manager()
+        if firebase.is_enabled():
+            try:
+                firebase.save_trip(trip_code, data)
+            except Exception as e:
+                st.warning(f"Could not save to cloud: {e}")
+
+    # Always save locally as backup
     try:
         DATA_DIR.mkdir(exist_ok=True)
-        data = {
-            'trip_details': st.session_state.trip_details,
-            'checklist': st.session_state.checklist,
-            'ideas': st.session_state.ideas,
-            'chat_history': st.session_state.chat_history,
-            'rejected_items': st.session_state.get('rejected_items', set()),
-            'pending_suggestions': st.session_state.get('pending_suggestions', [])
-        }
         with open(DATA_FILE, 'wb') as f:
             pickle.dump(data, f)
     except Exception as e:
-        st.warning(f"Could not save trip data: {e}")
+        st.warning(f"Could not save locally: {e}")
 
-def load_trip_data():
-    """Load trip data from disk"""
+def load_trip_data(trip_code: str = None):
+    """Load trip data from Firebase or local disk"""
+    # Try Firebase first if trip code is provided
+    if trip_code:
+        firebase = get_firebase_manager()
+        if firebase.is_enabled():
+            try:
+                data = firebase.load_trip(trip_code)
+                if data:
+                    return data
+            except Exception as e:
+                st.warning(f"Could not load from cloud: {e}")
+
+    # Fall back to local storage
     try:
         if DATA_FILE.exists():
             with open(DATA_FILE, 'rb') as f:
                 data = pickle.load(f)
                 return data
     except Exception as e:
-        st.warning(f"Could not load trip data: {e}")
+        st.warning(f"Could not load locally: {e}")
+
     return None
 
 # Get API key from Streamlit secrets or environment
@@ -393,6 +419,100 @@ def main():
         **For Local:** Create a `.env` file with `OPENAI_API_KEY=your_key_here`
         """)
         return
+
+    # Trip Code Setup - Multi-User Collaboration
+    if 'trip_code' not in st.session_state:
+        st.session_state.trip_code = None
+
+    # Show trip code input if not set or if user wants to change
+    if not st.session_state.trip_code:
+        st.markdown("---")
+        st.subheader("🔐 Trip Code for Multi-User Collaboration")
+        st.info("💡 **Share your trip with family and friends!** Enter a trip code to collaborate on planning together. Everyone with the same code can view and edit the trip.")
+
+        col1, col2 = st.columns(2)
+
+        with col1:
+            st.markdown("**Create New Trip**")
+            new_trip_code = st.text_input(
+                "Enter your trip code (e.g., 'Ohboy')",
+                value="Ohboy",
+                max_chars=50,
+                help="This code will be shared with your travel companions"
+            )
+
+            if st.button("🎉 Create New Trip", use_container_width=True):
+                if new_trip_code and len(new_trip_code) >= 3:
+                    firebase = get_firebase_manager()
+                    if firebase.is_enabled():
+                        if firebase.trip_exists(new_trip_code):
+                            st.error(f"❌ Trip code '{new_trip_code}' already exists! Use 'Join Existing Trip' instead.")
+                        else:
+                            st.session_state.trip_code = new_trip_code
+                            st.success(f"✅ Created trip with code: **{new_trip_code}**")
+                            st.info("🔗 Share this code with your travel companions so they can join!")
+                            st.rerun()
+                    else:
+                        # Firebase not configured - use local only
+                        st.session_state.trip_code = new_trip_code
+                        st.warning("⚠️ Cloud sync not configured. Trip will be saved locally only.")
+                        st.rerun()
+                else:
+                    st.error("Trip code must be at least 3 characters long")
+
+        with col2:
+            st.markdown("**Join Existing Trip**")
+            join_trip_code = st.text_input(
+                "Enter trip code to join",
+                max_chars=50,
+                help="Get this code from your travel companion"
+            )
+
+            if st.button("🤝 Join Trip", use_container_width=True):
+                if join_trip_code:
+                    firebase = get_firebase_manager()
+                    if firebase.is_enabled():
+                        if firebase.trip_exists(join_trip_code):
+                            st.session_state.trip_code = join_trip_code
+                            # Load the trip data
+                            trip_data = load_trip_data(join_trip_code)
+                            if trip_data:
+                                st.session_state.trip_details = trip_data.get('trip_details')
+                                st.session_state.checklist = trip_data.get('checklist', [])
+                                st.session_state.ideas = trip_data.get('ideas', [])
+                                st.session_state.chat_history = trip_data.get('chat_history', [])
+                                st.session_state.rejected_items = trip_data.get('rejected_items', set())
+                                st.session_state.pending_suggestions = trip_data.get('pending_suggestions', [])
+                            st.success(f"✅ Joined trip: **{join_trip_code}**")
+                            st.rerun()
+                        else:
+                            st.error(f"❌ Trip code '{join_trip_code}' not found!")
+                    else:
+                        st.error("⚠️ Cloud sync not configured. Cannot join remote trips.")
+                else:
+                    st.error("Please enter a trip code")
+
+        st.markdown("---")
+        return
+
+    # Display current trip code
+    st.markdown(f"""
+    <div style="background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 100%);
+                padding: 15px;
+                border-radius: 10px;
+                border: 2px solid rgba(192, 192, 192, 0.3);
+                text-align: center;
+                margin-bottom: 20px;">
+        <h3 style="color: white; margin: 0;">🔐 Trip Code: {st.session_state.trip_code}</h3>
+        <p style="color: white; margin: 5px 0 0 0; font-size: 14px;">Share this code with your travel companions!</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+    col1, col2 = st.columns([3, 1])
+    with col2:
+        if st.button("🔄 Change Trip Code"):
+            st.session_state.trip_code = None
+            st.rerun()
 
     # Sidebar - Trip Setup
     with st.sidebar:
