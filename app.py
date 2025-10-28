@@ -303,7 +303,8 @@ def save_trip_data():
             'trip_details': st.session_state.trip_details,
             'checklist': st.session_state.checklist,
             'ideas': st.session_state.ideas,
-            'chat_history': st.session_state.chat_history
+            'chat_history': st.session_state.chat_history,
+            'rejected_items': st.session_state.get('rejected_items', set())
         }
         with open(DATA_FILE, 'wb') as f:
             pickle.dump(data, f)
@@ -350,11 +351,13 @@ if 'trip_details' not in st.session_state:
         st.session_state.checklist = saved_data.get('checklist', [])
         st.session_state.ideas = saved_data.get('ideas', [])
         st.session_state.chat_history = saved_data.get('chat_history', [])
+        st.session_state.rejected_items = saved_data.get('rejected_items', set())
     else:
         st.session_state.trip_details = None
         st.session_state.checklist = []
         st.session_state.ideas = []
         st.session_state.chat_history = []
+        st.session_state.rejected_items = set()
 
 if 'checklist' not in st.session_state:
     st.session_state.checklist = []
@@ -364,6 +367,9 @@ if 'ideas' not in st.session_state:
 
 if 'chat_history' not in st.session_state:
     st.session_state.chat_history = []
+
+if 'rejected_items' not in st.session_state:
+    st.session_state.rejected_items = set()
 
 
 def main():
@@ -489,7 +495,11 @@ def main():
         - ⏰ **Countdown timer** to your magical adventure
         - 🤖 **AI assistant** for all your Disney questions
 
-        **Your trip details will be saved automatically** so you can come back anytime!
+        ### 💾 Your Trip is Always Saved!
+        - **Everything is saved automatically** - trip details, checklists, checked items, chat history
+        - **Come back anytime** - your trip will be right here waiting for you
+        - **No login needed** - your data is securely saved on your device
+        - **Close and reopen** - everything will be exactly as you left it!
         """)
         return
 
@@ -522,13 +532,42 @@ def main():
         with col2:
             if st.button("🔍 Find Forgotten Items"):
                 with st.spinner("Analyzing checklist..."):
+                    # Get AI suggestions
                     forgotten = st.session_state.agent.suggest_forgotten_items(
                         st.session_state.checklist
                     )
+
                     if forgotten:
-                        st.write("**Don't forget:**")
-                        for item in forgotten:
-                            st.write(f"- {item}")
+                        # Get current checklist item texts (lowercase for comparison)
+                        existing_items = {item.text.lower().strip() for item in st.session_state.checklist}
+
+                        # Filter out duplicates and rejected items
+                        new_items = []
+                        for item_text in forgotten:
+                            item_lower = item_text.lower().strip()
+                            if item_lower not in existing_items and item_lower not in st.session_state.rejected_items:
+                                new_items.append(item_text)
+
+                        if new_items:
+                            # Add new items to checklist
+                            from src.utils.helpers import generate_checklist_id
+                            for item_text in new_items:
+                                new_item = ChecklistItem(
+                                    id=generate_checklist_id(),
+                                    text=item_text,
+                                    category="forgotten-items",
+                                    priority="medium",
+                                    completed=False
+                                )
+                                st.session_state.checklist.append(new_item)
+
+                            # Save data
+                            save_trip_data()
+
+                            st.success(f"✅ Added {len(new_items)} forgotten item{'s' if len(new_items) != 1 else ''} to your checklist!")
+                            st.rerun()
+                        else:
+                            st.info("✨ Great job! You haven't forgotten anything important.")
 
         # Filter options
         filter_col1, filter_col2, filter_col3 = st.columns(3)
@@ -581,6 +620,10 @@ def main():
 
             with col3:
                 if st.button("🗑️", key=f"delete_{idx}"):
+                    # Add to rejected items so it won't be suggested again
+                    deleted_text = st.session_state.checklist[idx].text.lower().strip()
+                    st.session_state.rejected_items.add(deleted_text)
+                    # Remove from checklist
                     st.session_state.checklist.pop(idx)
                     save_trip_data()
                     st.rerun()
