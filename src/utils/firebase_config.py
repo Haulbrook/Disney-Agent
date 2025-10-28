@@ -149,7 +149,7 @@ class FirebaseManager:
         - Sets -> lists
         - Datetime objects -> ISO strings
         """
-        from src.models.trip_data import TripDetails, ChecklistItem, Idea
+        from src.models.trip_data import TripDetails, ChecklistItem, IdeaSuggestion
         from datetime import datetime
 
         serializable = {}
@@ -183,7 +183,7 @@ class FirebaseManager:
         - Dictionaries -> Pydantic models
         - Lists -> sets (for rejected_items)
         """
-        from src.models.trip_data import TripDetails, ChecklistItem, Idea
+        from src.models.trip_data import TripDetails, ChecklistItem, IdeaSuggestion
 
         prepared = {}
 
@@ -193,7 +193,7 @@ class FirebaseManager:
             elif key == 'checklist' and value:
                 prepared[key] = [ChecklistItem(**item) for item in value]
             elif key == 'ideas' and value:
-                prepared[key] = [Idea(**item) for item in value]
+                prepared[key] = [IdeaSuggestion(**item) for item in value]
             elif key == 'rejected_items' and value:
                 prepared[key] = set(value)
             else:
