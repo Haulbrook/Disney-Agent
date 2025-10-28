@@ -6,6 +6,7 @@ import json
 from typing import List, Dict, Any
 from openai import OpenAI
 from datetime import datetime
+import pytz
 
 from src.models.trip_data import TripDetails, ChecklistItem, IdeaSuggestion
 from src.utils.helpers import get_trip_phase, generate_checklist_id
@@ -49,7 +50,7 @@ budget constraints, and timeframes when making recommendations."""
         Includes obvious items and easily forgotten ones
         """
         phase = get_trip_phase(trip_details.start_date)
-        days_until = (trip_details.start_date - datetime.now()).days
+        days_until = (trip_details.start_date - datetime.now(pytz.UTC)).days
 
         prompt = f"""Generate a comprehensive Disney trip checklist for the following trip:
 
