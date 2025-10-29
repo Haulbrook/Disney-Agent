@@ -314,38 +314,62 @@ st.markdown("""
     .card-action-row {
         display: flex !important;
         align-items: center !important;
-        justify-content: space-between !important;
+        justify-content: flex-start !important;
         width: 100% !important;
-        gap: 10px !important;
-        margin-top: 10px !important;
+        gap: 8px !important;
+        margin-top: 12px !important;
         padding: 0 !important;
     }
 
-    .card-action-row > div:first-child {
-        flex: 1 !important;
-        max-width: calc(100% - 50px) !important;
+    /* Target Streamlit column wrappers directly */
+    .card-action-row [data-testid="column"] {
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
-    .card-action-row > div:last-child {
-        flex: 0 0 40px !important;
-        width: 40px !important;
+    .card-action-row [data-testid="column"]:first-child {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        padding-right: 8px !important;
+    }
+
+    .card-action-row [data-testid="column"]:last-child {
+        flex: 0 0 auto !important;
+        width: 48px !important;
+        max-width: 48px !important;
+        padding: 0 !important;
+    }
+
+    /* Checkbox container in card actions */
+    .card-action-row .stCheckbox {
+        margin: 0 !important;
+        padding: 6px 10px !important;
+        width: 100% !important;
     }
 
     /* Small delete button for cards - MORE SPECIFIC SELECTOR */
+    .card-delete-btn .stButton,
+    .card-delete-btn {
+        width: 44px !important;
+        max-width: 44px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
     .card-delete-btn .stButton>button,
     .card-delete-btn button {
         background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%) !important;
         border: 2px solid #e57373 !important;
         border-radius: 50% !important;
-        width: 40px !important;
-        height: 40px !important;
-        min-width: 40px !important;
-        min-height: 40px !important;
-        max-width: 40px !important;
-        max-height: 40px !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        max-width: 44px !important;
+        max-height: 44px !important;
         padding: 0 !important;
         margin: 0 !important;
-        font-size: 18px !important;
+        font-size: 20px !important;
         line-height: 1 !important;
         display: flex !important;
         align-items: center !important;
@@ -382,20 +406,6 @@ st.markdown("""
         font-size: 14px !important;
         color: #546e7a !important;
         font-weight: 600 !important;
-    }
-
-    /* Ensure no extra padding in card action columns */
-    .card-action-row [data-testid="column"] {
-        padding: 0 5px !important;
-        gap: 0 !important;
-    }
-
-    .card-action-row [data-testid="column"]:first-child {
-        padding-right: 8px !important;
-    }
-
-    .card-action-row [data-testid="column"]:last-child {
-        padding-left: 0 !important;
     }
 
     /* Idea cards - CIRCLE SHAPE with sparkle and shimmy */
@@ -509,15 +519,15 @@ st.markdown("""
         background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%) !important;
         border: 2px solid #e57373 !important;
         border-radius: 50% !important;
-        width: 40px !important;
-        height: 40px !important;
-        min-width: 40px !important;
-        min-height: 40px !important;
-        max-width: 40px !important;
-        max-height: 40px !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        max-width: 44px !important;
+        max-height: 44px !important;
         padding: 0 !important;
         margin: 0 !important;
-        font-size: 18px !important;
+        font-size: 20px !important;
         line-height: 1 !important;
         text-transform: none !important;
         letter-spacing: 0 !important;
@@ -808,9 +818,9 @@ st.markdown("""
     input[type="checkbox"] {
         appearance: none !important;
         -webkit-appearance: none !important;
-        width: 40px !important;
-        height: 40px !important;
-        min-width: 40px !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
         background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
         border-radius: 50% !important;
         position: relative !important;
@@ -824,11 +834,11 @@ st.markdown("""
     input[type="checkbox"]::before {
         content: '' !important;
         position: absolute !important;
-        width: 22px !important;
-        height: 22px !important;
+        width: 24px !important;
+        height: 24px !important;
         background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
         border-radius: 50% !important;
-        top: -10px !important;
+        top: -11px !important;
         left: -4px !important;
         transition: all 0.3s ease !important;
         border: 2px solid #c0c0c0 !important;
@@ -838,11 +848,11 @@ st.markdown("""
     input[type="checkbox"]::after {
         content: '' !important;
         position: absolute !important;
-        width: 22px !important;
-        height: 22px !important;
+        width: 24px !important;
+        height: 24px !important;
         background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
         border-radius: 50% !important;
-        top: -10px !important;
+        top: -11px !important;
         right: -4px !important;
         transition: all 0.3s ease !important;
         border: 2px solid #c0c0c0 !important;
@@ -1485,7 +1495,7 @@ def main():
                         # Checkbox and delete button below the card - wrapped for proper layout
                         st.markdown('<div class="card-action-row">', unsafe_allow_html=True)
 
-                        action_col1, action_col2 = st.columns([5, 1], gap="small")
+                        action_col1, action_col2 = st.columns([7, 1], gap="small")
                         with action_col1:
                             checked = st.checkbox(
                                 "Complete",
