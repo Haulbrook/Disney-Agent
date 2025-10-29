@@ -300,6 +300,57 @@ st.markdown("""
         margin-bottom: 8px !important;
     }
 
+    /* Card Action Buttons - Small and Clean */
+    .card-actions {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        gap: 12px !important;
+        margin-top: 12px !important;
+        padding: 0 4px !important;
+    }
+
+    /* Small delete button for cards */
+    .card-delete-btn button {
+        background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%) !important;
+        border: 2px solid #e57373 !important;
+        border-radius: 50% !important;
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        min-height: 40px !important;
+        padding: 0 !important;
+        font-size: 18px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 2px 8px rgba(239, 83, 80, 0.3) !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .card-delete-btn button::before,
+    .card-delete-btn button::after {
+        content: none !important;
+    }
+
+    .card-delete-btn button:hover {
+        background: linear-gradient(135deg, #ef5350 0%, #e53935 100%) !important;
+        transform: scale(1.1) rotate(10deg) !important;
+        box-shadow: 0 4px 12px rgba(239, 83, 80, 0.5) !important;
+        animation: none !important;
+        border-width: 2px !important;
+    }
+
+    /* Checkbox label alignment */
+    .stCheckbox label {
+        display: flex !important;
+        align-items: center !important;
+        gap: 10px !important;
+        font-size: 14px !important;
+        color: #546e7a !important;
+        font-weight: 600 !important;
+    }
+
     /* Idea cards - CIRCLE SHAPE with sparkle and shimmy */
     .idea-card {
         padding: 40px 35px !important;
@@ -1347,9 +1398,9 @@ def main():
                         </div>
                         """, unsafe_allow_html=True)
 
-                        # Checkbox and delete button below the card
-                        card_col1, card_col2 = st.columns([3, 1])
-                        with card_col1:
+                        # Checkbox and delete button below the card - proper layout
+                        action_col1, action_col2 = st.columns([4, 1])
+                        with action_col1:
                             checked = st.checkbox(
                                 "Complete",
                                 value=item.completed,
@@ -1360,13 +1411,15 @@ def main():
                                 st.session_state.checklist[idx].completed = checked
                                 save_trip_data()
 
-                        with card_col2:
-                            if st.button("🗑️", key=f"delete_{idx}"):
+                        with action_col2:
+                            st.markdown('<div class="card-delete-btn">', unsafe_allow_html=True)
+                            if st.button("🗑️", key=f"delete_{idx}", use_container_width=False):
                                 deleted_text = st.session_state.checklist[idx].text.lower().strip()
                                 st.session_state.rejected_items.add(deleted_text)
                                 st.session_state.checklist.pop(idx)
                                 save_trip_data()
                                 st.rerun()
+                            st.markdown('</div>', unsafe_allow_html=True)
 
         # Add custom item
         st.markdown("---")
