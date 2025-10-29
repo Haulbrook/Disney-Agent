@@ -269,7 +269,7 @@ st.markdown("""
         width: 100% !important;
         min-height: 180px !important;
         padding: 20px !important;
-        margin-bottom: 20px !important;
+        margin-bottom: 12px !important;
         border-radius: 20px !important;
         background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%) !important;
         border: 3px solid #b0d4f1 !important;
@@ -281,6 +281,7 @@ st.markdown("""
         overflow: visible !important;
         -webkit-tap-highlight-color: transparent !important;
         touch-action: manipulation !important;
+        box-sizing: border-box !important;
     }
 
     .checklist-card:hover {
@@ -353,25 +354,32 @@ st.markdown("""
         padding: 0 4px !important;
     }
 
-    /* Card action row - force proper layout */
+    /* Card action row - force proper layout BELOW card */
     .card-action-row {
         display: flex !important;
         align-items: center !important;
         justify-content: space-between !important;
         width: 100% !important;
-        gap: 10px !important;
-        margin-top: 10px !important;
+        gap: 12px !important;
+        margin-top: 12px !important;
         padding: 0 !important;
+        box-sizing: border-box !important;
     }
 
     .card-action-row > div:first-child {
         flex: 1 !important;
-        max-width: calc(100% - 50px) !important;
+        min-width: 0 !important;
+        display: flex !important;
+        align-items: center !important;
     }
 
     .card-action-row > div:last-child {
-        flex: 0 0 40px !important;
-        width: 40px !important;
+        flex: 0 0 44px !important;
+        width: 44px !important;
+        min-width: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-end !important;
     }
 
     /* Small delete button for cards - iOS 44x44 touch target */
@@ -431,18 +439,34 @@ st.markdown("""
         font-weight: 600 !important;
     }
 
-    /* Ensure no extra padding in card action columns */
+    /* Card action row columns - ensure proper alignment */
+    .card-action-row > div[data-testid="stHorizontalBlock"] {
+        display: flex !important;
+        flex-direction: row !important;
+        width: 100% !important;
+        gap: 12px !important;
+    }
+
     .card-action-row [data-testid="column"] {
-        padding: 0 5px !important;
+        padding: 0 !important;
         gap: 0 !important;
     }
 
     .card-action-row [data-testid="column"]:first-child {
-        padding-right: 8px !important;
+        flex: 1 !important;
+        min-width: 0 !important;
     }
 
     .card-action-row [data-testid="column"]:last-child {
-        padding-left: 0 !important;
+        flex: 0 0 44px !important;
+        width: 44px !important;
+        min-width: 44px !important;
+    }
+
+    /* Remove padding from inner divs */
+    .card-action-row [data-testid="column"] > div {
+        padding: 0 !important;
+        width: 100% !important;
     }
 
     /* Idea cards - CIRCLE SHAPE with sparkle and shimmy */
@@ -1145,38 +1169,77 @@ st.markdown("""
         }
     }
 
-    /* iPad Mini, iPad (portrait) */
+    /* Card Grid Container - Desktop: 3 columns always */
+    .card-grid-container {
+        width: 100% !important;
+        margin-bottom: 20px !important;
+        display: block !important;
+        clear: both !important;
+    }
+
+    /* Force Streamlit columns container to flex properly */
+    .card-grid-container > div[data-testid="stHorizontalBlock"] {
+        display: flex !important;
+        flex-direction: row !important;
+        gap: 0 !important;
+        width: 100% !important;
+    }
+
+    /* Card columns should maintain their width on desktop */
+    .card-grid-container [data-testid="column"] {
+        min-width: 33.33% !important;
+        max-width: 33.33% !important;
+        flex: 1 1 33.33% !important;
+        padding: 0 10px !important;
+        box-sizing: border-box !important;
+    }
+
+    /* Remove streamlit's default column padding */
+    .card-grid-container [data-testid="column"] > div {
+        padding: 0 !important;
+    }
+
+    /* Ensure each card column item is contained properly */
+    .card-grid-container [data-testid="column"] .element-container {
+        width: 100% !important;
+        margin: 0 !important;
+    }
+
+    /* iPad Mini, iPad (portrait) - KEEP 3 COLUMNS */
     @media only screen and (min-width: 744px) and (max-width: 834px) {
         .checklist-card {
             min-height: 160px !important;
+            padding: 16px !important;
         }
 
-        /* 2 columns on iPad portrait */
-        [data-testid="column"] {
-            max-width: 50% !important;
-            flex: 0 0 50% !important;
+        .card-grid-container [data-testid="column"] {
+            min-width: 33.33% !important;
+            max-width: 33.33% !important;
+            flex: 1 1 33.33% !important;
+            padding: 0 8px !important;
         }
     }
 
-    /* iPad Pro 11", iPad Air (portrait) */
+    /* iPad Pro 11", iPad Air (portrait) - KEEP 3 COLUMNS */
     @media only screen and (min-width: 835px) and (max-width: 1024px) {
-        /* Keep 3 columns but optimize spacing */
         .checklist-card {
             padding: 18px !important;
         }
+
+        .card-grid-container [data-testid="column"] {
+            min-width: 33.33% !important;
+            max-width: 33.33% !important;
+            flex: 1 1 33.33% !important;
+        }
     }
 
-    /* All mobile devices - general fixes */
-    @media only screen and (max-width: 768px) {
-        /* Single column layout on mobile */
-        [data-testid="column"] {
+    /* Mobile phones ONLY - single column */
+    @media only screen and (max-width: 743px) {
+        .card-grid-container [data-testid="column"] {
+            min-width: 100% !important;
             max-width: 100% !important;
-            flex: 0 0 100% !important;
-        }
-
-        /* Sidebar adjustments */
-        [data-testid="stSidebar"] {
-            width: 100% !important;
+            flex: 1 1 100% !important;
+            padding: 0 5px !important;
         }
 
         /* Better spacing on mobile */
@@ -1189,11 +1252,6 @@ st.markdown("""
         .main-header::before,
         .main-header::after {
             font-size: 1.5em !important;
-        }
-
-        /* Optimize card grid for mobile - force single column */
-        .element-container {
-            width: 100% !important;
         }
     }
 
@@ -1665,6 +1723,9 @@ def main():
 
         # Display in rows of 3
         for row_idx in range(0, len(filtered_items), 3):
+            # Wrap each row in card-grid-container for proper CSS targeting
+            st.markdown('<div class="card-grid-container">', unsafe_allow_html=True)
+
             cols = st.columns(3)
 
             for col_idx in range(3):
@@ -1675,7 +1736,7 @@ def main():
                         completed_class = "completed" if item.completed else ""
                         priority_class = f"priority-{item.priority}"
 
-                        # Card with checkbox inside
+                        # Card
                         st.markdown(f"""
                         <div class="checklist-card {completed_class} {priority_class}">
                             <div class="checklist-card-content">
@@ -1686,7 +1747,7 @@ def main():
                         </div>
                         """, unsafe_allow_html=True)
 
-                        # Checkbox and delete button below the card - wrapped for proper layout
+                        # Checkbox and delete button BELOW the card
                         st.markdown('<div class="card-action-row">', unsafe_allow_html=True)
 
                         action_col1, action_col2 = st.columns([5, 1], gap="small")
@@ -1712,6 +1773,9 @@ def main():
                             st.markdown('</div>', unsafe_allow_html=True)
 
                         st.markdown('</div>', unsafe_allow_html=True)
+
+            # Close the card-grid-container
+            st.markdown('</div>', unsafe_allow_html=True)
 
         # Add custom item
         st.markdown("---")
