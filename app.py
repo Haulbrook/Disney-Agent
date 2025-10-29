@@ -310,6 +310,27 @@ st.markdown("""
         padding: 0 4px !important;
     }
 
+    /* Card action row - force proper layout */
+    .card-action-row {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        gap: 10px !important;
+        margin-top: 10px !important;
+        padding: 0 !important;
+    }
+
+    .card-action-row > div:first-child {
+        flex: 1 !important;
+        max-width: calc(100% - 50px) !important;
+    }
+
+    .card-action-row > div:last-child {
+        flex: 0 0 40px !important;
+        width: 40px !important;
+    }
+
     /* Small delete button for cards */
     .card-delete-btn button {
         background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%) !important;
@@ -319,8 +340,12 @@ st.markdown("""
         height: 40px !important;
         min-width: 40px !important;
         min-height: 40px !important;
+        max-width: 40px !important;
+        max-height: 40px !important;
         padding: 0 !important;
+        margin: 0 !important;
         font-size: 18px !important;
+        line-height: 1 !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
@@ -331,6 +356,7 @@ st.markdown("""
     .card-delete-btn button::before,
     .card-delete-btn button::after {
         content: none !important;
+        display: none !important;
     }
 
     .card-delete-btn button:hover {
@@ -349,6 +375,20 @@ st.markdown("""
         font-size: 14px !important;
         color: #546e7a !important;
         font-weight: 600 !important;
+    }
+
+    /* Ensure no extra padding in card action columns */
+    .card-action-row [data-testid="column"] {
+        padding: 0 5px !important;
+        gap: 0 !important;
+    }
+
+    .card-action-row [data-testid="column"]:first-child {
+        padding-right: 8px !important;
+    }
+
+    .card-action-row [data-testid="column"]:last-child {
+        padding-left: 0 !important;
     }
 
     /* Idea cards - CIRCLE SHAPE with sparkle and shimmy */
@@ -1398,8 +1438,10 @@ def main():
                         </div>
                         """, unsafe_allow_html=True)
 
-                        # Checkbox and delete button below the card - proper layout
-                        action_col1, action_col2 = st.columns([4, 1])
+                        # Checkbox and delete button below the card - wrapped for proper layout
+                        st.markdown('<div class="card-action-row">', unsafe_allow_html=True)
+
+                        action_col1, action_col2 = st.columns([5, 1], gap="small")
                         with action_col1:
                             checked = st.checkbox(
                                 "Complete",
@@ -1420,6 +1462,8 @@ def main():
                                 save_trip_data()
                                 st.rerun()
                             st.markdown('</div>', unsafe_allow_html=True)
+
+                        st.markdown('</div>', unsafe_allow_html=True)
 
         # Add custom item
         st.markdown("---")
