@@ -310,14 +310,15 @@ st.markdown("""
         padding: 0 4px !important;
     }
 
-    /* Card action row - force proper layout */
+    /* Card action row - force proper layout with LEFT alignment */
     .card-action-row {
         display: flex !important;
         align-items: center !important;
         justify-content: flex-start !important;
         width: 100% !important;
-        gap: 8px !important;
-        margin-top: 12px !important;
+        gap: 10px !important;
+        margin-top: 10px !important;
+        margin-left: 0 !important;
         padding: 0 !important;
     }
 
@@ -330,28 +331,33 @@ st.markdown("""
     .card-action-row [data-testid="column"]:first-child {
         flex: 1 1 auto !important;
         min-width: 0 !important;
-        padding-right: 8px !important;
+        max-width: calc(100% - 46px) !important;
+        padding-right: 10px !important;
+        text-align: left !important;
     }
 
     .card-action-row [data-testid="column"]:last-child {
         flex: 0 0 auto !important;
-        width: 48px !important;
-        max-width: 48px !important;
+        width: 40px !important;
+        max-width: 40px !important;
         padding: 0 !important;
+        margin: 0 !important;
     }
 
     /* Checkbox container in card actions */
     .card-action-row .stCheckbox {
         margin: 0 !important;
-        padding: 6px 10px !important;
-        width: 100% !important;
+        padding: 4px 8px !important;
+        width: auto !important;
+        display: inline-flex !important;
+        align-items: center !important;
     }
 
-    /* Small delete button for cards - MORE SPECIFIC SELECTOR */
+    /* Small delete button for cards - SMALLER SIZE */
     .card-delete-btn .stButton,
     .card-delete-btn {
-        width: 44px !important;
-        max-width: 44px !important;
+        width: 36px !important;
+        max-width: 36px !important;
         margin: 0 !important;
         padding: 0 !important;
     }
@@ -361,15 +367,15 @@ st.markdown("""
         background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%) !important;
         border: 2px solid #e57373 !important;
         border-radius: 50% !important;
-        width: 44px !important;
-        height: 44px !important;
-        min-width: 44px !important;
-        min-height: 44px !important;
-        max-width: 44px !important;
-        max-height: 44px !important;
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        min-height: 36px !important;
+        max-width: 36px !important;
+        max-height: 36px !important;
         padding: 0 !important;
         margin: 0 !important;
-        font-size: 20px !important;
+        font-size: 18px !important;
         line-height: 1 !important;
         display: flex !important;
         align-items: center !important;
@@ -513,21 +519,21 @@ st.markdown("""
         transform: scale(0.9);
     }
 
-    /* OVERRIDE: Card delete button - placed AFTER general button styles for precedence */
+    /* OVERRIDE: Card delete button - SMALLER 36px - placed AFTER general button styles */
     .card-action-row .card-delete-btn .stButton>button,
     .card-delete-btn .stButton>button {
         background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%) !important;
         border: 2px solid #e57373 !important;
         border-radius: 50% !important;
-        width: 44px !important;
-        height: 44px !important;
-        min-width: 44px !important;
-        min-height: 44px !important;
-        max-width: 44px !important;
-        max-height: 44px !important;
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        min-height: 36px !important;
+        max-width: 36px !important;
+        max-height: 36px !important;
         padding: 0 !important;
         margin: 0 !important;
-        font-size: 20px !important;
+        font-size: 18px !important;
         line-height: 1 !important;
         text-transform: none !important;
         letter-spacing: 0 !important;
@@ -814,13 +820,13 @@ st.markdown("""
         background: transparent !important;
     }
 
-    /* MICKEY EARS CHECKBOXES - Soft and Magical */
+    /* MICKEY EARS CHECKBOXES - Soft and Magical (SMALLER) */
     input[type="checkbox"] {
         appearance: none !important;
         -webkit-appearance: none !important;
-        width: 44px !important;
-        height: 44px !important;
-        min-width: 44px !important;
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
         background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
         border-radius: 50% !important;
         position: relative !important;
@@ -834,12 +840,12 @@ st.markdown("""
     input[type="checkbox"]::before {
         content: '' !important;
         position: absolute !important;
-        width: 24px !important;
-        height: 24px !important;
+        width: 20px !important;
+        height: 20px !important;
         background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
         border-radius: 50% !important;
-        top: -11px !important;
-        left: -4px !important;
+        top: -9px !important;
+        left: -3px !important;
         transition: all 0.3s ease !important;
         border: 2px solid #c0c0c0 !important;
     }
@@ -848,12 +854,12 @@ st.markdown("""
     input[type="checkbox"]::after {
         content: '' !important;
         position: absolute !important;
-        width: 24px !important;
-        height: 24px !important;
+        width: 20px !important;
+        height: 20px !important;
         background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
         border-radius: 50% !important;
-        top: -11px !important;
-        right: -4px !important;
+        top: -9px !important;
+        right: -3px !important;
         transition: all 0.3s ease !important;
         border: 2px solid #c0c0c0 !important;
     }
