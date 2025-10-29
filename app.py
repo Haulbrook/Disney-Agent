@@ -177,25 +177,25 @@ st.markdown("""
 
     /* Countdown box - CIRCLE SHAPE with shimmer and stars */
     .countdown-box {
-        background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 50%, #add8e6 100%);
-        padding: 60px 40px;
+        background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 50%, #add8e6 100%) !important;
+        padding: 60px 40px !important;
         border-radius: 50% !important;  /* CIRCLE! */
-        width: 400px;
-        height: 400px;
-        margin: 20px auto;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: #ffffff;
-        text-align: center;
-        font-size: 1.8em;
-        font-weight: 900;
+        width: 400px !important;
+        height: 400px !important;
+        margin: 20px auto !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: #ffffff !important;
+        text-align: center !important;
+        font-size: 1.8em !important;
+        font-weight: 900 !important;
         box-shadow: 0 10px 40px rgba(135, 206, 235, 0.6),
-                    inset 0 2px 0 rgba(255,255,255,0.6);
-        border: 5px solid rgba(255, 215, 0, 0.6);
-        position: relative;
-        overflow: hidden;
-        animation: magicPulse 4s infinite;
+                    inset 0 2px 0 rgba(255,255,255,0.6) !important;
+        border: 5px solid rgba(255, 215, 0, 0.6) !important;
+        position: relative !important;
+        overflow: hidden !important;
+        animation: magicPulse 4s infinite !important;
     }
 
     .countdown-box::before {
@@ -226,17 +226,18 @@ st.markdown("""
 
     /* Checklist items - DIAMOND SHAPE with bounce */
     .checklist-item {
-        padding: 30px 40px;
-        margin: 20px auto;
-        max-width: 600px;
-        clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
-        background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+        padding: 30px 40px !important;
+        margin: 20px auto !important;
+        max-width: 600px !important;
+        clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%) !important;
+        background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%) !important;
         color: #2c3e50 !important;
-        box-shadow: 0 5px 15px rgba(135, 206, 235, 0.4);
-        transition: all 0.3s ease;
-        cursor: pointer;
-        position: relative;
-        border: 4px solid #87ceeb;
+        box-shadow: 0 5px 15px rgba(135, 206, 235, 0.4) !important;
+        transition: all 0.3s ease !important;
+        cursor: pointer !important;
+        position: relative !important;
+        border: 4px solid #87ceeb !important;
+        border-radius: 0 !important;
     }
 
     .checklist-item:hover {
@@ -266,23 +267,23 @@ st.markdown("""
 
     /* Idea cards - CIRCLE SHAPE with sparkle and shimmy */
     .idea-card {
-        padding: 40px 35px;
-        margin: 20px auto;
+        padding: 40px 35px !important;
+        margin: 20px auto !important;
         border-radius: 50% !important;  /* CIRCLE! */
-        width: 350px;
-        height: 350px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
-        box-shadow: 0 8px 25px rgba(135, 206, 235, 0.4);
-        border: 5px solid rgba(255, 215, 0, 0.5);
+        width: 350px !important;
+        height: 350px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%) !important;
+        box-shadow: 0 8px 25px rgba(135, 206, 235, 0.4) !important;
+        border: 5px solid rgba(255, 215, 0, 0.5) !important;
         color: #2c3e50 !important;
-        position: relative;
-        overflow: hidden;
-        transition: all 0.3s ease;
-        cursor: pointer;
+        position: relative !important;
+        overflow: hidden !important;
+        transition: all 0.3s ease !important;
+        cursor: pointer !important;
     }
 
     .idea-card:hover {
@@ -597,6 +598,40 @@ st.markdown("""
     [data-testid="stNotification"] {
         border-radius: 50px !important;
         border-width: 3px !important;
+    }
+
+    /* Streamlit column overrides - remove square containers */
+    [data-testid="column"] {
+        background: transparent !important;
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    [data-testid="stVerticalBlock"] > div {
+        background: transparent !important;
+        border: none !important;
+    }
+
+    [data-testid="stHorizontalBlock"] {
+        background: transparent !important;
+        border: none !important;
+    }
+
+    /* Remove square borders from Streamlit containers */
+    .element-container {
+        border: none !important;
+        background: transparent !important;
+    }
+
+    .stMarkdown {
+        border: none !important;
+        background: transparent !important;
+    }
+
+    /* Ensure our custom divs display properly */
+    .stMarkdown > div {
+        border: none !important;
+        background: transparent !important;
     }
 </style>
 """, unsafe_allow_html=True)
