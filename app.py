@@ -55,12 +55,10 @@ st.markdown("""
     }
 
     html, body {
-        height: 100%;
         width: 100%;
         overflow-x: hidden;
         -webkit-overflow-scrolling: touch;
-        position: fixed;
-        overscroll-behavior: none;
+        overscroll-behavior-y: none;
     }
 
     /* Safe area insets for notched devices (iPhone X, 11, 12, 13, 14, 15, etc.) */
@@ -134,10 +132,7 @@ st.markdown("""
     .main {
         background: linear-gradient(180deg, #f0f8ff 0%, #e6f3ff 50%, #ffffff 100%);
         position: relative;
-        overflow-y: auto;
         -webkit-overflow-scrolling: touch;
-        height: 100vh;
-        height: calc(100vh - env(safe-area-inset-bottom));
     }
 
     /* Streamlit main container iOS fixes */
@@ -1226,19 +1221,6 @@ st.markdown("""
     @media all and (display-mode: standalone) {
         body {
             padding-top: env(safe-area-inset-top);
-        }
-
-        .main {
-            height: 100vh;
-            height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
-        }
-    }
-
-    /* Prevent horizontal scroll on iOS */
-    @media only screen and (max-width: 768px) {
-        * {
-            max-width: 100vw;
-            overflow-x: hidden;
         }
     }
 </style>
