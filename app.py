@@ -331,7 +331,8 @@ st.markdown("""
         width: 40px !important;
     }
 
-    /* Small delete button for cards */
+    /* Small delete button for cards - MORE SPECIFIC SELECTOR */
+    .card-delete-btn .stButton>button,
     .card-delete-btn button {
         background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%) !important;
         border: 2px solid #e57373 !important;
@@ -351,14 +352,20 @@ st.markdown("""
         justify-content: center !important;
         box-shadow: 0 2px 8px rgba(239, 83, 80, 0.3) !important;
         transition: all 0.3s ease !important;
+        text-transform: none !important;
+        letter-spacing: normal !important;
+        overflow: hidden !important;
     }
 
+    .card-delete-btn .stButton>button::before,
+    .card-delete-btn .stButton>button::after,
     .card-delete-btn button::before,
     .card-delete-btn button::after {
         content: none !important;
         display: none !important;
     }
 
+    .card-delete-btn .stButton>button:hover,
     .card-delete-btn button:hover {
         background: linear-gradient(135deg, #ef5350 0%, #e53935 100%) !important;
         transform: scale(1.1) rotate(10deg) !important;
@@ -494,6 +501,43 @@ st.markdown("""
 
     .stButton>button:active {
         transform: scale(0.9);
+    }
+
+    /* OVERRIDE: Card delete button - placed AFTER general button styles for precedence */
+    .card-action-row .card-delete-btn .stButton>button,
+    .card-delete-btn .stButton>button {
+        background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%) !important;
+        border: 2px solid #e57373 !important;
+        border-radius: 50% !important;
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        min-height: 40px !important;
+        max-width: 40px !important;
+        max-height: 40px !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        font-size: 18px !important;
+        line-height: 1 !important;
+        text-transform: none !important;
+        letter-spacing: 0 !important;
+        overflow: hidden !important;
+    }
+
+    .card-action-row .card-delete-btn .stButton>button::before,
+    .card-action-row .card-delete-btn .stButton>button::after,
+    .card-delete-btn .stButton>button::before,
+    .card-delete-btn .stButton>button::after {
+        content: none !important;
+        display: none !important;
+    }
+
+    .card-action-row .card-delete-btn .stButton>button:hover,
+    .card-delete-btn .stButton>button:hover {
+        background: linear-gradient(135deg, #ef5350 0%, #e53935 100%) !important;
+        transform: scale(1.1) rotate(10deg) !important;
+        animation: none !important;
+        border-width: 2px !important;
     }
 
     /* Priority colors - adjusted for light theme */
