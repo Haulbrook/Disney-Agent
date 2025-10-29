@@ -27,14 +27,49 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# iOS-specific meta tags for full compatibility
+st.markdown("""
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Disney Planner">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon" href="https://em-content.zobj.net/source/apple/391/castle_1f3f0.png">
+""", unsafe_allow_html=True)
+
 # Custom CSS for Magical Disney Theme with Animations
 st.markdown("""
 <style>
     /* Import a whimsical font */
     @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
 
+    /* iOS-specific fixes */
     * {
         font-family: 'Nunito', sans-serif !important;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-touch-callout: none;
+        -webkit-text-size-adjust: 100%;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+    html, body {
+        height: 100%;
+        width: 100%;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
+        position: fixed;
+        overscroll-behavior: none;
+    }
+
+    /* Safe area insets for notched devices (iPhone X, 11, 12, 13, 14, 15, etc.) */
+    @supports (padding: max(0px)) {
+        body {
+            padding-left: max(0px, env(safe-area-inset-left));
+            padding-right: max(0px, env(safe-area-inset-right));
+            padding-bottom: max(0px, env(safe-area-inset-bottom));
+        }
     }
 
     /* Sparkle animation */
@@ -99,6 +134,16 @@ st.markdown("""
     .main {
         background: linear-gradient(180deg, #f0f8ff 0%, #e6f3ff 50%, #ffffff 100%);
         position: relative;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+        height: 100vh;
+        height: calc(100vh - env(safe-area-inset-bottom));
+    }
+
+    /* Streamlit main container iOS fixes */
+    .stApp {
+        -webkit-overflow-scrolling: touch;
+        touch-action: manipulation;
     }
 
     .main::before, .main::after {
@@ -224,7 +269,7 @@ st.markdown("""
         animation: sparkle 2s infinite;
     }
 
-    /* Checklist items - PLAYING CARD STYLE */
+    /* Checklist items - PLAYING CARD STYLE - iOS compatible */
     .checklist-card {
         width: 100% !important;
         min-height: 180px !important;
@@ -235,9 +280,12 @@ st.markdown("""
         border: 3px solid #b0d4f1 !important;
         box-shadow: 0 6px 16px rgba(135, 206, 235, 0.3) !important;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        -webkit-transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
         cursor: pointer !important;
         position: relative !important;
         overflow: visible !important;
+        -webkit-tap-highlight-color: transparent !important;
+        touch-action: manipulation !important;
     }
 
     .checklist-card:hover {
@@ -331,18 +379,18 @@ st.markdown("""
         width: 40px !important;
     }
 
-    /* Small delete button for cards - MORE SPECIFIC SELECTOR */
+    /* Small delete button for cards - iOS 44x44 touch target */
     .card-delete-btn .stButton>button,
     .card-delete-btn button {
         background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%) !important;
         border: 2px solid #e57373 !important;
         border-radius: 50% !important;
-        width: 40px !important;
-        height: 40px !important;
-        min-width: 40px !important;
-        min-height: 40px !important;
-        max-width: 40px !important;
-        max-height: 40px !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        max-width: 44px !important;
+        max-height: 44px !important;
         padding: 0 !important;
         margin: 0 !important;
         font-size: 18px !important;
@@ -352,9 +400,13 @@ st.markdown("""
         justify-content: center !important;
         box-shadow: 0 2px 8px rgba(239, 83, 80, 0.3) !important;
         transition: all 0.3s ease !important;
+        -webkit-transition: all 0.3s ease !important;
         text-transform: none !important;
         letter-spacing: normal !important;
         overflow: hidden !important;
+        touch-action: manipulation !important;
+        -webkit-touch-callout: none !important;
+        cursor: pointer !important;
     }
 
     .card-delete-btn .stButton>button::before,
@@ -455,7 +507,7 @@ st.markdown("""
         margin-top: 10px;
     }
 
-    /* Buttons - PERFECT CIRCLE/PILL SHAPE with shimmy animation */
+    /* Buttons - PERFECT CIRCLE/PILL SHAPE with shimmy animation - iOS compatible */
     .stButton>button {
         background: linear-gradient(135deg, #87ceeb 0%, #5dade2 100%);
         color: white;
@@ -463,15 +515,21 @@ st.markdown("""
         border-radius: 50px !important;  /* PILL SHAPE! */
         padding: 16px 40px;
         min-width: 150px;
+        min-height: 44px;
         font-weight: 800;
         font-size: 17px;
         box-shadow: 0 6px 20px rgba(135, 206, 235, 0.5);
         transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
         cursor: pointer;
         position: relative;
         overflow: visible;
         text-transform: uppercase;
         letter-spacing: 1px;
+        touch-action: manipulation;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        user-select: none;
     }
 
     .stButton>button::before {
@@ -503,18 +561,18 @@ st.markdown("""
         transform: scale(0.9);
     }
 
-    /* OVERRIDE: Card delete button - placed AFTER general button styles for precedence */
+    /* OVERRIDE: Card delete button - iOS 44x44 touch target */
     .card-action-row .card-delete-btn .stButton>button,
     .card-delete-btn .stButton>button {
         background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%) !important;
         border: 2px solid #e57373 !important;
         border-radius: 50% !important;
-        width: 40px !important;
-        height: 40px !important;
-        min-width: 40px !important;
-        min-height: 40px !important;
-        max-width: 40px !important;
-        max-height: 40px !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
+        max-width: 44px !important;
+        max-height: 44px !important;
         padding: 0 !important;
         margin: 0 !important;
         font-size: 18px !important;
@@ -522,6 +580,8 @@ st.markdown("""
         text-transform: none !important;
         letter-spacing: 0 !important;
         overflow: hidden !important;
+        touch-action: manipulation !important;
+        -webkit-touch-callout: none !important;
     }
 
     .card-action-row .card-delete-btn .stButton>button::before,
@@ -554,7 +614,7 @@ st.markdown("""
         background: linear-gradient(135deg, #f5fff5 0%, #e8f5e9 100%);
     }
 
-    /* Input fields - PILL SHAPE with light blue focus */
+    /* Input fields - PILL SHAPE with light blue focus - iOS compatible */
     .stTextInput > div > div > input,
     .stNumberInput > div > div > input,
     .stDateInput > div > div > input {
@@ -563,7 +623,12 @@ st.markdown("""
         border: 3px solid #b0e0e6 !important;
         border-radius: 50px !important;  /* PILL SHAPE! */
         padding: 12px 24px !important;
+        min-height: 44px !important;
+        font-size: 16px !important;  /* Prevents iOS zoom on focus */
         box-shadow: 0 3px 10px rgba(135, 206, 235, 0.2);
+        -webkit-appearance: none !important;
+        appearance: none !important;
+        touch-action: manipulation !important;
     }
 
     .stTextInput > div > div > input:focus,
@@ -583,11 +648,16 @@ st.markdown("""
         padding: 8px 20px !important;
     }
 
-    /* Text area - ROUNDED */
+    /* Text area - ROUNDED - iOS compatible */
     .stTextArea > div > div > textarea {
         border-radius: 30px !important;
         border: 3px solid #b0e0e6 !important;
         padding: 15px 20px !important;
+        font-size: 16px !important;  /* Prevents iOS zoom on focus */
+        min-height: 44px !important;
+        -webkit-appearance: none !important;
+        appearance: none !important;
+        touch-action: manipulation !important;
     }
 
     /* Labels - dark text for readability */
@@ -804,20 +874,25 @@ st.markdown("""
         background: transparent !important;
     }
 
-    /* MICKEY EARS CHECKBOXES - Soft and Magical */
+    /* MICKEY EARS CHECKBOXES - Soft and Magical - iOS 44x44 touch target */
     input[type="checkbox"] {
         appearance: none !important;
         -webkit-appearance: none !important;
-        width: 40px !important;
-        height: 40px !important;
-        min-width: 40px !important;
+        -moz-appearance: none !important;
+        width: 44px !important;
+        height: 44px !important;
+        min-width: 44px !important;
+        min-height: 44px !important;
         background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
         border-radius: 50% !important;
         position: relative !important;
         cursor: pointer !important;
         transition: all 0.3s ease !important;
+        -webkit-transition: all 0.3s ease !important;
         box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15) !important;
         border: 2px solid #c0c0c0 !important;
+        touch-action: manipulation !important;
+        -webkit-touch-callout: none !important;
     }
 
     /* Mickey's left ear */
@@ -1018,6 +1093,153 @@ st.markdown("""
         font-size: 50px;
         opacity: 0.1;
         animation: float 8s infinite ease-in-out;
+    }
+
+    /* ============================================ */
+    /* RESPONSIVE DESIGN FOR iOS DEVICES */
+    /* ============================================ */
+
+    /* iPhone SE, iPhone 12/13/14 mini - Small screens */
+    @media only screen and (max-width: 390px) {
+        .main-header {
+            font-size: 2em !important;
+            padding: 20px !important;
+        }
+
+        .countdown-box {
+            width: 280px !important;
+            height: 280px !important;
+            font-size: 1.2em !important;
+            padding: 40px 20px !important;
+        }
+
+        .idea-card {
+            width: 260px !important;
+            height: 260px !important;
+            padding: 30px 20px !important;
+        }
+
+        .checklist-card {
+            min-height: 150px !important;
+            padding: 15px !important;
+        }
+
+        .stButton>button {
+            min-width: 120px !important;
+            padding: 12px 30px !important;
+            font-size: 15px !important;
+        }
+    }
+
+    /* iPhone 12/13/14/15 Pro, standard iPhones */
+    @media only screen and (min-width: 391px) and (max-width: 428px) {
+        .main-header {
+            font-size: 2.5em !important;
+            padding: 25px !important;
+        }
+
+        .countdown-box {
+            width: 320px !important;
+            height: 320px !important;
+            font-size: 1.4em !important;
+        }
+
+        .idea-card {
+            width: 300px !important;
+            height: 300px !important;
+        }
+    }
+
+    /* iPad Mini, iPad (portrait) */
+    @media only screen and (min-width: 744px) and (max-width: 834px) {
+        .checklist-card {
+            min-height: 160px !important;
+        }
+
+        /* 2 columns on iPad portrait */
+        [data-testid="column"] {
+            max-width: 50% !important;
+            flex: 0 0 50% !important;
+        }
+    }
+
+    /* iPad Pro 11", iPad Air (portrait) */
+    @media only screen and (min-width: 835px) and (max-width: 1024px) {
+        /* Keep 3 columns but optimize spacing */
+        .checklist-card {
+            padding: 18px !important;
+        }
+    }
+
+    /* All mobile devices - general fixes */
+    @media only screen and (max-width: 768px) {
+        /* Single column layout on mobile */
+        [data-testid="column"] {
+            max-width: 100% !important;
+            flex: 0 0 100% !important;
+        }
+
+        /* Sidebar adjustments */
+        [data-testid="stSidebar"] {
+            width: 100% !important;
+        }
+
+        /* Better spacing on mobile */
+        .stTabs [data-baseweb="tab"] {
+            padding: 10px 16px !important;
+            font-size: 14px !important;
+        }
+
+        /* Reduce countdown decorations on mobile */
+        .main-header::before,
+        .main-header::after {
+            font-size: 1.5em !important;
+        }
+
+        /* Optimize card grid for mobile - force single column */
+        .element-container {
+            width: 100% !important;
+        }
+    }
+
+    /* Landscape mode optimizations for iPhones */
+    @media only screen and (max-height: 428px) and (orientation: landscape) {
+        .countdown-box {
+            width: 250px !important;
+            height: 250px !important;
+            font-size: 1.1em !important;
+            margin: 10px auto !important;
+        }
+
+        .main-header {
+            font-size: 1.8em !important;
+            padding: 15px !important;
+        }
+
+        .idea-card {
+            width: 220px !important;
+            height: 220px !important;
+        }
+    }
+
+    /* iOS standalone mode (when added to home screen) */
+    @media all and (display-mode: standalone) {
+        body {
+            padding-top: env(safe-area-inset-top);
+        }
+
+        .main {
+            height: 100vh;
+            height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+        }
+    }
+
+    /* Prevent horizontal scroll on iOS */
+    @media only screen and (max-width: 768px) {
+        * {
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
     }
 </style>
 """, unsafe_allow_html=True)
