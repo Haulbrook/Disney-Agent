@@ -175,19 +175,24 @@ st.markdown("""
         --ty: -80px;
     }
 
-    /* Countdown box - Magical with shimmer and stars */
+    /* Countdown box - CIRCLE SHAPE with shimmer and stars */
     .countdown-box {
         background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 50%, #add8e6 100%);
-        padding: 40px;
-        border-radius: 25px;
+        padding: 60px 40px;
+        border-radius: 50% !important;  /* CIRCLE! */
+        width: 400px;
+        height: 400px;
+        margin: 20px auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         color: #ffffff;
         text-align: center;
-        font-size: 2.2em;
+        font-size: 1.8em;
         font-weight: 900;
-        margin: 20px 0;
-        box-shadow: 0 10px 30px rgba(135, 206, 235, 0.5),
-                    inset 0 1px 0 rgba(255,255,255,0.6);
-        border: 3px solid rgba(255, 215, 0, 0.5);
+        box-shadow: 0 10px 40px rgba(135, 206, 235, 0.6),
+                    inset 0 2px 0 rgba(255,255,255,0.6);
+        border: 5px solid rgba(255, 215, 0, 0.6);
         position: relative;
         overflow: hidden;
         animation: magicPulse 4s infinite;
@@ -207,54 +212,72 @@ st.markdown("""
             transparent 70%
         );
         animation: shimmer 3s infinite;
+        border-radius: 50%;
     }
 
     .countdown-box::after {
         content: '🌟';
         position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 1.5em;
+        top: 20px;
+        right: 20px;
+        font-size: 1.8em;
         animation: sparkle 2s infinite;
     }
 
-    /* Checklist items - Playful with bounce */
+    /* Checklist items - DIAMOND SHAPE with bounce */
     .checklist-item {
-        padding: 18px;
-        margin: 10px 0;
-        border-radius: 15px;
-        border-left: 5px solid #87ceeb;
+        padding: 30px 40px;
+        margin: 20px auto;
+        max-width: 600px;
+        clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
         background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
         color: #2c3e50 !important;
-        box-shadow: 0 3px 10px rgba(135, 206, 235, 0.3);
+        box-shadow: 0 5px 15px rgba(135, 206, 235, 0.4);
         transition: all 0.3s ease;
         cursor: pointer;
+        position: relative;
+        border: 4px solid #87ceeb;
     }
 
     .checklist-item:hover {
-        transform: translateY(-5px) scale(1.02);
-        box-shadow: 0 6px 20px rgba(135, 206, 235, 0.4);
-        border-left-color: #ffd700;
+        transform: translateY(-8px) scale(1.05) rotate(2deg);
+        box-shadow: 0 10px 30px rgba(135, 206, 235, 0.6);
+        border-color: #ffd700;
         animation: bounce 0.5s ease-in-out;
     }
 
     .checklist-item strong {
         color: #1e88e5 !important;
+        font-size: 1.1em;
     }
 
     .checklist-item small {
         color: #546e7a !important;
     }
 
-    /* Idea cards - Magical with sparkle and shimmy */
+    .checklist-item::before {
+        content: '💎';
+        position: absolute;
+        top: 5px;
+        left: 15px;
+        font-size: 1.2em;
+        animation: sparkle 2s infinite;
+    }
+
+    /* Idea cards - CIRCLE SHAPE with sparkle and shimmy */
     .idea-card {
-        padding: 25px;
-        margin: 15px 0;
-        border-radius: 20px;
+        padding: 40px 35px;
+        margin: 20px auto;
+        border-radius: 50% !important;  /* CIRCLE! */
+        width: 350px;
+        height: 350px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
         background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
-        box-shadow: 0 5px 20px rgba(135, 206, 235, 0.3);
-        border: 3px solid rgba(255, 215, 0, 0.3);
-        border-left: 6px solid #87ceeb;
+        box-shadow: 0 8px 25px rgba(135, 206, 235, 0.4);
+        border: 5px solid rgba(255, 215, 0, 0.5);
         color: #2c3e50 !important;
         position: relative;
         overflow: hidden;
@@ -263,74 +286,87 @@ st.markdown("""
     }
 
     .idea-card:hover {
-        transform: scale(1.03) rotate(1deg);
-        box-shadow: 0 8px 30px rgba(135, 206, 235, 0.5);
+        transform: scale(1.08) rotate(5deg);
+        box-shadow: 0 12px 40px rgba(135, 206, 235, 0.6);
         animation: shimmy 0.6s ease-in-out;
-        border-color: rgba(255, 215, 0, 0.6);
+        border-color: rgba(255, 215, 0, 0.8);
     }
 
     .idea-card::after {
         content: '✨';
         position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 2em;
+        top: 30px;
+        right: 30px;
+        font-size: 2.5em;
         animation: sparkle 2s infinite;
     }
 
     .idea-card h3 {
         color: #1e88e5 !important;
-        font-weight: 600;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 10px;
     }
 
     .idea-card p {
         color: #37474f !important;
+        text-align: center;
+        font-size: 0.95em;
     }
 
     .idea-card small {
         color: #607d8b !important;
+        text-align: center;
+        display: block;
+        margin-top: 10px;
     }
 
-    /* Buttons - Magical with shimmy animation */
+    /* Buttons - PERFECT CIRCLE/PILL SHAPE with shimmy animation */
     .stButton>button {
         background: linear-gradient(135deg, #87ceeb 0%, #5dade2 100%);
         color: white;
-        border: 3px solid rgba(255, 215, 0, 0.4);
-        border-radius: 15px;
-        padding: 14px 28px;
-        font-weight: 700;
-        font-size: 16px;
-        box-shadow: 0 4px 15px rgba(135, 206, 235, 0.4);
+        border: 4px solid rgba(255, 215, 0, 0.5);
+        border-radius: 50px !important;  /* PILL SHAPE! */
+        padding: 16px 40px;
+        min-width: 150px;
+        font-weight: 800;
+        font-size: 17px;
+        box-shadow: 0 6px 20px rgba(135, 206, 235, 0.5);
         transition: all 0.3s ease;
         cursor: pointer;
         position: relative;
-        overflow: hidden;
+        overflow: visible;
+        text-transform: uppercase;
+        letter-spacing: 1px;
     }
 
     .stButton>button::before {
         content: '✨';
         position: absolute;
-        left: 10px;
+        left: 15px;
         animation: sparkle 1.5s infinite;
+        font-size: 1.2em;
     }
 
     .stButton>button::after {
         content: '✨';
         position: absolute;
-        right: 10px;
+        right: 15px;
         animation: sparkle 1.5s infinite 0.5s;
+        font-size: 1.2em;
     }
 
     .stButton>button:hover {
         background: linear-gradient(135deg, #5dade2 0%, #3498db 100%);
         animation: shimmy 0.5s ease-in-out, bounce 0.5s ease-in-out;
-        box-shadow: 0 8px 25px rgba(135, 206, 235, 0.6);
-        border-color: rgba(255, 215, 0, 0.8);
-        transform: scale(1.05);
+        box-shadow: 0 10px 35px rgba(135, 206, 235, 0.7);
+        border-color: rgba(255, 215, 0, 0.9);
+        transform: scale(1.1);
+        border-width: 5px;
     }
 
     .stButton>button:active {
-        transform: scale(0.95);
+        transform: scale(0.9);
     }
 
     /* Priority colors - adjusted for light theme */
@@ -347,29 +383,40 @@ st.markdown("""
         background: linear-gradient(135deg, #f5fff5 0%, #e8f5e9 100%);
     }
 
-    /* Input fields - white with light blue focus */
+    /* Input fields - PILL SHAPE with light blue focus */
     .stTextInput > div > div > input,
     .stNumberInput > div > div > input,
     .stDateInput > div > div > input {
         color: #2c3e50 !important;
         background-color: white !important;
-        border: 2px solid #b0e0e6 !important;
-        border-radius: 8px;
+        border: 3px solid #b0e0e6 !important;
+        border-radius: 50px !important;  /* PILL SHAPE! */
+        padding: 12px 24px !important;
+        box-shadow: 0 3px 10px rgba(135, 206, 235, 0.2);
     }
 
     .stTextInput > div > div > input:focus,
     .stNumberInput > div > div > input:focus,
     .stDateInput > div > div > input:focus {
         border-color: #87ceeb !important;
-        box-shadow: 0 0 10px rgba(135, 206, 235, 0.3);
+        box-shadow: 0 0 15px rgba(135, 206, 235, 0.5);
+        border-width: 4px !important;
     }
 
     .stSelectbox > div > div > div,
     .stMultiSelect > div > div > div {
         color: #2c3e50 !important;
         background-color: white !important;
-        border: 2px solid #b0e0e6 !important;
-        border-radius: 8px;
+        border: 3px solid #b0e0e6 !important;
+        border-radius: 50px !important;  /* PILL SHAPE! */
+        padding: 8px 20px !important;
+    }
+
+    /* Text area - ROUNDED */
+    .stTextArea > div > div > textarea {
+        border-radius: 30px !important;
+        border: 3px solid #b0e0e6 !important;
+        padding: 15px 20px !important;
     }
 
     /* Labels - dark text for readability */
@@ -378,22 +425,33 @@ st.markdown("""
         font-weight: 600 !important;
     }
 
-    /* Tabs styling */
+    /* Tabs styling - PILL SHAPED */
     .stTabs [data-baseweb="tab-list"] {
         background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-        border-radius: 10px;
-        padding: 5px;
+        border-radius: 50px !important;  /* PILL SHAPE! */
+        padding: 8px;
+        border: 3px solid rgba(255, 215, 0, 0.3);
     }
 
     .stTabs [data-baseweb="tab"] {
         color: #1e88e5 !important;
-        font-weight: 600;
+        font-weight: 700;
+        border-radius: 50px !important;
+        padding: 12px 24px !important;
+        margin: 0 5px;
+        transition: all 0.3s ease;
+    }
+
+    .stTabs [data-baseweb="tab"]:hover {
+        transform: scale(1.05);
+        background: rgba(135, 206, 235, 0.2);
     }
 
     .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, #87ceeb 0%, #5dade2 100%);
+        background: linear-gradient(135deg, #87ceeb 0%, #5dade2 100%) !important;
         color: white !important;
-        border-radius: 8px;
+        border-radius: 50px !important;
+        box-shadow: 0 4px 15px rgba(135, 206, 235, 0.5);
     }
 
     /* Progress bar - light blue */
@@ -407,12 +465,65 @@ st.markdown("""
         font-weight: 700;
     }
 
-    /* Chat messages */
+    /* Chat messages - PILL SHAPED */
     .stChatMessage {
         background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%) !important;
-        border: 1px solid #b0e0e6;
-        border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(135, 206, 235, 0.15);
+        border: 3px solid #b0e0e6;
+        border-radius: 50px !important;  /* PILL SHAPE! */
+        padding: 15px 25px !important;
+        box-shadow: 0 3px 12px rgba(135, 206, 235, 0.3);
+    }
+
+    /* Triangle decorative elements */
+    .main::after {
+        content: '';
+        position: fixed;
+        bottom: 10%;
+        left: 5%;
+        width: 0;
+        height: 0;
+        border-left: 30px solid transparent;
+        border-right: 30px solid transparent;
+        border-bottom: 52px solid rgba(135, 206, 235, 0.3);
+        animation: float 5s infinite ease-in-out;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    [data-testid="stSidebar"]::after {
+        content: '';
+        position: absolute;
+        bottom: 15%;
+        left: 10%;
+        width: 0;
+        height: 0;
+        border-left: 25px solid transparent;
+        border-right: 25px solid transparent;
+        border-bottom: 43px solid rgba(255, 215, 0, 0.4);
+        animation: sparkle 3s infinite;
+    }
+
+    /* Expandable sections - DIAMOND-ISH */
+    .streamlit-expanderHeader {
+        border-radius: 15px !important;
+        border: 3px solid #b0e0e6 !important;
+        background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%) !important;
+        padding: 15px 20px !important;
+    }
+
+    /* Metric containers - CIRCLES */
+    [data-testid="stMetric"] {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%);
+        border-radius: 50% !important;
+        padding: 20px !important;
+        border: 4px solid rgba(135, 206, 235, 0.4);
+        box-shadow: 0 5px 15px rgba(135, 206, 235, 0.3);
+        min-width: 120px;
+        min-height: 120px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 
     /* Sparkle decorations throughout */
@@ -445,6 +556,47 @@ st.markdown("""
     .checklist-item:hover::before,
     .idea-card:hover::before {
         left: 100%;
+    }
+
+    /* Trip code box - DIAMOND SHAPE */
+    .trip-code-diamond {
+        background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 100%);
+        padding: 30px 60px;
+        clip-path: polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%);
+        border: 5px solid rgba(255, 215, 0, 0.7);
+        text-align: center;
+        margin: 20px auto;
+        max-width: 600px;
+        box-shadow: 0 8px 25px rgba(135, 206, 235, 0.5);
+        animation: magicPulse 3s infinite;
+    }
+
+    .trip-code-diamond h3 {
+        color: white;
+        margin: 0;
+        font-size: 1.8em;
+        font-weight: 900;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .trip-code-diamond p {
+        color: white;
+        margin: 10px 0 0 0;
+        font-size: 1em;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Alert boxes - CIRCULAR/PILL */
+    .stAlert {
+        border-radius: 50px !important;
+        border-width: 3px !important;
+        padding: 15px 30px !important;
+    }
+
+    /* Success/Info/Error boxes - PILL SHAPED */
+    [data-testid="stNotification"] {
+        border-radius: 50px !important;
+        border-width: 3px !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -694,16 +846,11 @@ def main():
         st.markdown("---")
         return
 
-    # Display current trip code
+    # Display current trip code - DIAMOND SHAPE!
     st.markdown(f"""
-    <div style="background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 100%);
-                padding: 15px;
-                border-radius: 10px;
-                border: 2px solid rgba(192, 192, 192, 0.3);
-                text-align: center;
-                margin-bottom: 20px;">
-        <h3 style="color: white; margin: 0;">🔐 Trip Code: {st.session_state.trip_code}</h3>
-        <p style="color: white; margin: 5px 0 0 0; font-size: 14px;">Share this code with your travel companions!</p>
+    <div class="trip-code-diamond">
+        <h3>💎 Trip Code: {st.session_state.trip_code} 💎</h3>
+        <p>Share this code with your travel companions!</p>
     </div>
     """, unsafe_allow_html=True)
 
