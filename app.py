@@ -224,45 +224,68 @@ st.markdown("""
         animation: sparkle 2s infinite;
     }
 
-    /* Checklist items - DIAMOND SHAPE with bounce */
-    .checklist-item {
-        padding: 30px 40px !important;
-        margin: 20px auto !important;
-        max-width: 600px !important;
-        clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%) !important;
+    /* Checklist items - PLAYING CARD STYLE */
+    .checklist-card {
+        width: 280px !important;
+        height: 200px !important;
+        padding: 20px !important;
+        margin: 15px !important;
+        display: inline-block !important;
+        vertical-align: top !important;
+        border-radius: 20px !important;
         background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%) !important;
-        color: #2c3e50 !important;
-        box-shadow: 0 5px 15px rgba(135, 206, 235, 0.4) !important;
-        transition: all 0.3s ease !important;
+        border: 4px solid #87ceeb !important;
+        box-shadow: 0 8px 20px rgba(135, 206, 235, 0.4) !important;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
         cursor: pointer !important;
         position: relative !important;
-        border: 4px solid #87ceeb !important;
-        border-radius: 0 !important;
+        overflow: hidden !important;
     }
 
-    .checklist-item:hover {
-        transform: translateY(-8px) scale(1.05) rotate(2deg);
-        box-shadow: 0 10px 30px rgba(135, 206, 235, 0.6);
-        border-color: #ffd700;
-        animation: bounce 0.5s ease-in-out;
+    .checklist-card:hover {
+        transform: translateY(-15px) rotate(3deg) scale(1.05) !important;
+        box-shadow: 0 15px 40px rgba(135, 206, 235, 0.6) !important;
+        border-color: #ffd700 !important;
     }
 
-    .checklist-item strong {
+    .checklist-card.completed {
+        opacity: 0.7 !important;
+        transform: scale(0.95) !important;
+        filter: grayscale(30%) !important;
+    }
+
+    .checklist-card.completed::after {
+        content: '✓' !important;
+        position: absolute !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) rotate(-15deg) !important;
+        font-size: 120px !important;
+        color: rgba(39, 174, 96, 0.3) !important;
+        font-weight: 900 !important;
+        z-index: 10 !important;
+        animation: checkPop 0.5s ease-out !important;
+    }
+
+    @keyframes checkPop {
+        0% { transform: translate(-50%, -50%) rotate(-15deg) scale(0); }
+        50% { transform: translate(-50%, -50%) rotate(-15deg) scale(1.3); }
+        100% { transform: translate(-50%, -50%) rotate(-15deg) scale(1); }
+    }
+
+    .checklist-card strong {
         color: #1e88e5 !important;
-        font-size: 1.1em;
+        font-size: 1.15em !important;
+        font-weight: 800 !important;
+        display: block !important;
+        margin-bottom: 10px !important;
     }
 
-    .checklist-item small {
+    .checklist-card small {
         color: #546e7a !important;
-    }
-
-    .checklist-item::before {
-        content: '💎';
-        position: absolute;
-        top: 5px;
-        left: 15px;
-        font-size: 1.2em;
-        animation: sparkle 2s infinite;
+        font-size: 0.85em !important;
+        display: block !important;
+        margin-top: 8px !important;
     }
 
     /* Idea cards - CIRCLE SHAPE with sparkle and shimmy */
@@ -633,6 +656,170 @@ st.markdown("""
         border: none !important;
         background: transparent !important;
     }
+
+    /* MICKEY EARS CHECKBOXES */
+    input[type="checkbox"] {
+        appearance: none !important;
+        -webkit-appearance: none !important;
+        width: 50px !important;
+        height: 50px !important;
+        background: #2c3e50 !important;
+        border-radius: 50% !important;
+        position: relative !important;
+        cursor: pointer !important;
+        transition: all 0.3s ease !important;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+    }
+
+    /* Mickey's left ear */
+    input[type="checkbox"]::before {
+        content: '' !important;
+        position: absolute !important;
+        width: 28px !important;
+        height: 28px !important;
+        background: #2c3e50 !important;
+        border-radius: 50% !important;
+        top: -12px !important;
+        left: -5px !important;
+        transition: all 0.3s ease !important;
+    }
+
+    /* Mickey's right ear */
+    input[type="checkbox"]::after {
+        content: '' !important;
+        position: absolute !important;
+        width: 28px !important;
+        height: 28px !important;
+        background: #2c3e50 !important;
+        border-radius: 50% !important;
+        top: -12px !important;
+        right: -5px !important;
+        transition: all 0.3s ease !important;
+    }
+
+    /* Checked state - golden Mickey! */
+    input[type="checkbox"]:checked {
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%) !important;
+        animation: mickeyPop 0.4s ease-out !important;
+    }
+
+    input[type="checkbox"]:checked::before {
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%) !important;
+    }
+
+    input[type="checkbox"]:checked::after {
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%) !important;
+    }
+
+    @keyframes mickeyPop {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.2) rotate(10deg); }
+        100% { transform: scale(1); }
+    }
+
+    /* Ghost placeholders */
+    input::placeholder {
+        color: rgba(135, 206, 235, 0.4) !important;
+        opacity: 1 !important;
+        font-style: italic !important;
+    }
+
+    textarea::placeholder {
+        color: rgba(135, 206, 235, 0.4) !important;
+        opacity: 1 !important;
+        font-style: italic !important;
+    }
+
+    /* Disney Silhouettes - Floating decorations */
+    body::before {
+        content: '👑';
+        position: fixed;
+        top: 15%;
+        right: 8%;
+        font-size: 40px;
+        opacity: 0.15;
+        animation: float 6s infinite ease-in-out;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .main::before {
+        content: '🌹';
+        position: fixed;
+        top: 40%;
+        left: 5%;
+        font-size: 45px;
+        opacity: 0.12;
+        animation: float 7s infinite ease-in-out 1s;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    [data-testid="stSidebar"]::before {
+        content: '🪝';
+        position: absolute;
+        top: 30%;
+        right: 15%;
+        font-size: 35px;
+        opacity: 0.2;
+        animation: sparkle 4s infinite;
+    }
+
+    /* Additional floating silhouettes */
+    .stApp::after {
+        content: '🧚';
+        position: fixed;
+        bottom: 25%;
+        right: 12%;
+        font-size: 35px;
+        opacity: 0.15;
+        animation: float 5s infinite ease-in-out 2s;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* Rapunzel's brush - floating decoration */
+    .main::after {
+        content: '🖌️';
+        position: fixed;
+        top: 60%;
+        right: 5%;
+        font-size: 38px;
+        opacity: 0.13;
+        animation: float 6.5s infinite ease-in-out 1.5s;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* Login page beautification */
+    .trip-code-entry {
+        background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%);
+        padding: 60px 40px;
+        border-radius: 30px;
+        border: 4px solid rgba(135, 206, 235, 0.5);
+        box-shadow: 0 10px 40px rgba(135, 206, 235, 0.3);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .trip-code-entry::before {
+        content: '✨';
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        font-size: 30px;
+        animation: sparkle 2s infinite;
+    }
+
+    .trip-code-entry::after {
+        content: '🏰';
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        font-size: 50px;
+        opacity: 0.1;
+        animation: float 8s infinite ease-in-out;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -759,40 +946,6 @@ def main():
     # Header
     st.markdown('<h1 class="main-header">🏰 Disney Trip Planning Agent ✨</h1>', unsafe_allow_html=True)
 
-    # Debug: Firebase Status (collapsible)
-    with st.expander("🔍 Debug: Firebase Connection Status", expanded=False):
-        firebase = get_firebase_manager()
-
-        st.write("**Firebase Status:**")
-        if firebase.is_enabled():
-            st.success("✅ Firebase is ENABLED and connected!")
-            st.write(f"Project: disney-trip-aigent")
-        else:
-            st.error("❌ Firebase is NOT enabled")
-
-        st.write("\n**Checking Streamlit Secrets:**")
-        try:
-            if 'firebase' in st.secrets:
-                st.success("✅ 'firebase' section found in secrets")
-
-                # Check each field
-                fields_to_check = ['type', 'project_id', 'private_key_id', 'private_key', 'client_email']
-                for field in fields_to_check:
-                    if field in st.secrets['firebase']:
-                        value = st.secrets['firebase'][field]
-                        if field == 'private_key':
-                            # Show first 50 chars of private key
-                            st.write(f"✅ `{field}`: {value[:50]}...")
-                        else:
-                            st.write(f"✅ `{field}`: {value}")
-                    else:
-                        st.error(f"❌ Missing field: `{field}`")
-            else:
-                st.error("❌ 'firebase' section NOT found in secrets")
-                st.info("Add Firebase credentials to Streamlit Cloud Secrets")
-        except Exception as e:
-            st.error(f"Error reading secrets: {e}")
-
     # Check for API key
     if not st.session_state.agent:
         st.error("⚠️ OpenAI API key not configured!")
@@ -819,9 +972,10 @@ def main():
         with col1:
             st.markdown("**Create New Trip**")
             new_trip_code = st.text_input(
-                "Enter your trip code (e.g., 'Ohboy')",
-                value="Ohboy",
+                "Enter your trip code",
+                value="",
                 max_chars=50,
+                placeholder="e.g., 'Ohboy' or 'DisneyDreams'",
                 help="This code will be shared with your travel companions"
             )
 
@@ -848,7 +1002,9 @@ def main():
             st.markdown("**Join Existing Trip**")
             join_trip_code = st.text_input(
                 "Enter trip code to join",
+                value="",
                 max_chars=50,
+                placeholder="Enter your friend's trip code",
                 help="Get this code from your travel companion"
             )
 
@@ -1093,7 +1249,9 @@ def main():
                 default=list(set([item.category for item in st.session_state.checklist]))
             )
 
-        # Display checklist
+        # Display checklist - Playing Card Grid
+        st.markdown('<div style="display: flex; flex-wrap: wrap; justify-content: flex-start;">', unsafe_allow_html=True)
+
         for idx, item in enumerate(st.session_state.checklist):
             if not show_completed and item.completed:
                 continue
@@ -1102,38 +1260,44 @@ def main():
             if item.category not in category_filter:
                 continue
 
-            col1, col2, col3 = st.columns([1, 6, 2])
+            completed_class = "completed" if item.completed else ""
+            priority_class = f"priority-{item.priority}"
 
-            with col1:
-                checked = st.checkbox(
-                    "Done",
-                    value=item.completed,
-                    key=f"check_{idx}",
-                    label_visibility="collapsed"
-                )
-                if checked != item.completed:
-                    st.session_state.checklist[idx].completed = checked
-                    save_trip_data()  # Auto-save on change
-
+            # Create inline container for each card
+            col1, col2 = st.columns([1, 20])
             with col2:
-                priority_class = f"priority-{item.priority}"
                 st.markdown(f"""
-                <div class="checklist-item {priority_class}">
-                    <strong>{item.text}</strong><br>
-                    <small>📁 {item.category} | ⭐ {item.priority.upper()}
+                <div class="checklist-card {completed_class} {priority_class}">
+                    <strong style="font-size: 18px; color: #2c3e50;">{item.text}</strong><br><br>
+                    <small style="color: #7f8c8d;">📁 {item.category} | ⭐ {item.priority.upper()}
                     {f"| 📅 {item.deadline}" if item.deadline else ""}</small>
                 </div>
                 """, unsafe_allow_html=True)
 
-            with col3:
-                if st.button("🗑️", key=f"delete_{idx}"):
-                    # Add to rejected items so it won't be suggested again
-                    deleted_text = st.session_state.checklist[idx].text.lower().strip()
-                    st.session_state.rejected_items.add(deleted_text)
-                    # Remove from checklist
-                    st.session_state.checklist.pop(idx)
-                    save_trip_data()
-                    st.rerun()
+                # Checkbox and delete button below the card
+                subcol1, subcol2, subcol3 = st.columns([1, 1, 6])
+                with subcol1:
+                    checked = st.checkbox(
+                        "✓",
+                        value=item.completed,
+                        key=f"check_{idx}",
+                        label_visibility="collapsed"
+                    )
+                    if checked != item.completed:
+                        st.session_state.checklist[idx].completed = checked
+                        save_trip_data()  # Auto-save on change
+
+                with subcol2:
+                    if st.button("🗑️", key=f"delete_{idx}"):
+                        # Add to rejected items so it won't be suggested again
+                        deleted_text = st.session_state.checklist[idx].text.lower().strip()
+                        st.session_state.rejected_items.add(deleted_text)
+                        # Remove from checklist
+                        st.session_state.checklist.pop(idx)
+                        save_trip_data()
+                        st.rerun()
+
+        st.markdown('</div>', unsafe_allow_html=True)
 
         # Add custom item
         st.markdown("---")
