@@ -226,45 +226,44 @@ st.markdown("""
 
     /* Checklist items - PLAYING CARD STYLE */
     .checklist-card {
-        width: 280px !important;
-        height: 200px !important;
+        width: 100% !important;
+        min-height: 180px !important;
         padding: 20px !important;
-        margin: 15px !important;
-        display: inline-block !important;
-        vertical-align: top !important;
+        margin-bottom: 20px !important;
         border-radius: 20px !important;
         background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%) !important;
-        border: 4px solid #87ceeb !important;
-        box-shadow: 0 8px 20px rgba(135, 206, 235, 0.4) !important;
+        border: 3px solid #b0d4f1 !important;
+        box-shadow: 0 6px 16px rgba(135, 206, 235, 0.3) !important;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
         cursor: pointer !important;
         position: relative !important;
-        overflow: hidden !important;
+        overflow: visible !important;
     }
 
     .checklist-card:hover {
-        transform: translateY(-15px) rotate(3deg) scale(1.05) !important;
-        box-shadow: 0 15px 40px rgba(135, 206, 235, 0.6) !important;
+        transform: translateY(-8px) rotate(1deg) scale(1.02) !important;
+        box-shadow: 0 12px 28px rgba(135, 206, 235, 0.5) !important;
         border-color: #ffd700 !important;
     }
 
     .checklist-card.completed {
-        opacity: 0.7 !important;
-        transform: scale(0.95) !important;
-        filter: grayscale(30%) !important;
+        opacity: 0.75 !important;
+        background: linear-gradient(135deg, #f5f5f5 0%, #e8f4f8 100%) !important;
+        filter: grayscale(20%) !important;
     }
 
-    .checklist-card.completed::after {
+    .checklist-card.completed::before {
         content: '✓' !important;
         position: absolute !important;
         top: 50% !important;
         left: 50% !important;
         transform: translate(-50%, -50%) rotate(-15deg) !important;
-        font-size: 120px !important;
-        color: rgba(39, 174, 96, 0.3) !important;
+        font-size: 100px !important;
+        color: rgba(39, 174, 96, 0.25) !important;
         font-weight: 900 !important;
-        z-index: 10 !important;
+        z-index: 1 !important;
         animation: checkPop 0.5s ease-out !important;
+        pointer-events: none !important;
     }
 
     @keyframes checkPop {
@@ -273,12 +272,18 @@ st.markdown("""
         100% { transform: translate(-50%, -50%) rotate(-15deg) scale(1); }
     }
 
+    .checklist-card-content {
+        position: relative !important;
+        z-index: 2 !important;
+    }
+
     .checklist-card strong {
         color: #1e88e5 !important;
-        font-size: 1.15em !important;
-        font-weight: 800 !important;
+        font-size: 1.1em !important;
+        font-weight: 700 !important;
         display: block !important;
-        margin-bottom: 10px !important;
+        margin-bottom: 12px !important;
+        line-height: 1.4 !important;
     }
 
     .checklist-card small {
@@ -286,6 +291,13 @@ st.markdown("""
         font-size: 0.85em !important;
         display: block !important;
         margin-top: 8px !important;
+    }
+
+    .card-checkbox-container {
+        display: flex !important;
+        align-items: flex-start !important;
+        gap: 12px !important;
+        margin-bottom: 8px !important;
     }
 
     /* Idea cards - CIRCLE SHAPE with sparkle and shimmy */
@@ -657,64 +669,110 @@ st.markdown("""
         background: transparent !important;
     }
 
-    /* MICKEY EARS CHECKBOXES */
+    /* MICKEY EARS CHECKBOXES - Soft and Magical */
     input[type="checkbox"] {
         appearance: none !important;
         -webkit-appearance: none !important;
-        width: 50px !important;
-        height: 50px !important;
-        background: #2c3e50 !important;
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
         border-radius: 50% !important;
         position: relative !important;
         cursor: pointer !important;
         transition: all 0.3s ease !important;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2) !important;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15) !important;
+        border: 2px solid #c0c0c0 !important;
     }
 
     /* Mickey's left ear */
     input[type="checkbox"]::before {
         content: '' !important;
         position: absolute !important;
-        width: 28px !important;
-        height: 28px !important;
-        background: #2c3e50 !important;
+        width: 22px !important;
+        height: 22px !important;
+        background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
         border-radius: 50% !important;
-        top: -12px !important;
-        left: -5px !important;
+        top: -10px !important;
+        left: -4px !important;
         transition: all 0.3s ease !important;
+        border: 2px solid #c0c0c0 !important;
     }
 
     /* Mickey's right ear */
     input[type="checkbox"]::after {
         content: '' !important;
         position: absolute !important;
-        width: 28px !important;
-        height: 28px !important;
-        background: #2c3e50 !important;
+        width: 22px !important;
+        height: 22px !important;
+        background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
         border-radius: 50% !important;
-        top: -12px !important;
-        right: -5px !important;
+        top: -10px !important;
+        right: -4px !important;
         transition: all 0.3s ease !important;
+        border: 2px solid #c0c0c0 !important;
     }
 
     /* Checked state - golden Mickey! */
     input[type="checkbox"]:checked {
         background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%) !important;
+        border-color: #ffc107 !important;
         animation: mickeyPop 0.4s ease-out !important;
+        box-shadow: 0 4px 12px rgba(255, 215, 0, 0.5) !important;
     }
 
     input[type="checkbox"]:checked::before {
         background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%) !important;
+        border-color: #ffc107 !important;
     }
 
     input[type="checkbox"]:checked::after {
         background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%) !important;
+        border-color: #ffc107 !important;
     }
 
     @keyframes mickeyPop {
         0% { transform: scale(1); }
         50% { transform: scale(1.2) rotate(10deg); }
         100% { transform: scale(1); }
+    }
+
+    /* Filter Controls - Soft Princess Styling */
+    .stCheckbox {
+        background: linear-gradient(135deg, #fff0f5 0%, #ffe4e9 100%) !important;
+        border-radius: 25px !important;
+        padding: 12px 20px !important;
+        border: 2px solid rgba(255, 192, 203, 0.4) !important;
+        box-shadow: 0 2px 8px rgba(255, 182, 193, 0.2) !important;
+    }
+
+    .stCheckbox:hover {
+        border-color: rgba(255, 192, 203, 0.6) !important;
+        box-shadow: 0 3px 12px rgba(255, 182, 193, 0.3) !important;
+    }
+
+    .stMultiSelect > div {
+        background: linear-gradient(135deg, #f0f8ff 0%, #e6f3ff 100%) !important;
+        border-radius: 25px !important;
+        padding: 8px !important;
+        border: 2px solid rgba(135, 206, 235, 0.4) !important;
+        box-shadow: 0 2px 8px rgba(135, 206, 235, 0.2) !important;
+    }
+
+    .stMultiSelect:hover > div {
+        border-color: rgba(135, 206, 235, 0.6) !important;
+        box-shadow: 0 3px 12px rgba(135, 206, 235, 0.3) !important;
+    }
+
+    /* Multi-select tags - soft pastel pills */
+    .stMultiSelect [data-baseweb="tag"] {
+        background: linear-gradient(135deg, #ffb6c1 0%, #ffc0cb 100%) !important;
+        border-radius: 20px !important;
+        border: none !important;
+        color: #fff !important;
+        font-weight: 600 !important;
+        padding: 4px 12px !important;
+        margin: 2px !important;
     }
 
     /* Ghost placeholders */
@@ -730,65 +788,71 @@ st.markdown("""
         font-style: italic !important;
     }
 
-    /* Disney Silhouettes - Floating decorations */
+    /* Disney Silhouettes - Subtle Floating decorations */
     body::before {
         content: '👑';
         position: fixed;
-        top: 15%;
-        right: 8%;
-        font-size: 40px;
-        opacity: 0.15;
+        top: 12%;
+        right: 6%;
+        font-size: 35px;
+        opacity: 0.08;
         animation: float 6s infinite ease-in-out;
         pointer-events: none;
         z-index: 0;
+        filter: grayscale(20%);
     }
 
     .main::before {
         content: '🌹';
         position: fixed;
-        top: 40%;
-        left: 5%;
-        font-size: 45px;
-        opacity: 0.12;
+        top: 35%;
+        left: 3%;
+        font-size: 38px;
+        opacity: 0.07;
         animation: float 7s infinite ease-in-out 1s;
         pointer-events: none;
         z-index: 0;
+        filter: grayscale(20%);
     }
 
     [data-testid="stSidebar"]::before {
         content: '🪝';
         position: absolute;
-        top: 30%;
-        right: 15%;
-        font-size: 35px;
-        opacity: 0.2;
+        top: 25%;
+        right: 10%;
+        font-size: 30px;
+        opacity: 0.1;
         animation: sparkle 4s infinite;
+        pointer-events: none;
+        filter: grayscale(15%);
     }
 
     /* Additional floating silhouettes */
     .stApp::after {
         content: '🧚';
         position: fixed;
-        bottom: 25%;
-        right: 12%;
-        font-size: 35px;
-        opacity: 0.15;
+        bottom: 20%;
+        right: 8%;
+        font-size: 32px;
+        opacity: 0.09;
         animation: float 5s infinite ease-in-out 2s;
         pointer-events: none;
         z-index: 0;
+        filter: grayscale(20%);
     }
 
     /* Rapunzel's brush - floating decoration */
     .main::after {
         content: '🖌️';
         position: fixed;
-        top: 60%;
-        right: 5%;
-        font-size: 38px;
-        opacity: 0.13;
+        top: 65%;
+        right: 4%;
+        font-size: 33px;
+        opacity: 0.08;
         animation: float 6.5s infinite ease-in-out 1.5s;
         pointer-events: none;
         z-index: 0;
+        filter: grayscale(25%);
     }
 
     /* Login page beautification */
@@ -1249,9 +1313,8 @@ def main():
                 default=list(set([item.category for item in st.session_state.checklist]))
             )
 
-        # Display checklist - Playing Card Grid
-        st.markdown('<div style="display: flex; flex-wrap: wrap; justify-content: flex-start;">', unsafe_allow_html=True)
-
+        # Display checklist - 3 Cards Per Row Grid
+        filtered_items = []
         for idx, item in enumerate(st.session_state.checklist):
             if not show_completed and item.completed:
                 continue
@@ -1259,45 +1322,51 @@ def main():
                 continue
             if item.category not in category_filter:
                 continue
+            filtered_items.append((idx, item))
 
-            completed_class = "completed" if item.completed else ""
-            priority_class = f"priority-{item.priority}"
+        # Display in rows of 3
+        for row_idx in range(0, len(filtered_items), 3):
+            cols = st.columns(3)
 
-            # Create inline container for each card
-            col1, col2 = st.columns([1, 20])
-            with col2:
-                st.markdown(f"""
-                <div class="checklist-card {completed_class} {priority_class}">
-                    <strong style="font-size: 18px; color: #2c3e50;">{item.text}</strong><br><br>
-                    <small style="color: #7f8c8d;">📁 {item.category} | ⭐ {item.priority.upper()}
-                    {f"| 📅 {item.deadline}" if item.deadline else ""}</small>
-                </div>
-                """, unsafe_allow_html=True)
+            for col_idx in range(3):
+                if row_idx + col_idx < len(filtered_items):
+                    idx, item = filtered_items[row_idx + col_idx]
 
-                # Checkbox and delete button below the card
-                subcol1, subcol2, subcol3 = st.columns([1, 1, 6])
-                with subcol1:
-                    checked = st.checkbox(
-                        "✓",
-                        value=item.completed,
-                        key=f"check_{idx}",
-                        label_visibility="collapsed"
-                    )
-                    if checked != item.completed:
-                        st.session_state.checklist[idx].completed = checked
-                        save_trip_data()  # Auto-save on change
+                    with cols[col_idx]:
+                        completed_class = "completed" if item.completed else ""
+                        priority_class = f"priority-{item.priority}"
 
-                with subcol2:
-                    if st.button("🗑️", key=f"delete_{idx}"):
-                        # Add to rejected items so it won't be suggested again
-                        deleted_text = st.session_state.checklist[idx].text.lower().strip()
-                        st.session_state.rejected_items.add(deleted_text)
-                        # Remove from checklist
-                        st.session_state.checklist.pop(idx)
-                        save_trip_data()
-                        st.rerun()
+                        # Card with checkbox inside
+                        st.markdown(f"""
+                        <div class="checklist-card {completed_class} {priority_class}">
+                            <div class="checklist-card-content">
+                                <strong>{item.text}</strong>
+                                <small>📁 {item.category} | ⭐ {item.priority.upper()}
+                                {f"| 📅 {item.deadline}" if item.deadline else ""}</small>
+                            </div>
+                        </div>
+                        """, unsafe_allow_html=True)
 
-        st.markdown('</div>', unsafe_allow_html=True)
+                        # Checkbox and delete button below the card
+                        card_col1, card_col2 = st.columns([3, 1])
+                        with card_col1:
+                            checked = st.checkbox(
+                                "Complete",
+                                value=item.completed,
+                                key=f"check_{idx}",
+                                label_visibility="visible"
+                            )
+                            if checked != item.completed:
+                                st.session_state.checklist[idx].completed = checked
+                                save_trip_data()
+
+                        with card_col2:
+                            if st.button("🗑️", key=f"delete_{idx}"):
+                                deleted_text = st.session_state.checklist[idx].text.lower().strip()
+                                st.session_state.rejected_items.add(deleted_text)
+                                st.session_state.checklist.pop(idx)
+                                save_trip_data()
+                                st.rerun()
 
         # Add custom item
         st.markdown("---")
