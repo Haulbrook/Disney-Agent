@@ -1404,11 +1404,38 @@ def main():
     with tab1:
         st.header("Trip Planning Checklist")
 
-        col1, col2 = st.columns([3, 1])
-        with col1:
+        # Top row: Subheader on left, Add Custom Item on right
+        top_col1, top_col2 = st.columns([2, 1])
+        with top_col1:
             st.subheader("Your Personalized Checklist")
-        with col2:
-            if st.button("🔍 Find Forgotten Items"):
+        with top_col2:
+            # Add custom item - compact version
+            with st.expander("➕ Add Custom Item", expanded=False):
+                new_item_text = st.text_input("Item description", key="new_item", placeholder="e.g., Pack sunscreen")
+                new_col1, new_col2 = st.columns(2)
+                with new_col1:
+                    new_item_category = st.text_input("Category", "custom", key="new_category")
+                with new_col2:
+                    new_item_priority = st.selectbox("Priority", ["high", "medium", "low"], key="new_priority")
+
+                if st.button("Add to Checklist", use_container_width=True) and new_item_text:
+                    from src.utils.helpers import generate_checklist_id
+                    new_item = ChecklistItem(
+                        id=generate_checklist_id(),
+                        text=new_item_text,
+                        category=new_item_category,
+                        priority=new_item_priority,
+                        completed=False
+                    )
+                    st.session_state.checklist.append(new_item)
+                    save_trip_data()
+                    st.success(f"✅ Added: {new_item_text}")
+                    st.rerun()
+
+        # Action buttons row
+        action_col1, action_col2 = st.columns([3, 1])
+        with action_col2:
+            if st.button("🔍 Find Forgotten Items", use_container_width=True):
                 with st.spinner("Analyzing checklist..."):
                     # Get AI suggestions
                     forgotten = st.session_state.agent.suggest_forgotten_items(
@@ -1447,22 +1474,23 @@ def main():
                         else:
                             st.info("✨ Great job! You haven't forgotten anything important.")
 
-        # Filter options
-        filter_col1, filter_col2, filter_col3 = st.columns(3)
-        with filter_col1:
-            show_completed = st.checkbox("Show Completed", value=True)
-        with filter_col2:
-            priority_filter = st.multiselect(
-                "Filter by Priority",
-                ["high", "medium", "low"],
-                default=["high", "medium", "low"]
-            )
-        with filter_col3:
-            category_filter = st.multiselect(
-                "Filter by Category",
-                list(set([item.category for item in st.session_state.checklist])),
-                default=list(set([item.category for item in st.session_state.checklist]))
-            )
+        # Collapsible Filter options - EASY TO FIND
+        with st.expander("🔍 Filter Options", expanded=False):
+            filter_col1, filter_col2, filter_col3 = st.columns(3)
+            with filter_col1:
+                show_completed = st.checkbox("Show Completed", value=True)
+            with filter_col2:
+                priority_filter = st.multiselect(
+                    "Filter by Priority",
+                    ["high", "medium", "low"],
+                    default=["high", "medium", "low"]
+                )
+            with filter_col3:
+                category_filter = st.multiselect(
+                    "Filter by Category",
+                    list(set([item.category for item in st.session_state.checklist])),
+                    default=list(set([item.category for item in st.session_state.checklist]))
+                )
 
         # Display checklist - 3 Cards Per Row Grid
         filtered_items = []
@@ -1524,31 +1552,6 @@ def main():
                             st.markdown('</div>', unsafe_allow_html=True)
 
                         st.markdown('</div>', unsafe_allow_html=True)
-
-        # Add custom item
-        st.markdown("---")
-        st.subheader("➕ Add Custom Item")
-        new_col1, new_col2, new_col3 = st.columns([3, 1, 1])
-        with new_col1:
-            new_item_text = st.text_input("Item description", key="new_item")
-        with new_col2:
-            new_item_category = st.text_input("Category", "custom", key="new_category")
-        with new_col3:
-            new_item_priority = st.selectbox("Priority", ["high", "medium", "low"], key="new_priority")
-
-        if st.button("Add to Checklist") and new_item_text:
-            from src.utils.helpers import generate_checklist_id
-            new_item = ChecklistItem(
-                id=generate_checklist_id(),
-                text=new_item_text,
-                category=new_item_category,
-                priority=new_item_priority,
-                completed=False
-            )
-            st.session_state.checklist.append(new_item)
-            save_trip_data()
-            st.success(f"✅ Added: {new_item_text}")
-            st.rerun()
 
     # Tab 2: Ideas & Suggestions
     with tab2:
