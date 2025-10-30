@@ -1042,15 +1042,38 @@ st.markdown("""
 DATA_DIR = Path.home() / ".disney_trip_planner"
 DATA_FILE = DATA_DIR / "trip_data.pkl"
 
+# Limit data structures to save memory (free tier has 1GB RAM limit)
+MAX_CHAT_HISTORY = 50
+MAX_IDEAS = 30
+MAX_PENDING_SUGGESTIONS = 20
+
 def save_trip_data():
     """Save trip data to Firebase and local disk"""
+    # Limit chat history size to conserve memory
+    chat_history = st.session_state.chat_history
+    if len(chat_history) > MAX_CHAT_HISTORY:
+        chat_history = chat_history[-MAX_CHAT_HISTORY:]  # Keep only last 50 messages
+        st.session_state.chat_history = chat_history
+
+    # Limit ideas list to conserve memory
+    ideas = st.session_state.ideas
+    if len(ideas) > MAX_IDEAS:
+        ideas = ideas[-MAX_IDEAS:]  # Keep only last 30 ideas
+        st.session_state.ideas = ideas
+
+    # Limit pending suggestions to conserve memory
+    pending_suggestions = st.session_state.get('pending_suggestions', [])
+    if len(pending_suggestions) > MAX_PENDING_SUGGESTIONS:
+        pending_suggestions = pending_suggestions[-MAX_PENDING_SUGGESTIONS:]
+        st.session_state.pending_suggestions = pending_suggestions
+
     data = {
         'trip_details': st.session_state.trip_details,
         'checklist': st.session_state.checklist,
-        'ideas': st.session_state.ideas,
-        'chat_history': st.session_state.chat_history,
+        'ideas': ideas,
+        'chat_history': chat_history,
         'rejected_items': st.session_state.get('rejected_items', set()),
-        'pending_suggestions': st.session_state.get('pending_suggestions', [])
+        'pending_suggestions': pending_suggestions
     }
 
     # Try Firebase first if trip code is set
@@ -1061,15 +1084,15 @@ def save_trip_data():
             try:
                 firebase.save_trip(trip_code, data)
             except Exception as e:
-                st.warning(f"Could not save to cloud: {e}")
+                pass  # Fail silently to avoid UI clutter
 
-    # Always save locally as backup
+    # Always save locally as backup (but don't if it fails)
     try:
         DATA_DIR.mkdir(exist_ok=True)
         with open(DATA_FILE, 'wb') as f:
             pickle.dump(data, f)
-    except Exception as e:
-        st.warning(f"Could not save locally: {e}")
+    except Exception:
+        pass  # Fail silently
 
 def load_trip_data(trip_code: str = None):
     """Load trip data from Firebase or local disk"""
@@ -1122,12 +1145,20 @@ if 'trip_details' not in st.session_state:
     if saved_data:
         st.session_state.trip_details = saved_data.get('trip_details')
         st.session_state.checklist = saved_data.get('checklist', [])
-        st.session_state.ideas = saved_data.get('ideas', [])
-        st.session_state.chat_history = saved_data.get('chat_history', [])
+
+        # Limit loaded data to conserve memory
+        ideas = saved_data.get('ideas', [])
+        st.session_state.ideas = ideas[-MAX_IDEAS:] if len(ideas) > MAX_IDEAS else ideas
+
+        chat_history = saved_data.get('chat_history', [])
+        st.session_state.chat_history = chat_history[-MAX_CHAT_HISTORY:] if len(chat_history) > MAX_CHAT_HISTORY else chat_history
+
         # Ensure rejected_items is always a set (Firebase returns it as a list)
         rejected = saved_data.get('rejected_items', set())
         st.session_state.rejected_items = set(rejected) if isinstance(rejected, (list, set)) else set()
-        st.session_state.pending_suggestions = saved_data.get('pending_suggestions', [])
+
+        pending_suggestions = saved_data.get('pending_suggestions', [])
+        st.session_state.pending_suggestions = pending_suggestions[-MAX_PENDING_SUGGESTIONS:] if len(pending_suggestions) > MAX_PENDING_SUGGESTIONS else pending_suggestions
     else:
         st.session_state.trip_details = None
         st.session_state.checklist = []
