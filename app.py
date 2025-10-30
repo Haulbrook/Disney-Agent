@@ -1035,6 +1035,85 @@ st.markdown("""
         opacity: 0.1;
         animation: float 8s infinite ease-in-out;
     }
+
+    /* MOBILE RESPONSIVE - Optimized for iPhone */
+    @media screen and (max-width: 768px) {
+        /* Make card action rows more spacious on mobile */
+        .card-action-row {
+            gap: 12px !important;
+            padding: 5px 0 !important;
+        }
+
+        /* Give more room to checkbox on mobile */
+        .card-action-row [data-testid="column"]:first-child {
+            max-width: calc(100% - 50px) !important;
+            padding-right: 12px !important;
+        }
+
+        .card-action-row [data-testid="column"]:last-child {
+            width: 38px !important;
+            max-width: 38px !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* Ensure checkbox and button don't overlap on mobile */
+        .card-action-row .stCheckbox {
+            padding: 2px 6px !important;
+            max-width: 100% !important;
+        }
+
+        /* Make delete button slightly larger hit target on mobile */
+        .card-delete-btn .stButton>button,
+        .card-delete-btn button {
+            width: 38px !important;
+            height: 38px !important;
+            min-width: 38px !important;
+            min-height: 38px !important;
+            max-width: 38px !important;
+            max-height: 38px !important;
+        }
+
+        /* Adjust Mickey ears for mobile */
+        input[type="checkbox"] {
+            width: 32px !important;
+            height: 32px !important;
+            min-width: 32px !important;
+        }
+
+        input[type="checkbox"]::before,
+        input[type="checkbox"]::after {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        /* Expander headers more compact on mobile */
+        .streamlit-expanderHeader {
+            font-size: 14px !important;
+            padding: 8px 12px !important;
+        }
+
+        /* Ensure columns stack better on very small screens */
+        [data-testid="column"] {
+            min-width: auto !important;
+        }
+
+        /* Checklist cards - single column on very small screens */
+        @media screen and (max-width: 480px) {
+            .card-action-row {
+                flex-direction: row !important;
+                flex-wrap: nowrap !important;
+            }
+
+            .card-action-row [data-testid="column"]:first-child {
+                flex: 1 !important;
+                min-width: 0 !important;
+            }
+
+            .card-action-row [data-testid="column"]:last-child {
+                flex: 0 0 38px !important;
+            }
+        }
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -1435,13 +1514,13 @@ def main():
     with tab1:
         st.header("Trip Planning Checklist")
 
-        # Top row: Subheader on left, Add Custom Item on right
-        top_col1, top_col2 = st.columns([2, 1])
+        # Top row: Subheader on left, Add Custom Item on right - MOBILE OPTIMIZED
+        top_col1, top_col2 = st.columns([3, 2])
         with top_col1:
             st.subheader("Your Personalized Checklist")
         with top_col2:
             # Add custom item - compact version
-            with st.expander("➕ Add Custom Item", expanded=False):
+            with st.expander("➕ Add Item", expanded=False):
                 new_item_text = st.text_input("Item description", key="new_item", placeholder="e.g., Pack sunscreen")
                 new_col1, new_col2 = st.columns(2)
                 with new_col1:
@@ -1463,50 +1542,48 @@ def main():
                     st.success(f"✅ Added: {new_item_text}")
                     st.rerun()
 
-        # Action buttons row
-        action_col1, action_col2 = st.columns([3, 1])
-        with action_col2:
-            if st.button("🔍 Find Forgotten Items", use_container_width=True):
-                with st.spinner("Analyzing checklist..."):
-                    # Get AI suggestions
-                    forgotten = st.session_state.agent.suggest_forgotten_items(
-                        st.session_state.checklist
-                    )
+        # Action buttons row - MOBILE OPTIMIZED (simplified layout)
+        if st.button("🔍 Find Forgotten Items", use_container_width=True):
+            with st.spinner("Analyzing checklist..."):
+                # Get AI suggestions
+                forgotten = st.session_state.agent.suggest_forgotten_items(
+                    st.session_state.checklist
+                )
 
-                    if forgotten:
-                        # Get current checklist item texts (lowercase for comparison)
-                        existing_items = {item.text.lower().strip() for item in st.session_state.checklist}
+                if forgotten:
+                    # Get current checklist item texts (lowercase for comparison)
+                    existing_items = {item.text.lower().strip() for item in st.session_state.checklist}
 
-                        # Filter out duplicates and rejected items
-                        new_items = []
-                        for item_text in forgotten:
-                            item_lower = item_text.lower().strip()
-                            if item_lower not in existing_items and item_lower not in st.session_state.rejected_items:
-                                new_items.append(item_text)
+                    # Filter out duplicates and rejected items
+                    new_items = []
+                    for item_text in forgotten:
+                        item_lower = item_text.lower().strip()
+                        if item_lower not in existing_items and item_lower not in st.session_state.rejected_items:
+                            new_items.append(item_text)
 
-                        if new_items:
-                            # Add new items to checklist
-                            from src.utils.helpers import generate_checklist_id
-                            for item_text in new_items:
-                                new_item = ChecklistItem(
-                                    id=generate_checklist_id(),
-                                    text=item_text,
-                                    category="forgotten-items",
-                                    priority="medium",
-                                    completed=False
-                                )
-                                st.session_state.checklist.append(new_item)
+                    if new_items:
+                        # Add new items to checklist
+                        from src.utils.helpers import generate_checklist_id
+                        for item_text in new_items:
+                            new_item = ChecklistItem(
+                                id=generate_checklist_id(),
+                                text=item_text,
+                                category="forgotten-items",
+                                priority="medium",
+                                completed=False
+                            )
+                            st.session_state.checklist.append(new_item)
 
-                            # Save data
-                            save_trip_data()
+                        # Save data
+                        save_trip_data()
 
-                            st.success(f"✅ Added {len(new_items)} forgotten item{'s' if len(new_items) != 1 else ''} to your checklist!")
-                            st.rerun()
-                        else:
-                            st.info("✨ Great job! You haven't forgotten anything important.")
+                        st.success(f"✅ Added {len(new_items)} forgotten item{'s' if len(new_items) != 1 else ''} to your checklist!")
+                        st.rerun()
+                    else:
+                        st.info("✨ Great job! You haven't forgotten anything important.")
 
         # Collapsible Filter options - EASY TO FIND
-        with st.expander("🔍 Filter Options", expanded=False):
+        with st.expander("🔍 Filters", expanded=False):
             filter_col1, filter_col2, filter_col3 = st.columns(3)
             with filter_col1:
                 show_completed = st.checkbox("Show Completed", value=True)
