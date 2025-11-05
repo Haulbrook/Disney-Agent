@@ -411,39 +411,69 @@ st.markdown("""
         padding: 0 4px !important;
     }
 
-    /* Card action row - force proper layout */
+    /* Card action row - force proper layout with LEFT alignment */
     .card-action-row {
         display: flex !important;
         align-items: center !important;
-        justify-content: space-between !important;
+        justify-content: flex-start !important;
         width: 100% !important;
         gap: 10px !important;
         margin-top: 10px !important;
+        margin-left: 0 !important;
         padding: 0 !important;
     }
 
-    .card-action-row > div:first-child {
-        flex: 1 !important;
-        max-width: calc(100% - 50px) !important;
+    /* Target Streamlit column wrappers directly */
+    .card-action-row [data-testid="column"] {
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
-    .card-action-row > div:last-child {
-        flex: 0 0 40px !important;
+    .card-action-row [data-testid="column"]:first-child {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        max-width: calc(100% - 46px) !important;
+        padding-right: 10px !important;
+        text-align: left !important;
+    }
+
+    .card-action-row [data-testid="column"]:last-child {
+        flex: 0 0 auto !important;
         width: 40px !important;
+        max-width: 40px !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
-    /* Small delete button for cards - MORE SPECIFIC SELECTOR */
+    /* Checkbox container in card actions */
+    .card-action-row .stCheckbox {
+        margin: 0 !important;
+        padding: 4px 8px !important;
+        width: auto !important;
+        display: inline-flex !important;
+        align-items: center !important;
+    }
+
+    /* Small delete button for cards - SMALLER SIZE */
+    .card-delete-btn .stButton,
+    .card-delete-btn {
+        width: 36px !important;
+        max-width: 36px !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
     .card-delete-btn .stButton>button,
     .card-delete-btn button {
         background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%) !important;
         border: 2px solid #e57373 !important;
         border-radius: 50% !important;
-        width: 40px !important;
-        height: 40px !important;
-        min-width: 40px !important;
-        min-height: 40px !important;
-        max-width: 40px !important;
-        max-height: 40px !important;
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        min-height: 36px !important;
+        max-width: 36px !important;
+        max-height: 36px !important;
         padding: 0 !important;
         margin: 0 !important;
         font-size: 18px !important;
@@ -500,6 +530,7 @@ st.markdown("""
     }
 
     /* Idea cards - TREASURE CHEST SCROLLS */
+    /* Idea cards - CIRCLE SHAPE with sparkle and shimmy */
     .idea-card {
         padding: 30px !important;
         margin: 20px auto !important;
@@ -619,18 +650,18 @@ st.markdown("""
         transform: scale(0.9);
     }
 
-    /* OVERRIDE: Card delete button - placed AFTER general button styles for precedence */
+    /* OVERRIDE: Card delete button - SMALLER 36px - placed AFTER general button styles */
     .card-action-row .card-delete-btn .stButton>button,
     .card-delete-btn .stButton>button {
         background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%) !important;
         border: 2px solid #e57373 !important;
         border-radius: 50% !important;
-        width: 40px !important;
-        height: 40px !important;
-        min-width: 40px !important;
-        min-height: 40px !important;
-        max-width: 40px !important;
-        max-height: 40px !important;
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        min-height: 36px !important;
+        max-width: 36px !important;
+        max-height: 36px !important;
         padding: 0 !important;
         margin: 0 !important;
         font-size: 18px !important;
@@ -959,15 +990,15 @@ st.markdown("""
         background: transparent !important;
     }
 
-    /* ROYAL SHIELD CHECKBOXES - Castle Theme */
+    /* MICKEY EARS CHECKBOXES - Soft and Magical (SMALLER) */
     input[type="checkbox"] {
         appearance: none !important;
         -webkit-appearance: none !important;
-        width: 45px !important;
-        height: 45px !important;
-        min-width: 45px !important;
-        background: linear-gradient(135deg, #B0C4DE 0%, #87CEEB 100%) !important;
-        border-radius: 8px !important;
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
+        border-radius: 50% !important;
         position: relative !important;
         cursor: pointer !important;
         transition: all 0.3s ease !important;
@@ -980,11 +1011,12 @@ st.markdown("""
     input[type="checkbox"]::before {
         content: '🛡️' !important;
         position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        font-size: 24px !important;
-        opacity: 0.3 !important;
+        width: 20px !important;
+        height: 20px !important;
+        background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
+        border-radius: 50% !important;
+        top: -9px !important;
+        left: -3px !important;
         transition: all 0.3s ease !important;
     }
 
@@ -992,12 +1024,12 @@ st.markdown("""
     input[type="checkbox"]::after {
         content: '✓' !important;
         position: absolute !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) scale(0) !important;
-        font-size: 28px !important;
-        font-weight: 900 !important;
-        color: white !important;
+        width: 20px !important;
+        height: 20px !important;
+        background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
+        border-radius: 50% !important;
+        top: -9px !important;
+        right: -3px !important;
         transition: all 0.3s ease !important;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
     }
@@ -1174,6 +1206,85 @@ st.markdown("""
         opacity: 0.1;
         animation: float 8s infinite ease-in-out;
     }
+
+    /* MOBILE RESPONSIVE - Optimized for iPhone */
+    @media screen and (max-width: 768px) {
+        /* Make card action rows more spacious on mobile */
+        .card-action-row {
+            gap: 12px !important;
+            padding: 5px 0 !important;
+        }
+
+        /* Give more room to checkbox on mobile */
+        .card-action-row [data-testid="column"]:first-child {
+            max-width: calc(100% - 50px) !important;
+            padding-right: 12px !important;
+        }
+
+        .card-action-row [data-testid="column"]:last-child {
+            width: 38px !important;
+            max-width: 38px !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* Ensure checkbox and button don't overlap on mobile */
+        .card-action-row .stCheckbox {
+            padding: 2px 6px !important;
+            max-width: 100% !important;
+        }
+
+        /* Make delete button slightly larger hit target on mobile */
+        .card-delete-btn .stButton>button,
+        .card-delete-btn button {
+            width: 38px !important;
+            height: 38px !important;
+            min-width: 38px !important;
+            min-height: 38px !important;
+            max-width: 38px !important;
+            max-height: 38px !important;
+        }
+
+        /* Adjust Mickey ears for mobile */
+        input[type="checkbox"] {
+            width: 32px !important;
+            height: 32px !important;
+            min-width: 32px !important;
+        }
+
+        input[type="checkbox"]::before,
+        input[type="checkbox"]::after {
+            width: 18px !important;
+            height: 18px !important;
+        }
+
+        /* Expander headers more compact on mobile */
+        .streamlit-expanderHeader {
+            font-size: 14px !important;
+            padding: 8px 12px !important;
+        }
+
+        /* Ensure columns stack better on very small screens */
+        [data-testid="column"] {
+            min-width: auto !important;
+        }
+
+        /* Checklist cards - single column on very small screens */
+        @media screen and (max-width: 480px) {
+            .card-action-row {
+                flex-direction: row !important;
+                flex-wrap: nowrap !important;
+            }
+
+            .card-action-row [data-testid="column"]:first-child {
+                flex: 1 !important;
+                min-width: 0 !important;
+            }
+
+            .card-action-row [data-testid="column"]:last-child {
+                flex: 0 0 38px !important;
+            }
+        }
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -1181,15 +1292,38 @@ st.markdown("""
 DATA_DIR = Path.home() / ".disney_trip_planner"
 DATA_FILE = DATA_DIR / "trip_data.pkl"
 
+# Limit data structures to save memory (free tier has 1GB RAM limit)
+MAX_CHAT_HISTORY = 50
+MAX_IDEAS = 30
+MAX_PENDING_SUGGESTIONS = 20
+
 def save_trip_data():
     """Save trip data to Firebase and local disk"""
+    # Limit chat history size to conserve memory
+    chat_history = st.session_state.chat_history
+    if len(chat_history) > MAX_CHAT_HISTORY:
+        chat_history = chat_history[-MAX_CHAT_HISTORY:]  # Keep only last 50 messages
+        st.session_state.chat_history = chat_history
+
+    # Limit ideas list to conserve memory
+    ideas = st.session_state.ideas
+    if len(ideas) > MAX_IDEAS:
+        ideas = ideas[-MAX_IDEAS:]  # Keep only last 30 ideas
+        st.session_state.ideas = ideas
+
+    # Limit pending suggestions to conserve memory
+    pending_suggestions = st.session_state.get('pending_suggestions', [])
+    if len(pending_suggestions) > MAX_PENDING_SUGGESTIONS:
+        pending_suggestions = pending_suggestions[-MAX_PENDING_SUGGESTIONS:]
+        st.session_state.pending_suggestions = pending_suggestions
+
     data = {
         'trip_details': st.session_state.trip_details,
         'checklist': st.session_state.checklist,
-        'ideas': st.session_state.ideas,
-        'chat_history': st.session_state.chat_history,
+        'ideas': ideas,
+        'chat_history': chat_history,
         'rejected_items': st.session_state.get('rejected_items', set()),
-        'pending_suggestions': st.session_state.get('pending_suggestions', [])
+        'pending_suggestions': pending_suggestions
     }
 
     # Try Firebase first if trip code is set
@@ -1200,15 +1334,15 @@ def save_trip_data():
             try:
                 firebase.save_trip(trip_code, data)
             except Exception as e:
-                st.warning(f"Could not save to cloud: {e}")
+                pass  # Fail silently to avoid UI clutter
 
-    # Always save locally as backup
+    # Always save locally as backup (but don't if it fails)
     try:
         DATA_DIR.mkdir(exist_ok=True)
         with open(DATA_FILE, 'wb') as f:
             pickle.dump(data, f)
-    except Exception as e:
-        st.warning(f"Could not save locally: {e}")
+    except Exception:
+        pass  # Fail silently
 
 def load_trip_data(trip_code: str = None):
     """Load trip data from Firebase or local disk"""
@@ -1261,12 +1395,20 @@ if 'trip_details' not in st.session_state:
     if saved_data:
         st.session_state.trip_details = saved_data.get('trip_details')
         st.session_state.checklist = saved_data.get('checklist', [])
-        st.session_state.ideas = saved_data.get('ideas', [])
-        st.session_state.chat_history = saved_data.get('chat_history', [])
+
+        # Limit loaded data to conserve memory
+        ideas = saved_data.get('ideas', [])
+        st.session_state.ideas = ideas[-MAX_IDEAS:] if len(ideas) > MAX_IDEAS else ideas
+
+        chat_history = saved_data.get('chat_history', [])
+        st.session_state.chat_history = chat_history[-MAX_CHAT_HISTORY:] if len(chat_history) > MAX_CHAT_HISTORY else chat_history
+
         # Ensure rejected_items is always a set (Firebase returns it as a list)
         rejected = saved_data.get('rejected_items', set())
         st.session_state.rejected_items = set(rejected) if isinstance(rejected, (list, set)) else set()
-        st.session_state.pending_suggestions = saved_data.get('pending_suggestions', [])
+
+        pending_suggestions = saved_data.get('pending_suggestions', [])
+        st.session_state.pending_suggestions = pending_suggestions[-MAX_PENDING_SUGGESTIONS:] if len(pending_suggestions) > MAX_PENDING_SUGGESTIONS else pending_suggestions
     else:
         st.session_state.trip_details = None
         st.session_state.checklist = []
@@ -1543,65 +1685,91 @@ def main():
     with tab1:
         st.header("Trip Planning Checklist")
 
-        col1, col2 = st.columns([3, 1])
-        with col1:
+        # Top row: Subheader on left, Add Custom Item on right - MOBILE OPTIMIZED
+        top_col1, top_col2 = st.columns([3, 2])
+        with top_col1:
             st.subheader("Your Personalized Checklist")
-        with col2:
-            if st.button("🔍 Find Forgotten Items"):
-                with st.spinner("Analyzing checklist..."):
-                    # Get AI suggestions
-                    forgotten = st.session_state.agent.suggest_forgotten_items(
-                        st.session_state.checklist
+        with top_col2:
+            # Add custom item - compact version
+            with st.expander("➕ Add Item", expanded=False):
+                new_item_text = st.text_input("Item description", key="new_item", placeholder="e.g., Pack sunscreen")
+                new_col1, new_col2 = st.columns(2)
+                with new_col1:
+                    new_item_category = st.text_input("Category", "custom", key="new_category")
+                with new_col2:
+                    new_item_priority = st.selectbox("Priority", ["high", "medium", "low"], key="new_priority")
+
+                if st.button("Add to Checklist", use_container_width=True) and new_item_text:
+                    from src.utils.helpers import generate_checklist_id
+                    new_item = ChecklistItem(
+                        id=generate_checklist_id(),
+                        text=new_item_text,
+                        category=new_item_category,
+                        priority=new_item_priority,
+                        completed=False
                     )
+                    st.session_state.checklist.append(new_item)
+                    save_trip_data()
+                    st.success(f"✅ Added: {new_item_text}")
+                    st.rerun()
 
-                    if forgotten:
-                        # Get current checklist item texts (lowercase for comparison)
-                        existing_items = {item.text.lower().strip() for item in st.session_state.checklist}
+        # Action buttons row - MOBILE OPTIMIZED (simplified layout)
+        if st.button("🔍 Find Forgotten Items", use_container_width=True):
+            with st.spinner("Analyzing checklist..."):
+                # Get AI suggestions
+                forgotten = st.session_state.agent.suggest_forgotten_items(
+                    st.session_state.checklist
+                )
 
-                        # Filter out duplicates and rejected items
-                        new_items = []
-                        for item_text in forgotten:
-                            item_lower = item_text.lower().strip()
-                            if item_lower not in existing_items and item_lower not in st.session_state.rejected_items:
-                                new_items.append(item_text)
+                if forgotten:
+                    # Get current checklist item texts (lowercase for comparison)
+                    existing_items = {item.text.lower().strip() for item in st.session_state.checklist}
 
-                        if new_items:
-                            # Add new items to checklist
-                            from src.utils.helpers import generate_checklist_id
-                            for item_text in new_items:
-                                new_item = ChecklistItem(
-                                    id=generate_checklist_id(),
-                                    text=item_text,
-                                    category="forgotten-items",
-                                    priority="medium",
-                                    completed=False
-                                )
-                                st.session_state.checklist.append(new_item)
+                    # Filter out duplicates and rejected items
+                    new_items = []
+                    for item_text in forgotten:
+                        item_lower = item_text.lower().strip()
+                        if item_lower not in existing_items and item_lower not in st.session_state.rejected_items:
+                            new_items.append(item_text)
 
-                            # Save data
-                            save_trip_data()
+                    if new_items:
+                        # Add new items to checklist
+                        from src.utils.helpers import generate_checklist_id
+                        for item_text in new_items:
+                            new_item = ChecklistItem(
+                                id=generate_checklist_id(),
+                                text=item_text,
+                                category="forgotten-items",
+                                priority="medium",
+                                completed=False
+                            )
+                            st.session_state.checklist.append(new_item)
 
-                            st.success(f"✅ Added {len(new_items)} forgotten item{'s' if len(new_items) != 1 else ''} to your checklist!")
-                            st.rerun()
-                        else:
-                            st.info("✨ Great job! You haven't forgotten anything important.")
+                        # Save data
+                        save_trip_data()
 
-        # Filter options
-        filter_col1, filter_col2, filter_col3 = st.columns(3)
-        with filter_col1:
-            show_completed = st.checkbox("Show Completed", value=True)
-        with filter_col2:
-            priority_filter = st.multiselect(
-                "Filter by Priority",
-                ["high", "medium", "low"],
-                default=["high", "medium", "low"]
-            )
-        with filter_col3:
-            category_filter = st.multiselect(
-                "Filter by Category",
-                list(set([item.category for item in st.session_state.checklist])),
-                default=list(set([item.category for item in st.session_state.checklist]))
-            )
+                        st.success(f"✅ Added {len(new_items)} forgotten item{'s' if len(new_items) != 1 else ''} to your checklist!")
+                        st.rerun()
+                    else:
+                        st.info("✨ Great job! You haven't forgotten anything important.")
+
+        # Collapsible Filter options - EASY TO FIND
+        with st.expander("🔍 Filters", expanded=False):
+            filter_col1, filter_col2, filter_col3 = st.columns(3)
+            with filter_col1:
+                show_completed = st.checkbox("Show Completed", value=True)
+            with filter_col2:
+                priority_filter = st.multiselect(
+                    "Filter by Priority",
+                    ["high", "medium", "low"],
+                    default=["high", "medium", "low"]
+                )
+            with filter_col3:
+                category_filter = st.multiselect(
+                    "Filter by Category",
+                    list(set([item.category for item in st.session_state.checklist])),
+                    default=list(set([item.category for item in st.session_state.checklist]))
+                )
 
         # Display checklist - 3 Cards Per Row Grid
         filtered_items = []
@@ -1640,7 +1808,7 @@ def main():
                         # Checkbox and delete button below the card - wrapped for proper layout
                         st.markdown('<div class="card-action-row">', unsafe_allow_html=True)
 
-                        action_col1, action_col2 = st.columns([5, 1], gap="small")
+                        action_col1, action_col2 = st.columns([7, 1], gap="small")
                         with action_col1:
                             checked = st.checkbox(
                                 "Complete",
@@ -1663,31 +1831,6 @@ def main():
                             st.markdown('</div>', unsafe_allow_html=True)
 
                         st.markdown('</div>', unsafe_allow_html=True)
-
-        # Add custom item
-        st.markdown("---")
-        st.subheader("➕ Add Custom Item")
-        new_col1, new_col2, new_col3 = st.columns([3, 1, 1])
-        with new_col1:
-            new_item_text = st.text_input("Item description", key="new_item")
-        with new_col2:
-            new_item_category = st.text_input("Category", "custom", key="new_category")
-        with new_col3:
-            new_item_priority = st.selectbox("Priority", ["high", "medium", "low"], key="new_priority")
-
-        if st.button("Add to Checklist") and new_item_text:
-            from src.utils.helpers import generate_checklist_id
-            new_item = ChecklistItem(
-                id=generate_checklist_id(),
-                text=new_item_text,
-                category=new_item_category,
-                priority=new_item_priority,
-                completed=False
-            )
-            st.session_state.checklist.append(new_item)
-            save_trip_data()
-            st.success(f"✅ Added: {new_item_text}")
-            st.rerun()
 
     # Tab 2: Ideas & Suggestions
     with tab2:
