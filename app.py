@@ -41,6 +41,305 @@ st.markdown("""
         font-family: 'Cinzel', serif !important;
     }
 
+    /* ========== LAYOUT IMPROVEMENTS - CLEAN & CENTERED ========== */
+
+    /* Main container - centered and contained */
+    .block-container {
+        max-width: 1400px !important;
+        padding: 3rem 4rem !important;
+        margin: 0 auto !important;
+    }
+
+    /* Fix sidebar toggle button - ICON ONLY, NO TEXT */
+    [data-testid="collapsedControl"] {
+        color: white !important;
+        background: linear-gradient(135deg, #4169E1 0%, #6495ED 100%) !important;
+        border-radius: 10px !important;
+        padding: 12px !important;
+        margin: 15px !important;
+        border: 3px solid #C0C0C0 !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
+        transition: all 0.3s ease !important;
+    }
+
+    [data-testid="collapsedControl"]:hover {
+        background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%) !important;
+        transform: scale(1.1) !important;
+    }
+
+    /* Make sure icon is visible and sized properly */
+    [data-testid="collapsedControl"] svg {
+        width: 28px !important;
+        height: 28px !important;
+        display: block !important;
+    }
+
+    /* Hide any text in sidebar toggle - MULTIPLE LAYERS */
+    [data-testid="collapsedControl"] span,
+    [data-testid="collapsedControl"] p,
+    [data-testid="collapsedControl"] div:not([data-testid]),
+    [data-testid="collapsedControl"] *:not(svg):not(path) {
+        display: none !important;
+        font-size: 0 !important;
+        width: 0 !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        opacity: 0 !important;
+    }
+
+    /* Force only SVG icon to show */
+    [data-testid="collapsedControl"] svg,
+    [data-testid="collapsedControl"] svg * {
+        display: block !important;
+        opacity: 1 !important;
+    }
+
+    /* Prevent text wrapping in ALL input fields */
+    .stTextInput input,
+    .stNumberInput input,
+    .stDateInput input,
+    .stSelectbox select,
+    .stSelectbox div[data-baseweb="select"] > div,
+    .stMultiSelect div {
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+
+    /* Text areas can wrap but control height */
+    .stTextArea textarea {
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        word-wrap: break-word !important;
+    }
+
+    /* Prevent element overlapping - proper spacing */
+    .element-container {
+        margin-bottom: 1.5rem !important;
+        clear: both !important;
+    }
+
+    /* Ensure stacked elements don't overlap */
+    .stMarkdown,
+    .stButton,
+    .stCheckbox,
+    .stTextInput,
+    .stSelectbox {
+        margin-bottom: 1rem !important;
+        position: relative !important;
+        z-index: 1 !important;
+    }
+
+    /* Center content within main area */
+    .main .block-container > div {
+        width: 100% !important;
+    }
+
+    /* Fix column gaps - prevent squishing */
+    [data-testid="column"] {
+        padding: 0 1rem !important;
+        min-width: 0 !important;
+    }
+
+    /* Ensure rows don't overlap */
+    [data-testid="stHorizontalBlock"] {
+        gap: 1rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+
+    /* Fix vertical blocks spacing */
+    [data-testid="stVerticalBlock"] > div {
+        margin-bottom: 1rem !important;
+    }
+
+    /* ========== ADDITIONAL CENTERING & SYMMETRY IMPROVEMENTS ========== */
+
+    /* Center all tabs container */
+    .stTabs {
+        max-width: 100% !important;
+        margin: 0 auto 2rem auto !important;
+    }
+
+    /* Ensure countdown box is centered */
+    .countdown-box {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block !important;
+    }
+
+    /* Center idea cards container */
+    .idea-card {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    /* Ensure all form elements have consistent width and are not squeezed */
+    .stTextInput,
+    .stNumberInput,
+    .stDateInput,
+    .stSelectbox,
+    .stMultiSelect {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    /* Make sure button containers are centered */
+    .stButton {
+        display: block !important;
+        margin: 0 auto 1rem auto !important;
+        text-align: center !important;
+    }
+
+    /* Center checklist cards within their containers */
+    .checklist-card {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        max-width: 100% !important;
+    }
+
+    /* Prevent sidebar from covering main content */
+    .main {
+        padding-left: 0 !important;
+    }
+
+    /* Ensure proper spacing between major sections */
+    section[data-testid="stSidebar"] + .main > .block-container > div {
+        padding-top: 2rem !important;
+    }
+
+    /* Make headers perfectly centered */
+    .main-header {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        width: 100% !important;
+    }
+
+    /* Ensure trip code box is perfectly centered */
+    .trip-code-diamond {
+        margin-left: auto !important;
+        margin-right: auto !important;
+        display: block !important;
+    }
+
+    /* Fix any floating or absolute positioned elements that might overlap */
+    .element-container,
+    .stMarkdown,
+    .stButton,
+    .stTextInput,
+    .stSelectbox {
+        position: relative !important;
+    }
+
+    /* Ensure consistent padding on all sides of main content */
+    .block-container {
+        padding-left: 4rem !important;
+        padding-right: 4rem !important;
+    }
+
+    /* Make sure columns are evenly distributed */
+    [data-testid="column"] {
+        flex: 1 1 0 !important;
+    }
+
+    /* Prevent text overflow in buttons */
+    .stButton>button {
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        white-space: nowrap !important;
+    }
+
+    /* ========== RESPONSIVE DESIGN FOR SMALLER SCREENS ========== */
+
+    @media (max-width: 1200px) {
+        .block-container {
+            max-width: 100% !important;
+            padding: 2rem 2rem !important;
+        }
+
+        .countdown-box {
+            width: 90% !important;
+            max-width: 450px !important;
+        }
+
+        .trip-code-diamond {
+            max-width: 90% !important;
+            padding: 25px 40px !important;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .block-container {
+            padding: 1.5rem 1rem !important;
+        }
+
+        .main-header {
+            font-size: 2.5em !important;
+            padding: 40px 20px 30px 20px !important;
+        }
+
+        .countdown-box {
+            width: 95% !important;
+            max-width: 100% !important;
+            padding: 35px 25px !important;
+            font-size: 1.5em !important;
+        }
+
+        .checklist-card {
+            min-height: 150px !important;
+            padding: 20px 15px !important;
+        }
+
+        .idea-card {
+            max-width: 95% !important;
+            padding: 25px !important;
+        }
+
+        /* Smaller buttons on mobile */
+        .stButton>button {
+            padding: 12px 28px !important;
+            font-size: 15px !important;
+            min-width: 120px !important;
+        }
+
+        /* Make sidebar toggle more prominent on mobile */
+        [data-testid="collapsedControl"] {
+            padding: 14px !important;
+            margin: 12px !important;
+        }
+    }
+
+    /* ========== ADDITIONAL OVERLAP PREVENTION ========== */
+
+    /* Ensure no absolute positioned elements interfere with layout */
+    .stApp {
+        position: relative !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Clear floats properly */
+    .block-container::after {
+        content: "" !important;
+        display: table !important;
+        clear: both !important;
+    }
+
+    /* Prevent Z-index issues */
+    .stButton,
+    .stTextInput,
+    .stSelectbox,
+    .stCheckbox {
+        z-index: 2 !important;
+    }
+
+    /* Ensure decorative elements don't interfere */
+    .main::before,
+    .main::after,
+    [data-testid="stSidebar"]::before,
+    [data-testid="stSidebar"]::after {
+        pointer-events: none !important;
+        z-index: 0 !important;
+    }
+
     /* Sparkle animation */
     @keyframes sparkle {
         0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
