@@ -27,18 +27,14 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for Magical Disney Castle Theme - Sky Blue, Silver & Pastel Pink
+# Custom CSS for Magical Disney Theme with Animations
 st.markdown("""
 <style>
-    /* Import magical Disney fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:wght@300;400;600;700&display=swap');
+    /* Import a whimsical font */
+    @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap');
 
     * {
-        font-family: 'Cormorant Garamond', serif !important;
-    }
-
-    h1, h2, h3, h4, h5, h6 {
-        font-family: 'Cinzel', serif !important;
+        font-family: 'Nunito', sans-serif !important;
     }
 
     /* Sparkle animation */
@@ -99,26 +95,10 @@ st.markdown("""
         }
     }
 
-    /* Main background - Castle Sky with gradient */
+    /* Main background - light airy blue with floating sparkles */
     .main {
-        background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 30%, #FFB6C1 70%, #FFC0CB 100%);
+        background: linear-gradient(180deg, #f0f8ff 0%, #e6f3ff 50%, #ffffff 100%);
         position: relative;
-        overflow: hidden;
-    }
-
-    /* Castle stone texture overlay */
-    .main::after {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image:
-            radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-        pointer-events: none;
-        z-index: 0;
     }
 
     .main::before, .main::after {
@@ -142,31 +122,10 @@ st.markdown("""
         animation-delay: 2s;
     }
 
-    /* Sidebar - Castle Tower */
+    /* Sidebar - light blue gradient */
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #6495ED 0%, #4682B4 50%, #4169E1 100%);
+        background: linear-gradient(180deg, #e3f2fd 0%, #bbdefb 50%, #90caf9 100%);
         position: relative;
-        border-right: 8px solid #C0C0C0;
-        box-shadow: inset -10px 0 30px rgba(0, 0, 0, 0.3),
-                    4px 0 20px rgba(135, 206, 235, 0.5);
-    }
-
-    /* Castle tower top decoration */
-    [data-testid="stSidebar"]::after {
-        content: '';
-        position: absolute;
-        top: -20px;
-        left: 0;
-        right: 0;
-        height: 20px;
-        background: repeating-linear-gradient(
-            90deg,
-            #C0C0C0 0px,
-            #C0C0C0 30px,
-            transparent 30px,
-            transparent 40px
-        );
-        border-top: 3px solid #C0C0C0;
     }
 
     [data-testid="stSidebar"]::before {
@@ -178,40 +137,18 @@ st.markdown("""
         animation: sparkle 2s infinite;
     }
 
-    /* Main header - CASTLE with TURRETS */
+    /* Main header with sparkle effect and fireworks */
     .main-header {
         text-align: center;
-        font-size: 4em;
+        font-size: 3.5em;
         font-weight: 900;
-        padding: 60px 40px 40px 40px;
-        background: linear-gradient(135deg, #4169E1 0%, #6495ED 30%, #87CEEB 60%, #FFB6C1 100%);
+        padding: 40px;
+        background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 50%, #add8e6 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         position: relative;
-        letter-spacing: 4px;
-        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        border-bottom: 8px solid #C0C0C0;
-        margin-bottom: 30px;
-    }
-
-    /* Castle turrets on header */
-    .main-header::before,
-    .main-header::after {
-        content: '🏰';
-        position: absolute;
-        top: 10px;
-        font-size: 0.5em;
-        animation: float 6s infinite ease-in-out;
-        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-    }
-
-    .main-header::before {
-        left: 5%;
-    }
-
-    .main-header::after {
-        right: 5%;
-        animation-delay: 3s;
+        animation: magicPulse 3s infinite;
+        letter-spacing: 2px;
     }
 
     /* Fireworks container */
@@ -238,48 +175,27 @@ st.markdown("""
         --ty: -80px;
     }
 
-    /* Countdown box - CASTLE TOWER */
+    /* Countdown box - CIRCLE SHAPE with shimmer and stars */
     .countdown-box {
-        background: linear-gradient(135deg, #6495ED 0%, #4682B4 50%, #87CEEB 100%) !important;
-        padding: 50px 40px !important;
-        border-radius: 15px 15px 0 0 !important;
-        width: 500px !important;
-        margin: 30px auto !important;
+        background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 50%, #add8e6 100%) !important;
+        padding: 60px 40px !important;
+        border-radius: 50% !important;  /* CIRCLE! */
+        width: 400px !important;
+        height: 400px !important;
+        margin: 20px auto !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
         color: #ffffff !important;
         text-align: center !important;
-        font-size: 2em !important;
+        font-size: 1.8em !important;
         font-weight: 900 !important;
-        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4),
-                    inset 0 -4px 0 rgba(0, 0, 0, 0.2),
-                    inset 0 2px 0 rgba(255,255,255,0.3) !important;
-        border: 6px solid #C0C0C0 !important;
-        border-bottom: 10px solid #A9A9A9 !important;
+        box-shadow: 0 10px 40px rgba(135, 206, 235, 0.6),
+                    inset 0 2px 0 rgba(255,255,255,0.6) !important;
+        border: 5px solid rgba(255, 215, 0, 0.6) !important;
         position: relative !important;
-        overflow: visible !important;
-        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4) !important;
-    }
-
-    /* Castle tower battlements */
-    .countdown-box::before {
-        content: '';
-        position: absolute;
-        top: -25px;
-        left: -6px;
-        right: -6px;
-        height: 25px;
-        background: repeating-linear-gradient(
-            90deg,
-            #C0C0C0 0px,
-            #C0C0C0 40px,
-            transparent 40px,
-            transparent 50px
-        );
-        border-top: 6px solid #C0C0C0;
-        border-left: 6px solid #C0C0C0;
-        border-right: 6px solid #C0C0C0;
+        overflow: hidden !important;
+        animation: magicPulse 4s infinite !important;
     }
 
     .countdown-box::before {
@@ -308,43 +224,26 @@ st.markdown("""
         animation: sparkle 2s infinite;
     }
 
-    /* Checklist items - CASTLE WALL BANNERS/PLAQUES */
+    /* Checklist items - PLAYING CARD STYLE */
     .checklist-card {
         width: 100% !important;
         min-height: 180px !important;
-        padding: 25px 20px 20px 20px !important;
-        margin-bottom: 30px !important;
-        border-radius: 8px !important;
-        background: linear-gradient(135deg, #F0F8FF 0%, #E6F3FF 50%, #FFE4E1 100%) !important;
-        border: 4px solid #C0C0C0 !important;
-        border-top: 15px solid #B0C4DE !important;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.8) !important;
+        padding: 20px !important;
+        margin-bottom: 20px !important;
+        border-radius: 20px !important;
+        background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%) !important;
+        border: 3px solid #b0d4f1 !important;
+        box-shadow: 0 6px 16px rgba(135, 206, 235, 0.3) !important;
         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
         cursor: pointer !important;
         position: relative !important;
         overflow: visible !important;
     }
 
-    /* Castle banner chain/rope hanging effect */
-    .checklist-card::before {
-        content: '🔗' !important;
-        position: absolute !important;
-        top: -20px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        font-size: 24px !important;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4)) !important;
-        z-index: 10 !important;
-    }
-
     .checklist-card:hover {
-        transform: translateY(-5px) !important;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.9),
-                    0 0 30px rgba(255, 215, 0, 0.6) !important;
-        border-color: #FFD700 !important;
-        border-top-color: #DAA520 !important;
+        transform: translateY(-8px) rotate(1deg) scale(1.02) !important;
+        box-shadow: 0 12px 28px rgba(135, 206, 235, 0.5) !important;
+        border-color: #ffd700 !important;
     }
 
     .checklist-card.completed {
@@ -411,69 +310,39 @@ st.markdown("""
         padding: 0 4px !important;
     }
 
-    /* Card action row - force proper layout with LEFT alignment */
+    /* Card action row - force proper layout */
     .card-action-row {
         display: flex !important;
         align-items: center !important;
-        justify-content: flex-start !important;
+        justify-content: space-between !important;
         width: 100% !important;
         gap: 10px !important;
         margin-top: 10px !important;
-        margin-left: 0 !important;
         padding: 0 !important;
     }
 
-    /* Target Streamlit column wrappers directly */
-    .card-action-row [data-testid="column"] {
-        padding: 0 !important;
-        margin: 0 !important;
+    .card-action-row > div:first-child {
+        flex: 1 !important;
+        max-width: calc(100% - 50px) !important;
     }
 
-    .card-action-row [data-testid="column"]:first-child {
-        flex: 1 1 auto !important;
-        min-width: 0 !important;
-        max-width: calc(100% - 46px) !important;
-        padding-right: 10px !important;
-        text-align: left !important;
-    }
-
-    .card-action-row [data-testid="column"]:last-child {
-        flex: 0 0 auto !important;
+    .card-action-row > div:last-child {
+        flex: 0 0 40px !important;
         width: 40px !important;
-        max-width: 40px !important;
-        padding: 0 !important;
-        margin: 0 !important;
     }
 
-    /* Checkbox container in card actions */
-    .card-action-row .stCheckbox {
-        margin: 0 !important;
-        padding: 4px 8px !important;
-        width: auto !important;
-        display: inline-flex !important;
-        align-items: center !important;
-    }
-
-    /* Small delete button for cards - SMALLER SIZE */
-    .card-delete-btn .stButton,
-    .card-delete-btn {
-        width: 36px !important;
-        max-width: 36px !important;
-        margin: 0 !important;
-        padding: 0 !important;
-    }
-
+    /* Small delete button for cards - MORE SPECIFIC SELECTOR */
     .card-delete-btn .stButton>button,
     .card-delete-btn button {
         background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%) !important;
         border: 2px solid #e57373 !important;
         border-radius: 50% !important;
-        width: 36px !important;
-        height: 36px !important;
-        min-width: 36px !important;
-        min-height: 36px !important;
-        max-width: 36px !important;
-        max-height: 36px !important;
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        min-height: 40px !important;
+        max-width: 40px !important;
+        max-height: 40px !important;
         padding: 0 !important;
         margin: 0 !important;
         font-size: 18px !important;
@@ -529,44 +398,32 @@ st.markdown("""
         padding-left: 0 !important;
     }
 
-    /* Idea cards - TREASURE CHEST SCROLLS */
     /* Idea cards - CIRCLE SHAPE with sparkle and shimmy */
     .idea-card {
-        padding: 30px !important;
+        padding: 40px 35px !important;
         margin: 20px auto !important;
-        border-radius: 15px !important;
-        width: 100% !important;
-        max-width: 450px !important;
+        border-radius: 50% !important;  /* CIRCLE! */
+        width: 350px !important;
+        height: 350px !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
-        background: linear-gradient(135deg, #FFF8DC 0%, #FFE4E1 50%, #FFB6C1 100%) !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
-        border: 5px solid #DAA520 !important;
-        color: #2C3E50 !important;
+        background: linear-gradient(135deg, #ffffff 0%, #f8fbff 100%) !important;
+        box-shadow: 0 8px 25px rgba(135, 206, 235, 0.4) !important;
+        border: 5px solid rgba(255, 215, 0, 0.5) !important;
+        color: #2c3e50 !important;
         position: relative !important;
-        overflow: visible !important;
+        overflow: hidden !important;
         transition: all 0.3s ease !important;
         cursor: pointer !important;
     }
 
-    /* Treasure chest lock */
-    .idea-card::before {
-        content: '🔐';
-        position: absolute;
-        top: -15px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 28px;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
-    }
-
     .idea-card:hover {
-        transform: translateY(-8px) scale(1.03);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4),
-                    0 0 30px rgba(255, 215, 0, 0.6);
-        border-color: #FFD700;
+        transform: scale(1.08) rotate(5deg);
+        box-shadow: 0 12px 40px rgba(135, 206, 235, 0.6);
+        animation: shimmy 0.6s ease-in-out;
+        border-color: rgba(255, 215, 0, 0.8);
     }
 
     .idea-card::after {
@@ -598,26 +455,23 @@ st.markdown("""
         margin-top: 10px;
     }
 
-    /* Buttons - ROYAL CASTLE STYLE */
+    /* Buttons - PERFECT CIRCLE/PILL SHAPE with shimmy animation */
     .stButton>button {
-        background: linear-gradient(135deg, #6495ED 0%, #4169E1 100%);
+        background: linear-gradient(135deg, #87ceeb 0%, #5dade2 100%);
         color: white;
-        border: 4px solid #C0C0C0;
-        border-radius: 12px !important;
+        border: 4px solid rgba(255, 215, 0, 0.5);
+        border-radius: 50px !important;  /* PILL SHAPE! */
         padding: 16px 40px;
         min-width: 150px;
         font-weight: 800;
         font-size: 17px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+        box-shadow: 0 6px 20px rgba(135, 206, 235, 0.5);
         transition: all 0.3s ease;
         cursor: pointer;
         position: relative;
         overflow: visible;
         text-transform: uppercase;
-        letter-spacing: 2px;
-        font-family: 'Cinzel', serif !important;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        letter-spacing: 1px;
     }
 
     .stButton>button::before {
@@ -637,31 +491,30 @@ st.markdown("""
     }
 
     .stButton>button:hover {
-        background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);
-        box-shadow: 0 12px 40px rgba(255, 182, 193, 0.7),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.5),
-                    0 0 30px rgba(255, 182, 193, 0.8);
-        border-color: #FFD700;
-        transform: translateY(-3px) scale(1.05);
-        border-width: 4px;
+        background: linear-gradient(135deg, #5dade2 0%, #3498db 100%);
+        animation: shimmy 0.5s ease-in-out, bounce 0.5s ease-in-out;
+        box-shadow: 0 10px 35px rgba(135, 206, 235, 0.7);
+        border-color: rgba(255, 215, 0, 0.9);
+        transform: scale(1.1);
+        border-width: 5px;
     }
 
     .stButton>button:active {
         transform: scale(0.9);
     }
 
-    /* OVERRIDE: Card delete button - SMALLER 36px - placed AFTER general button styles */
+    /* OVERRIDE: Card delete button - placed AFTER general button styles for precedence */
     .card-action-row .card-delete-btn .stButton>button,
     .card-delete-btn .stButton>button {
         background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 100%) !important;
         border: 2px solid #e57373 !important;
         border-radius: 50% !important;
-        width: 36px !important;
-        height: 36px !important;
-        min-width: 36px !important;
-        min-height: 36px !important;
-        max-width: 36px !important;
-        max-height: 36px !important;
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
+        min-height: 40px !important;
+        max-width: 40px !important;
+        max-height: 40px !important;
         padding: 0 !important;
         margin: 0 !important;
         font-size: 18px !important;
@@ -701,28 +554,24 @@ st.markdown("""
         background: linear-gradient(135deg, #f5fff5 0%, #e8f5e9 100%);
     }
 
-    /* Input fields - CASTLE STYLE */
+    /* Input fields - PILL SHAPE with light blue focus */
     .stTextInput > div > div > input,
     .stNumberInput > div > div > input,
     .stDateInput > div > div > input {
-        color: #2C3E50 !important;
-        background: linear-gradient(180deg, #FFFFFF 0%, #F0F8FF 100%) !important;
-        border: 3px solid #C0C0C0 !important;
-        border-radius: 12px !important;
-        padding: 14px 24px !important;
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1),
-                    0 4px 10px rgba(0, 0, 0, 0.1);
-        font-family: 'Cormorant Garamond', serif !important;
-        font-size: 16px !important;
+        color: #2c3e50 !important;
+        background-color: white !important;
+        border: 3px solid #b0e0e6 !important;
+        border-radius: 50px !important;  /* PILL SHAPE! */
+        padding: 12px 24px !important;
+        box-shadow: 0 3px 10px rgba(135, 206, 235, 0.2);
     }
 
     .stTextInput > div > div > input:focus,
     .stNumberInput > div > div > input:focus,
     .stDateInput > div > div > input:focus {
-        border-color: #6495ED !important;
-        box-shadow: 0 0 20px rgba(100, 149, 237, 0.6),
-                    inset 0 2px 4px rgba(0, 0, 0, 0.1);
-        border-width: 3px !important;
+        border-color: #87ceeb !important;
+        box-shadow: 0 0 15px rgba(135, 206, 235, 0.5);
+        border-width: 4px !important;
     }
 
     .stSelectbox > div > div > div,
@@ -741,58 +590,39 @@ st.markdown("""
         padding: 15px 20px !important;
     }
 
-    /* Labels - Royal Castle theme */
+    /* Labels - dark text for readability */
     label {
-        color: #4169E1 !important;
-        font-weight: 700 !important;
-        font-family: 'Cinzel', serif !important;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 14px !important;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        color: #1e88e5 !important;
+        font-weight: 600 !important;
     }
 
-    /* Tabs styling - CASTLE ARCHWAYS */
+    /* Tabs styling - PILL SHAPED */
     .stTabs [data-baseweb="tab-list"] {
-        background: linear-gradient(135deg, #B0C4DE 0%, #87CEEB 100%);
-        border-radius: 0 !important;
-        padding: 12px 8px;
-        border: 4px solid #C0C0C0;
-        border-bottom: 6px solid #A9A9A9;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        border-radius: 50px !important;  /* PILL SHAPE! */
+        padding: 8px;
+        border: 3px solid rgba(255, 215, 0, 0.3);
     }
 
     .stTabs [data-baseweb="tab"] {
-        color: #2C3E50 !important;
-        font-weight: 800;
-        border-radius: 12px 12px 0 0 !important;
-        padding: 16px 28px !important;
+        color: #1e88e5 !important;
+        font-weight: 700;
+        border-radius: 50px !important;
+        padding: 12px 24px !important;
         margin: 0 5px;
         transition: all 0.3s ease;
-        font-family: 'Cinzel', serif !important;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        background: linear-gradient(180deg, #E6F3FF 0%, #B0C4DE 100%);
-        border: 3px solid #C0C0C0;
-        border-bottom: none;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
     .stTabs [data-baseweb="tab"]:hover {
-        transform: translateY(-3px);
-        background: linear-gradient(180deg, #FFE4E1 0%, #FFB6C1 100%);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        transform: scale(1.05);
+        background: rgba(135, 206, 235, 0.2);
     }
 
     .stTabs [aria-selected="true"] {
-        background: linear-gradient(180deg, #6495ED 0%, #4169E1 100%) !important;
+        background: linear-gradient(135deg, #87ceeb 0%, #5dade2 100%) !important;
         color: white !important;
-        border-radius: 12px 12px 0 0 !important;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.3);
-        border-color: #FFD700;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        border-radius: 50px !important;
+        box-shadow: 0 4px 15px rgba(135, 206, 235, 0.5);
     }
 
     /* Progress bar - light blue */
@@ -899,48 +729,32 @@ st.markdown("""
         left: 100%;
     }
 
-    /* Trip code box - ROYAL BANNER */
+    /* Trip code box - DIAMOND SHAPE */
     .trip-code-diamond {
-        background: linear-gradient(135deg, #6495ED 0%, #4169E1 50%, #FFB6C1 100%);
-        padding: 35px 60px;
-        border-radius: 15px;
-        border: 6px solid #C0C0C0;
-        border-top: 20px solid #FFD700;
+        background: linear-gradient(135deg, #87ceeb 0%, #b0e0e6 100%);
+        padding: 30px 60px;
+        clip-path: polygon(15% 0%, 85% 0%, 100% 50%, 85% 100%, 15% 100%, 0% 50%);
+        border: 5px solid rgba(255, 215, 0, 0.7);
         text-align: center;
-        margin: 30px auto;
-        max-width: 700px;
-        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.3);
-        position: relative;
-    }
-
-    /* Royal banner hanging chain */
-    .trip-code-diamond::before {
-        content: '⛓️';
-        position: absolute;
-        top: -30px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 30px;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+        margin: 20px auto;
+        max-width: 600px;
+        box-shadow: 0 8px 25px rgba(135, 206, 235, 0.5);
+        animation: magicPulse 3s infinite;
     }
 
     .trip-code-diamond h3 {
         color: white;
         margin: 0;
-        font-size: 2em;
+        font-size: 1.8em;
         font-weight: 900;
-        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
-        font-family: 'Cinzel', serif !important;
-        letter-spacing: 3px;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     }
 
     .trip-code-diamond p {
-        color: #FFE4E1;
-        margin: 15px 0 0 0;
-        font-size: 1.1em;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-        font-style: italic;
+        color: white;
+        margin: 10px 0 0 0;
+        font-size: 1em;
+        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
     }
 
     /* Alert boxes - CIRCULAR/PILL */
@@ -990,72 +804,71 @@ st.markdown("""
         background: transparent !important;
     }
 
-    /* MICKEY EARS CHECKBOXES - Soft and Magical (SMALLER) */
+    /* MICKEY EARS CHECKBOXES - Soft and Magical */
     input[type="checkbox"] {
         appearance: none !important;
         -webkit-appearance: none !important;
-        width: 36px !important;
-        height: 36px !important;
-        min-width: 36px !important;
+        width: 40px !important;
+        height: 40px !important;
+        min-width: 40px !important;
         background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
         border-radius: 50% !important;
         position: relative !important;
         cursor: pointer !important;
         transition: all 0.3s ease !important;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.3) !important;
-        border: 3px solid #C0C0C0 !important;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15) !important;
+        border: 2px solid #c0c0c0 !important;
     }
 
-    /* Shield decorative elements */
+    /* Mickey's left ear */
     input[type="checkbox"]::before {
-        content: '🛡️' !important;
+        content: '' !important;
         position: absolute !important;
-        width: 20px !important;
-        height: 20px !important;
+        width: 22px !important;
+        height: 22px !important;
         background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
         border-radius: 50% !important;
-        top: -9px !important;
-        left: -3px !important;
+        top: -10px !important;
+        left: -4px !important;
         transition: all 0.3s ease !important;
+        border: 2px solid #c0c0c0 !important;
     }
 
-    /* Checkmark when checked */
+    /* Mickey's right ear */
     input[type="checkbox"]::after {
-        content: '✓' !important;
+        content: '' !important;
         position: absolute !important;
-        width: 20px !important;
-        height: 20px !important;
+        width: 22px !important;
+        height: 22px !important;
         background: linear-gradient(135deg, #e8e8e8 0%, #d3d3d3 100%) !important;
         border-radius: 50% !important;
-        top: -9px !important;
-        right: -3px !important;
+        top: -10px !important;
+        right: -4px !important;
         transition: all 0.3s ease !important;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+        border: 2px solid #c0c0c0 !important;
     }
 
-    /* Checked state - Royal Gold! */
+    /* Checked state - golden Mickey! */
     input[type="checkbox"]:checked {
-        background: linear-gradient(135deg, #FFD700 0%, #FFC107 100%) !important;
-        border-color: #DAA520 !important;
-        animation: royalPop 0.5s ease-out !important;
-        box-shadow: 0 6px 15px rgba(255, 215, 0, 0.6),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.4),
-                    0 0 20px rgba(255, 215, 0, 0.8) !important;
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%) !important;
+        border-color: #ffc107 !important;
+        animation: mickeyPop 0.4s ease-out !important;
+        box-shadow: 0 4px 12px rgba(255, 215, 0, 0.5) !important;
     }
 
     input[type="checkbox"]:checked::before {
-        opacity: 1 !important;
-        filter: brightness(1.3) drop-shadow(0 0 10px rgba(255, 215, 0, 0.8)) !important;
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%) !important;
+        border-color: #ffc107 !important;
     }
 
     input[type="checkbox"]:checked::after {
-        transform: translate(-50%, -50%) scale(1) !important;
+        background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%) !important;
+        border-color: #ffc107 !important;
     }
 
-    @keyframes royalPop {
+    @keyframes mickeyPop {
         0% { transform: scale(1); }
-        50% { transform: scale(1.15) rotate(5deg); }
+        50% { transform: scale(1.2) rotate(10deg); }
         100% { transform: scale(1); }
     }
 
@@ -1110,18 +923,18 @@ st.markdown("""
         font-style: italic !important;
     }
 
-    /* Disney Castle Silhouettes - Floating decorations */
+    /* Disney Silhouettes - Subtle Floating decorations */
     body::before {
-        content: '🏰';
+        content: '👑';
         position: fixed;
         top: 12%;
         right: 6%;
-        font-size: 50px;
-        opacity: 0.12;
-        animation: float 8s infinite ease-in-out;
+        font-size: 35px;
+        opacity: 0.08;
+        animation: float 6s infinite ease-in-out;
         pointer-events: none;
         z-index: 0;
-        filter: drop-shadow(0 2px 8px rgba(100, 149, 237, 0.3));
+        filter: grayscale(20%);
     }
 
     .main::before {
@@ -1206,85 +1019,6 @@ st.markdown("""
         opacity: 0.1;
         animation: float 8s infinite ease-in-out;
     }
-
-    /* MOBILE RESPONSIVE - Optimized for iPhone */
-    @media screen and (max-width: 768px) {
-        /* Make card action rows more spacious on mobile */
-        .card-action-row {
-            gap: 12px !important;
-            padding: 5px 0 !important;
-        }
-
-        /* Give more room to checkbox on mobile */
-        .card-action-row [data-testid="column"]:first-child {
-            max-width: calc(100% - 50px) !important;
-            padding-right: 12px !important;
-        }
-
-        .card-action-row [data-testid="column"]:last-child {
-            width: 38px !important;
-            max-width: 38px !important;
-            flex-shrink: 0 !important;
-        }
-
-        /* Ensure checkbox and button don't overlap on mobile */
-        .card-action-row .stCheckbox {
-            padding: 2px 6px !important;
-            max-width: 100% !important;
-        }
-
-        /* Make delete button slightly larger hit target on mobile */
-        .card-delete-btn .stButton>button,
-        .card-delete-btn button {
-            width: 38px !important;
-            height: 38px !important;
-            min-width: 38px !important;
-            min-height: 38px !important;
-            max-width: 38px !important;
-            max-height: 38px !important;
-        }
-
-        /* Adjust Mickey ears for mobile */
-        input[type="checkbox"] {
-            width: 32px !important;
-            height: 32px !important;
-            min-width: 32px !important;
-        }
-
-        input[type="checkbox"]::before,
-        input[type="checkbox"]::after {
-            width: 18px !important;
-            height: 18px !important;
-        }
-
-        /* Expander headers more compact on mobile */
-        .streamlit-expanderHeader {
-            font-size: 14px !important;
-            padding: 8px 12px !important;
-        }
-
-        /* Ensure columns stack better on very small screens */
-        [data-testid="column"] {
-            min-width: auto !important;
-        }
-
-        /* Checklist cards - single column on very small screens */
-        @media screen and (max-width: 480px) {
-            .card-action-row {
-                flex-direction: row !important;
-                flex-wrap: nowrap !important;
-            }
-
-            .card-action-row [data-testid="column"]:first-child {
-                flex: 1 !important;
-                min-width: 0 !important;
-            }
-
-            .card-action-row [data-testid="column"]:last-child {
-                flex: 0 0 38px !important;
-            }
-        }
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -1292,38 +1026,15 @@ st.markdown("""
 DATA_DIR = Path.home() / ".disney_trip_planner"
 DATA_FILE = DATA_DIR / "trip_data.pkl"
 
-# Limit data structures to save memory (free tier has 1GB RAM limit)
-MAX_CHAT_HISTORY = 50
-MAX_IDEAS = 30
-MAX_PENDING_SUGGESTIONS = 20
-
 def save_trip_data():
     """Save trip data to Firebase and local disk"""
-    # Limit chat history size to conserve memory
-    chat_history = st.session_state.chat_history
-    if len(chat_history) > MAX_CHAT_HISTORY:
-        chat_history = chat_history[-MAX_CHAT_HISTORY:]  # Keep only last 50 messages
-        st.session_state.chat_history = chat_history
-
-    # Limit ideas list to conserve memory
-    ideas = st.session_state.ideas
-    if len(ideas) > MAX_IDEAS:
-        ideas = ideas[-MAX_IDEAS:]  # Keep only last 30 ideas
-        st.session_state.ideas = ideas
-
-    # Limit pending suggestions to conserve memory
-    pending_suggestions = st.session_state.get('pending_suggestions', [])
-    if len(pending_suggestions) > MAX_PENDING_SUGGESTIONS:
-        pending_suggestions = pending_suggestions[-MAX_PENDING_SUGGESTIONS:]
-        st.session_state.pending_suggestions = pending_suggestions
-
     data = {
         'trip_details': st.session_state.trip_details,
         'checklist': st.session_state.checklist,
-        'ideas': ideas,
-        'chat_history': chat_history,
+        'ideas': st.session_state.ideas,
+        'chat_history': st.session_state.chat_history,
         'rejected_items': st.session_state.get('rejected_items', set()),
-        'pending_suggestions': pending_suggestions
+        'pending_suggestions': st.session_state.get('pending_suggestions', [])
     }
 
     # Try Firebase first if trip code is set
@@ -1334,15 +1045,15 @@ def save_trip_data():
             try:
                 firebase.save_trip(trip_code, data)
             except Exception as e:
-                pass  # Fail silently to avoid UI clutter
+                st.warning(f"Could not save to cloud: {e}")
 
-    # Always save locally as backup (but don't if it fails)
+    # Always save locally as backup
     try:
         DATA_DIR.mkdir(exist_ok=True)
         with open(DATA_FILE, 'wb') as f:
             pickle.dump(data, f)
-    except Exception:
-        pass  # Fail silently
+    except Exception as e:
+        st.warning(f"Could not save locally: {e}")
 
 def load_trip_data(trip_code: str = None):
     """Load trip data from Firebase or local disk"""
@@ -1395,20 +1106,12 @@ if 'trip_details' not in st.session_state:
     if saved_data:
         st.session_state.trip_details = saved_data.get('trip_details')
         st.session_state.checklist = saved_data.get('checklist', [])
-
-        # Limit loaded data to conserve memory
-        ideas = saved_data.get('ideas', [])
-        st.session_state.ideas = ideas[-MAX_IDEAS:] if len(ideas) > MAX_IDEAS else ideas
-
-        chat_history = saved_data.get('chat_history', [])
-        st.session_state.chat_history = chat_history[-MAX_CHAT_HISTORY:] if len(chat_history) > MAX_CHAT_HISTORY else chat_history
-
+        st.session_state.ideas = saved_data.get('ideas', [])
+        st.session_state.chat_history = saved_data.get('chat_history', [])
         # Ensure rejected_items is always a set (Firebase returns it as a list)
         rejected = saved_data.get('rejected_items', set())
         st.session_state.rejected_items = set(rejected) if isinstance(rejected, (list, set)) else set()
-
-        pending_suggestions = saved_data.get('pending_suggestions', [])
-        st.session_state.pending_suggestions = pending_suggestions[-MAX_PENDING_SUGGESTIONS:] if len(pending_suggestions) > MAX_PENDING_SUGGESTIONS else pending_suggestions
+        st.session_state.pending_suggestions = saved_data.get('pending_suggestions', [])
     else:
         st.session_state.trip_details = None
         st.session_state.checklist = []
@@ -1685,91 +1388,65 @@ def main():
     with tab1:
         st.header("Trip Planning Checklist")
 
-        # Top row: Subheader on left, Add Custom Item on right - MOBILE OPTIMIZED
-        top_col1, top_col2 = st.columns([3, 2])
-        with top_col1:
+        col1, col2 = st.columns([3, 1])
+        with col1:
             st.subheader("Your Personalized Checklist")
-        with top_col2:
-            # Add custom item - compact version
-            with st.expander("➕ Add Item", expanded=False):
-                new_item_text = st.text_input("Item description", key="new_item", placeholder="e.g., Pack sunscreen")
-                new_col1, new_col2 = st.columns(2)
-                with new_col1:
-                    new_item_category = st.text_input("Category", "custom", key="new_category")
-                with new_col2:
-                    new_item_priority = st.selectbox("Priority", ["high", "medium", "low"], key="new_priority")
-
-                if st.button("Add to Checklist", use_container_width=True) and new_item_text:
-                    from src.utils.helpers import generate_checklist_id
-                    new_item = ChecklistItem(
-                        id=generate_checklist_id(),
-                        text=new_item_text,
-                        category=new_item_category,
-                        priority=new_item_priority,
-                        completed=False
+        with col2:
+            if st.button("🔍 Find Forgotten Items"):
+                with st.spinner("Analyzing checklist..."):
+                    # Get AI suggestions
+                    forgotten = st.session_state.agent.suggest_forgotten_items(
+                        st.session_state.checklist
                     )
-                    st.session_state.checklist.append(new_item)
-                    save_trip_data()
-                    st.success(f"✅ Added: {new_item_text}")
-                    st.rerun()
 
-        # Action buttons row - MOBILE OPTIMIZED (simplified layout)
-        if st.button("🔍 Find Forgotten Items", use_container_width=True):
-            with st.spinner("Analyzing checklist..."):
-                # Get AI suggestions
-                forgotten = st.session_state.agent.suggest_forgotten_items(
-                    st.session_state.checklist
-                )
+                    if forgotten:
+                        # Get current checklist item texts (lowercase for comparison)
+                        existing_items = {item.text.lower().strip() for item in st.session_state.checklist}
 
-                if forgotten:
-                    # Get current checklist item texts (lowercase for comparison)
-                    existing_items = {item.text.lower().strip() for item in st.session_state.checklist}
+                        # Filter out duplicates and rejected items
+                        new_items = []
+                        for item_text in forgotten:
+                            item_lower = item_text.lower().strip()
+                            if item_lower not in existing_items and item_lower not in st.session_state.rejected_items:
+                                new_items.append(item_text)
 
-                    # Filter out duplicates and rejected items
-                    new_items = []
-                    for item_text in forgotten:
-                        item_lower = item_text.lower().strip()
-                        if item_lower not in existing_items and item_lower not in st.session_state.rejected_items:
-                            new_items.append(item_text)
+                        if new_items:
+                            # Add new items to checklist
+                            from src.utils.helpers import generate_checklist_id
+                            for item_text in new_items:
+                                new_item = ChecklistItem(
+                                    id=generate_checklist_id(),
+                                    text=item_text,
+                                    category="forgotten-items",
+                                    priority="medium",
+                                    completed=False
+                                )
+                                st.session_state.checklist.append(new_item)
 
-                    if new_items:
-                        # Add new items to checklist
-                        from src.utils.helpers import generate_checklist_id
-                        for item_text in new_items:
-                            new_item = ChecklistItem(
-                                id=generate_checklist_id(),
-                                text=item_text,
-                                category="forgotten-items",
-                                priority="medium",
-                                completed=False
-                            )
-                            st.session_state.checklist.append(new_item)
+                            # Save data
+                            save_trip_data()
 
-                        # Save data
-                        save_trip_data()
+                            st.success(f"✅ Added {len(new_items)} forgotten item{'s' if len(new_items) != 1 else ''} to your checklist!")
+                            st.rerun()
+                        else:
+                            st.info("✨ Great job! You haven't forgotten anything important.")
 
-                        st.success(f"✅ Added {len(new_items)} forgotten item{'s' if len(new_items) != 1 else ''} to your checklist!")
-                        st.rerun()
-                    else:
-                        st.info("✨ Great job! You haven't forgotten anything important.")
-
-        # Collapsible Filter options - EASY TO FIND
-        with st.expander("🔍 Filters", expanded=False):
-            filter_col1, filter_col2, filter_col3 = st.columns(3)
-            with filter_col1:
-                show_completed = st.checkbox("Show Completed", value=True)
-            with filter_col2:
-                priority_filter = st.multiselect(
-                    "Filter by Priority",
-                    ["high", "medium", "low"],
-                    default=["high", "medium", "low"]
-                )
-            with filter_col3:
-                category_filter = st.multiselect(
-                    "Filter by Category",
-                    list(set([item.category for item in st.session_state.checklist])),
-                    default=list(set([item.category for item in st.session_state.checklist]))
-                )
+        # Filter options
+        filter_col1, filter_col2, filter_col3 = st.columns(3)
+        with filter_col1:
+            show_completed = st.checkbox("Show Completed", value=True)
+        with filter_col2:
+            priority_filter = st.multiselect(
+                "Filter by Priority",
+                ["high", "medium", "low"],
+                default=["high", "medium", "low"]
+            )
+        with filter_col3:
+            category_filter = st.multiselect(
+                "Filter by Category",
+                list(set([item.category for item in st.session_state.checklist])),
+                default=list(set([item.category for item in st.session_state.checklist]))
+            )
 
         # Display checklist - 3 Cards Per Row Grid
         filtered_items = []
@@ -1808,7 +1485,7 @@ def main():
                         # Checkbox and delete button below the card - wrapped for proper layout
                         st.markdown('<div class="card-action-row">', unsafe_allow_html=True)
 
-                        action_col1, action_col2 = st.columns([7, 1], gap="small")
+                        action_col1, action_col2 = st.columns([5, 1], gap="small")
                         with action_col1:
                             checked = st.checkbox(
                                 "Complete",
@@ -1831,6 +1508,31 @@ def main():
                             st.markdown('</div>', unsafe_allow_html=True)
 
                         st.markdown('</div>', unsafe_allow_html=True)
+
+        # Add custom item
+        st.markdown("---")
+        st.subheader("➕ Add Custom Item")
+        new_col1, new_col2, new_col3 = st.columns([3, 1, 1])
+        with new_col1:
+            new_item_text = st.text_input("Item description", key="new_item")
+        with new_col2:
+            new_item_category = st.text_input("Category", "custom", key="new_category")
+        with new_col3:
+            new_item_priority = st.selectbox("Priority", ["high", "medium", "low"], key="new_priority")
+
+        if st.button("Add to Checklist") and new_item_text:
+            from src.utils.helpers import generate_checklist_id
+            new_item = ChecklistItem(
+                id=generate_checklist_id(),
+                text=new_item_text,
+                category=new_item_category,
+                priority=new_item_priority,
+                completed=False
+            )
+            st.session_state.checklist.append(new_item)
+            save_trip_data()
+            st.success(f"✅ Added: {new_item_text}")
+            st.rerun()
 
     # Tab 2: Ideas & Suggestions
     with tab2:
