@@ -27,21 +27,38 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for Magical Disney Castle Theme - Sky Blue, Silver & Pastel Pink
+# Custom CSS for 90's Disney Glassmorphism Theme - Baby Blue & Soft Pink
 st.markdown("""
 <style>
-    /* Import magical Disney fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;900&family=Cormorant+Garamond:wght@300;400;600;700&display=swap');
+    /* Import playful 90's Disney-inspired fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&display=swap');
 
+    /* Base font - Playful and rounded */
     * {
-        font-family: 'Cormorant Garamond', serif !important;
+        font-family: 'Quicksand', sans-serif !important;
     }
 
+    /* Headers - Fun and bouncy */
     h1, h2, h3, h4, h5, h6 {
-        font-family: 'Cinzel', serif !important;
+        font-family: 'Fredoka', sans-serif !important;
+        font-weight: 600 !important;
     }
 
-    /* ========== LAYOUT IMPROVEMENTS - CLEAN & CENTERED ========== */
+    /* ========== COLOR VARIABLES - 90's DISNEY PALETTE ========== */
+    :root {
+        --baby-blue: #89CFF0;
+        --soft-pink: #FFB6C1;
+        --light-pink: #F4C2C2;
+        --powder-pink: #FADADD;
+        --lavender: #E6E6FA;
+        --cream: #FFF8F0;
+        --mint: #E0F7F4;
+        --peach: #FFE5D9;
+        --sunshine: #FFF44F;
+        --white: #FFFFFF;
+    }
+
+    /* ========== LAYOUT - CLEAN & CENTERED ========== */
 
     /* Main container - centered and contained */
     .block-container {
@@ -50,40 +67,43 @@ st.markdown("""
         margin: 0 auto !important;
     }
 
-    /* Fix sidebar toggle button - ICON ONLY, NO TEXT */
+    /* Sidebar toggle button - Glassmorphism bubble */
     [data-testid="collapsedControl"] {
-        color: white !important;
-        background: linear-gradient(135deg, #4169E1 0%, #6495ED 100%) !important;
-        border-radius: 10px !important;
+        color: var(--baby-blue) !important;
+        background: rgba(255, 255, 255, 0.25) !important;
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        border-radius: 50% !important;
         padding: 12px !important;
         margin: 15px !important;
-        border: 3px solid #C0C0C0 !important;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
-        transition: all 0.3s ease !important;
+        border: 2px solid rgba(137, 207, 240, 0.3) !important;
+        box-shadow: 0 8px 32px rgba(137, 207, 240, 0.3),
+                    inset 0 2px 10px rgba(255, 255, 255, 0.5) !important;
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55) !important;
     }
 
     [data-testid="collapsedControl"]:hover {
-        background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%) !important;
-        transform: scale(1.1) !important;
+        background: rgba(255, 182, 193, 0.35) !important;
+        transform: scale(1.15) rotate(5deg) !important;
+        box-shadow: 0 12px 48px rgba(255, 182, 193, 0.5),
+                    inset 0 2px 15px rgba(255, 255, 255, 0.7) !important;
     }
 
-    /* Make sure icon is visible and sized properly */
+    /* Icon sizing */
     [data-testid="collapsedControl"] svg {
-        width: 28px !important;
-        height: 28px !important;
+        width: 24px !important;
+        height: 24px !important;
         display: block !important;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)) !important;
     }
 
-    /* Hide any text in sidebar toggle - MULTIPLE LAYERS */
+    /* Hide any text in sidebar toggle */
     [data-testid="collapsedControl"] span,
     [data-testid="collapsedControl"] p,
     [data-testid="collapsedControl"] div:not([data-testid]),
     [data-testid="collapsedControl"] *:not(svg):not(path) {
         display: none !important;
         font-size: 0 !important;
-        width: 0 !important;
-        height: 0 !important;
-        overflow: hidden !important;
         opacity: 0 !important;
     }
 
@@ -94,7 +114,7 @@ st.markdown("""
         opacity: 1 !important;
     }
 
-    /* Prevent text wrapping in ALL input fields */
+    /* Prevent text wrapping in input fields */
     .stTextInput input,
     .stNumberInput input,
     .stDateInput input,
@@ -106,20 +126,19 @@ st.markdown("""
         text-overflow: ellipsis !important;
     }
 
-    /* Text areas can wrap but control height */
+    /* Text areas can wrap */
     .stTextArea textarea {
         overflow-x: hidden !important;
         overflow-y: auto !important;
         word-wrap: break-word !important;
     }
 
-    /* Prevent element overlapping - proper spacing */
+    /* Element spacing - no overlap */
     .element-container {
         margin-bottom: 1.5rem !important;
         clear: both !important;
     }
 
-    /* Ensure stacked elements don't overlap */
     .stMarkdown,
     .stButton,
     .stCheckbox,
@@ -127,143 +146,65 @@ st.markdown("""
     .stSelectbox {
         margin-bottom: 1rem !important;
         position: relative !important;
-        z-index: 1 !important;
+        z-index: 2 !important;
     }
 
-    /* Center content within main area */
+    /* Center content */
     .main .block-container > div {
         width: 100% !important;
     }
 
-    /* Fix column gaps - prevent squishing */
+    /* Column spacing */
     [data-testid="column"] {
         padding: 0 1rem !important;
         min-width: 0 !important;
+        flex: 1 1 0 !important;
     }
 
-    /* Ensure rows don't overlap */
     [data-testid="stHorizontalBlock"] {
         gap: 1rem !important;
         margin-bottom: 1.5rem !important;
     }
 
-    /* Fix vertical blocks spacing */
     [data-testid="stVerticalBlock"] > div {
         margin-bottom: 1rem !important;
     }
 
-    /* ========== ADDITIONAL CENTERING & SYMMETRY IMPROVEMENTS ========== */
-
-    /* Center all tabs container */
-    .stTabs {
-        max-width: 100% !important;
-        margin: 0 auto 2rem auto !important;
-    }
-
-    /* Ensure countdown box is centered */
-    .countdown-box {
-        margin-left: auto !important;
-        margin-right: auto !important;
-        display: block !important;
-    }
-
-    /* Center idea cards container */
-    .idea-card {
+    /* Center all major elements */
+    .stTabs,
+    .countdown-box,
+    .idea-card,
+    .checklist-card,
+    .main-header,
+    .trip-code-diamond {
         margin-left: auto !important;
         margin-right: auto !important;
     }
 
-    /* Ensure all form elements have consistent width and are not squeezed */
-    .stTextInput,
-    .stNumberInput,
-    .stDateInput,
-    .stSelectbox,
-    .stMultiSelect {
-        width: 100% !important;
-        max-width: 100% !important;
-    }
-
-    /* Make sure button containers are centered */
     .stButton {
         display: block !important;
         margin: 0 auto 1rem auto !important;
         text-align: center !important;
     }
 
-    /* Center checklist cards within their containers */
-    .checklist-card {
-        margin-left: auto !important;
-        margin-right: auto !important;
-        max-width: 100% !important;
-    }
-
-    /* Prevent sidebar from covering main content */
+    /* Prevent sidebar overlap */
     .main {
         padding-left: 0 !important;
     }
 
-    /* Ensure proper spacing between major sections */
-    section[data-testid="stSidebar"] + .main > .block-container > div {
-        padding-top: 2rem !important;
-    }
-
-    /* Make headers perfectly centered */
-    .main-header {
-        margin-left: auto !important;
-        margin-right: auto !important;
-        width: 100% !important;
-    }
-
-    /* Ensure trip code box is perfectly centered */
-    .trip-code-diamond {
-        margin-left: auto !important;
-        margin-right: auto !important;
-        display: block !important;
-    }
-
-    /* Fix any floating or absolute positioned elements that might overlap */
-    .element-container,
-    .stMarkdown,
-    .stButton,
-    .stTextInput,
-    .stSelectbox {
-        position: relative !important;
-    }
-
-    /* Ensure consistent padding on all sides of main content */
-    .block-container {
-        padding-left: 4rem !important;
-        padding-right: 4rem !important;
-    }
-
-    /* Make sure columns are evenly distributed */
-    [data-testid="column"] {
-        flex: 1 1 0 !important;
-    }
-
-    /* Prevent text overflow in buttons */
+    /* Prevent text overflow */
     .stButton>button {
         overflow: hidden !important;
         text-overflow: ellipsis !important;
         white-space: nowrap !important;
     }
 
-    /* ========== RESPONSIVE DESIGN FOR SMALLER SCREENS ========== */
+    /* ========== RESPONSIVE DESIGN ========== */
 
     @media (max-width: 1200px) {
         .block-container {
             max-width: 100% !important;
             padding: 2rem 2rem !important;
-        }
-
-        .countdown-box {
-            width: 90% !important;
-            max-width: 450px !important;
-        }
-
-        .trip-code-diamond {
-            max-width: 90% !important;
-            padding: 25px 40px !important;
         }
     }
 
@@ -277,399 +218,365 @@ st.markdown("""
             padding: 40px 20px 30px 20px !important;
         }
 
-        .countdown-box {
-            width: 95% !important;
-            max-width: 100% !important;
-            padding: 35px 25px !important;
-            font-size: 1.5em !important;
-        }
-
-        .checklist-card {
-            min-height: 150px !important;
-            padding: 20px 15px !important;
-        }
-
-        .idea-card {
-            max-width: 95% !important;
-            padding: 25px !important;
-        }
-
-        /* Smaller buttons on mobile */
         .stButton>button {
-            padding: 12px 28px !important;
+            padding: 12px 24px !important;
             font-size: 15px !important;
-            min-width: 120px !important;
-        }
-
-        /* Make sidebar toggle more prominent on mobile */
-        [data-testid="collapsedControl"] {
-            padding: 14px !important;
-            margin: 12px !important;
         }
     }
 
-    /* ========== ADDITIONAL OVERLAP PREVENTION ========== */
-
-    /* Ensure no absolute positioned elements interfere with layout */
+    /* Overlap prevention */
     .stApp {
         position: relative !important;
         overflow-x: hidden !important;
     }
 
-    /* Clear floats properly */
     .block-container::after {
         content: "" !important;
         display: table !important;
         clear: both !important;
     }
 
-    /* Prevent Z-index issues */
-    .stButton,
-    .stTextInput,
-    .stSelectbox,
-    .stCheckbox {
-        z-index: 2 !important;
-    }
+    /* ========== 90's DISNEY ANIMATIONS ========== */
 
-    /* Ensure decorative elements don't interfere */
-    .main::before,
-    .main::after,
-    [data-testid="stSidebar"]::before,
-    [data-testid="stSidebar"]::after {
-        pointer-events: none !important;
-        z-index: 0 !important;
-    }
-
-    /* Sparkle animation */
-    @keyframes sparkle {
-        0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
-        50% { opacity: 1; transform: scale(1) rotate(180deg); }
-    }
-
-    @keyframes shimmer {
-        0% { background-position: -1000px 0; }
-        100% { background-position: 1000px 0; }
-    }
-
-    /* Button shimmy/bounce animation */
-    @keyframes shimmy {
-        0%, 100% { transform: translateX(0) rotate(0deg); }
-        25% { transform: translateX(-5px) rotate(-2deg); }
-        75% { transform: translateX(5px) rotate(2deg); }
-    }
-
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-10px); }
-    }
-
-    /* Fireworks animation */
-    @keyframes firework {
+    /* Sparkle trail animation */
+    @keyframes sparkleTrail {
         0% {
-            transform: translate(0, 0) scale(0);
-            opacity: 1;
+            opacity: 0;
+            transform: translate(0, 0) scale(0) rotate(0deg);
         }
         50% {
             opacity: 1;
+            transform: translate(var(--x, 0), var(--y, 0)) scale(1) rotate(180deg);
         }
         100% {
-            transform: translate(var(--tx), var(--ty)) scale(1);
             opacity: 0;
+            transform: translate(calc(var(--x, 0) * 2), calc(var(--y, 0) * 2)) scale(0) rotate(360deg);
         }
     }
 
-    /* Floating sparkles */
-    @keyframes float {
-        0%, 100% { transform: translateY(0) rotate(0deg); }
-        50% { transform: translateY(-20px) rotate(180deg); }
-    }
-
-    /* Magical pulse */
-    @keyframes magicPulse {
+    /* Bubble float animation */
+    @keyframes bubbleFloat {
         0%, 100% {
-            box-shadow: 0 0 5px rgba(135, 206, 235, 0.5),
-                        0 0 10px rgba(135, 206, 235, 0.3),
-                        0 0 15px rgba(135, 206, 235, 0.2);
+            transform: translateY(0) translateX(0) scale(1);
+            opacity: 0.6;
+        }
+        25% {
+            transform: translateY(-15px) translateX(10px) scale(1.1);
+            opacity: 0.8;
         }
         50% {
-            box-shadow: 0 0 20px rgba(135, 206, 235, 0.8),
-                        0 0 30px rgba(135, 206, 235, 0.6),
-                        0 0 40px rgba(135, 206, 235, 0.4);
+            transform: translateY(-30px) translateX(-5px) scale(1);
+            opacity: 1;
+        }
+        75% {
+            transform: translateY(-15px) translateX(-15px) scale(1.1);
+            opacity: 0.8;
         }
     }
 
-    /* Main background - Castle Sky with gradient */
+    /* Shimmer/shine effect (like Disney logo) */
+    @keyframes disneyShine {
+        0% {
+            left: -100%;
+        }
+        100% {
+            left: 200%;
+        }
+    }
+
+    /* Bounce in animation */
+    @keyframes bounceIn {
+        0% {
+            transform: scale(0.3) translateY(-100px);
+            opacity: 0;
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        70% {
+            transform: scale(0.9);
+        }
+        100% {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+    }
+
+    /* Gentle pulse */
+    @keyframes gentlePulse {
+        0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 8px 32px rgba(137, 207, 240, 0.25);
+        }
+        50% {
+            transform: scale(1.02);
+            box-shadow: 0 12px 48px rgba(255, 182, 193, 0.35);
+        }
+    }
+
+    /* Gradient animation */
+    @keyframes gradientShift {
+        0%, 100% {
+            background-position: 0% 50%;
+        }
+        50% {
+            background-position: 100% 50%;
+        }
+    }
+
+    /* ========== MAIN BACKGROUND - 90's GRADIENT MESH ========== */
     .main {
-        background: linear-gradient(180deg, #87CEEB 0%, #B0E0E6 30%, #FFB6C1 70%, #FFC0CB 100%);
+        background: linear-gradient(135deg,
+            var(--baby-blue) 0%,
+            var(--mint) 20%,
+            var(--lavender) 40%,
+            var(--powder-pink) 60%,
+            var(--soft-pink) 80%,
+            var(--peach) 100%);
+        background-size: 400% 400%;
+        animation: gradientShift 15s ease infinite;
         position: relative;
         overflow: hidden;
     }
 
-    /* Castle stone texture overlay */
-    .main::after {
+    /* VHS film grain texture overlay */
+    .main::before {
         content: '';
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
-        background-image:
-            radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' /%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+        pointer-events: none;
+        z-index: 1;
+        opacity: 0.5;
+    }
+
+    /* Floating bubbles decoration */
+    .main::after {
+        content: '○';
+        position: fixed;
+        font-size: 80px;
+        color: rgba(255, 255, 255, 0.15);
+        top: 20%;
+        left: 15%;
+        animation: bubbleFloat 8s infinite ease-in-out;
+        pointer-events: none;
+        z-index: 0;
+        text-shadow: 0 0 20px rgba(137, 207, 240, 0.3);
+    }
+
+    /* ========== SIDEBAR - GLASSMORPHISM ========== */
+    [data-testid="stSidebar"] {
+        background: rgba(255, 255, 255, 0.15) !important;
+        backdrop-filter: blur(20px) !important;
+        -webkit-backdrop-filter: blur(20px) !important;
+        border-right: 2px solid rgba(255, 255, 255, 0.3) !important;
+        box-shadow: 4px 0 24px rgba(137, 207, 240, 0.2),
+                    inset -1px 0 10px rgba(255, 255, 255, 0.3) !important;
+    }
+
+    /* Gradient overlay on sidebar */
+    [data-testid="stSidebar"]::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(180deg,
+            rgba(137, 207, 240, 0.1) 0%,
+            rgba(255, 182, 193, 0.05) 50%,
+            rgba(230, 230, 250, 0.1) 100%);
         pointer-events: none;
         z-index: 0;
     }
 
-    .main::before, .main::after {
+    /* Floating sparkle in sidebar */
+    [data-testid="stSidebar"]::after {
         content: '✨';
-        position: fixed;
+        position: absolute;
+        top: 15%;
+        right: 15%;
         font-size: 24px;
-        animation: float 4s infinite ease-in-out;
+        animation: sparkleTrail 4s infinite ease-in-out;
+        --x: -20px;
+        --y: -30px;
         pointer-events: none;
         z-index: 1;
     }
 
-    .main::before {
-        top: 20%;
-        left: 10%;
-        animation-delay: 0s;
-    }
-
-    .main::after {
-        top: 60%;
-        right: 15%;
-        animation-delay: 2s;
-    }
-
-    /* Sidebar - Castle Tower */
-    [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #6495ED 0%, #4682B4 50%, #4169E1 100%);
-        position: relative;
-        border-right: 8px solid #C0C0C0;
-        box-shadow: inset -10px 0 30px rgba(0, 0, 0, 0.3),
-                    4px 0 20px rgba(135, 206, 235, 0.5);
-    }
-
-    /* Castle tower top decoration */
-    [data-testid="stSidebar"]::after {
-        content: '';
-        position: absolute;
-        top: -20px;
-        left: 0;
-        right: 0;
-        height: 20px;
-        background: repeating-linear-gradient(
-            90deg,
-            #C0C0C0 0px,
-            #C0C0C0 30px,
-            transparent 30px,
-            transparent 40px
-        );
-        border-top: 3px solid #C0C0C0;
-    }
-
-    [data-testid="stSidebar"]::before {
-        content: '⭐';
-        position: absolute;
-        top: 10%;
-        right: 10%;
-        font-size: 20px;
-        animation: sparkle 2s infinite;
-    }
-
-    /* Main header - CASTLE with TURRETS */
+    /* ========== MAIN HEADER - PLAYFUL 90's STYLE ========== */
     .main-header {
         text-align: center;
         font-size: 4em;
-        font-weight: 900;
-        padding: 60px 40px 40px 40px;
-        background: linear-gradient(135deg, #4169E1 0%, #6495ED 30%, #87CEEB 60%, #FFB6C1 100%);
+        font-weight: 700;
+        padding: 50px 40px 40px 40px;
+        background: linear-gradient(135deg,
+            var(--baby-blue) 0%,
+            var(--lavender) 30%,
+            var(--soft-pink) 70%,
+            var(--sunshine) 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        background-clip: text;
         position: relative;
-        letter-spacing: 4px;
-        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        border-bottom: 8px solid #C0C0C0;
+        letter-spacing: 2px;
         margin-bottom: 30px;
+        filter: drop-shadow(0 4px 8px rgba(137, 207, 240, 0.3));
+        animation: bounceIn 1s ease-out;
     }
 
-    /* Castle turrets on header */
-    .main-header::before,
-    .main-header::after {
-        content: '🏰';
-        position: absolute;
-        top: 10px;
-        font-size: 0.5em;
-        animation: float 6s infinite ease-in-out;
-        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-    }
-
+    /* Sparkle trail decorations */
     .main-header::before {
-        left: 5%;
+        content: '✨';
+        position: absolute;
+        top: 15px;
+        left: 10%;
+        font-size: 0.4em;
+        animation: sparkleTrail 5s infinite ease-in-out;
+        --x: 30px;
+        --y: -20px;
+        filter: drop-shadow(0 2px 8px rgba(255, 244, 79, 0.6));
     }
 
     .main-header::after {
-        right: 5%;
-        animation-delay: 3s;
-    }
-
-    /* Fireworks container */
-    .main-header::before {
-        content: '🎆';
+        content: '💫';
         position: absolute;
-        top: -20px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 2em;
-        animation: firework 3s infinite;
-        --tx: -100px;
-        --ty: -100px;
-    }
-
-    .main-header::after {
-        content: '🎇';
-        position: absolute;
-        top: -20px;
+        top: 15px;
         right: 10%;
-        font-size: 1.5em;
-        animation: firework 3s infinite 1s;
-        --tx: 100px;
-        --ty: -80px;
+        font-size: 0.4em;
+        animation: sparkleTrail 5s infinite ease-in-out 1.5s;
+        --x: -30px;
+        --y: -20px;
+        filter: drop-shadow(0 2px 8px rgba(255, 182, 193, 0.6));
     }
 
-    /* Countdown box - CASTLE TOWER */
+    /* ========== COUNTDOWN BOX - GLASSMORPHISM BUBBLE ========== */
     .countdown-box {
-        background: linear-gradient(135deg, #6495ED 0%, #4682B4 50%, #87CEEB 100%) !important;
-        padding: 50px 40px !important;
-        border-radius: 15px 15px 0 0 !important;
-        width: 500px !important;
+        background: rgba(255, 255, 255, 0.25) !important;
+        backdrop-filter: blur(15px) !important;
+        -webkit-backdrop-filter: blur(15px) !important;
+        padding: 45px 50px !important;
+        border-radius: 40px !important;
+        width: 550px !important;
+        max-width: 90% !important;
         margin: 30px auto !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        color: #ffffff !important;
+        color: var(--baby-blue) !important;
         text-align: center !important;
-        font-size: 2em !important;
-        font-weight: 900 !important;
-        box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4),
-                    inset 0 -4px 0 rgba(0, 0, 0, 0.2),
-                    inset 0 2px 0 rgba(255,255,255,0.3) !important;
-        border: 6px solid #C0C0C0 !important;
-        border-bottom: 10px solid #A9A9A9 !important;
+        font-size: 2.2em !important;
+        font-weight: 700 !important;
+        box-shadow: 0 8px 32px rgba(137, 207, 240, 0.25),
+                    inset 0 2px 15px rgba(255, 255, 255, 0.4),
+                    0 0 50px rgba(255, 182, 193, 0.15) !important;
+        border: 3px solid rgba(255, 255, 255, 0.3) !important;
         position: relative !important;
         overflow: visible !important;
-        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4) !important;
+        text-shadow: 0 2px 10px rgba(255, 255, 255, 0.5) !important;
+        animation: gentlePulse 4s infinite ease-in-out;
     }
 
-    /* Castle tower battlements */
+    /* Shine effect on countdown */
     .countdown-box::before {
         content: '';
         position: absolute;
-        top: -25px;
-        left: -6px;
-        right: -6px;
-        height: 25px;
-        background: repeating-linear-gradient(
-            90deg,
-            #C0C0C0 0px,
-            #C0C0C0 40px,
-            transparent 40px,
-            transparent 50px
-        );
-        border-top: 6px solid #C0C0C0;
-        border-left: 6px solid #C0C0C0;
-        border-right: 6px solid #C0C0C0;
-    }
-
-    .countdown-box::before {
-        content: '';
-        position: absolute;
-        top: -50%;
-        left: -50%;
-        width: 200%;
-        height: 200%;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
         background: linear-gradient(
-            45deg,
-            transparent 30%,
-            rgba(255, 255, 255, 0.4) 50%,
-            transparent 70%
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.5),
+            transparent
         );
-        animation: shimmer 3s infinite;
-        border-radius: 50%;
+        animation: disneyShine 6s infinite;
+        border-radius: 40px;
+        z-index: 1;
     }
 
+    /* Sparkle decoration */
     .countdown-box::after {
-        content: '🌟';
+        content: '⭐';
         position: absolute;
-        top: 20px;
-        right: 20px;
-        font-size: 1.8em;
-        animation: sparkle 2s infinite;
+        top: -15px;
+        right: 30px;
+        font-size: 1.5em;
+        animation: sparkleTrail 4s infinite ease-in-out;
+        --x: 15px;
+        --y: 15px;
+        filter: drop-shadow(0 0 10px rgba(255, 244, 79, 0.8));
     }
 
-    /* Checklist items - CASTLE WALL BANNERS/PLAQUES */
+    /* ========== CHECKLIST CARDS - GLASSMORPHISM BUBBLES ========== */
     .checklist-card {
         width: 100% !important;
-        min-height: 180px !important;
-        padding: 25px 20px 20px 20px !important;
-        margin-bottom: 30px !important;
-        border-radius: 8px !important;
-        background: linear-gradient(135deg, #F0F8FF 0%, #E6F3FF 50%, #FFE4E1 100%) !important;
-        border: 4px solid #C0C0C0 !important;
-        border-top: 15px solid #B0C4DE !important;
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.8) !important;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+        min-height: 160px !important;
+        padding: 28px 24px !important;
+        margin-bottom: 25px !important;
+        border-radius: 30px !important;
+        background: rgba(255, 255, 255, 0.3) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border: 2px solid rgba(255, 255, 255, 0.4) !important;
+        box-shadow: 0 8px 32px rgba(137, 207, 240, 0.2),
+                    inset 0 2px 10px rgba(255, 255, 255, 0.3),
+                    0 4px 16px rgba(255, 182, 193, 0.1) !important;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
         cursor: pointer !important;
         position: relative !important;
         overflow: visible !important;
     }
 
-    /* Castle banner chain/rope hanging effect */
+    /* Floating bubble decoration */
     .checklist-card::before {
-        content: '🔗' !important;
+        content: '○' !important;
         position: absolute !important;
-        top: -20px !important;
-        left: 50% !important;
-        transform: translateX(-50%) !important;
-        font-size: 24px !important;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4)) !important;
-        z-index: 10 !important;
+        top: -12px !important;
+        right: 20px !important;
+        font-size: 28px !important;
+        color: rgba(137, 207, 240, 0.4) !important;
+        text-shadow: 0 0 10px rgba(137, 207, 240, 0.3) !important;
+        animation: bubbleFloat 6s infinite ease-in-out !important;
+        z-index: 0 !important;
     }
 
     .checklist-card:hover {
-        transform: translateY(-5px) !important;
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.9),
-                    0 0 30px rgba(255, 215, 0, 0.6) !important;
-        border-color: #FFD700 !important;
-        border-top-color: #DAA520 !important;
+        transform: translateY(-8px) scale(1.02) !important;
+        box-shadow: 0 12px 48px rgba(137, 207, 240, 0.35),
+                    inset 0 2px 15px rgba(255, 255, 255, 0.5),
+                    0 0 40px rgba(255, 182, 193, 0.25) !important;
+        border-color: rgba(255, 244, 79, 0.6) !important;
     }
 
     .checklist-card.completed {
-        opacity: 0.75 !important;
-        background: linear-gradient(135deg, #f5f5f5 0%, #e8f4f8 100%) !important;
-        filter: grayscale(20%) !important;
+        opacity: 0.7 !important;
+        background: rgba(230, 230, 250, 0.2) !important;
+        filter: saturate(0.7) !important;
     }
 
-    .checklist-card.completed::before {
+    .checklist-card.completed::after {
         content: '✓' !important;
         position: absolute !important;
         top: 50% !important;
         left: 50% !important;
-        transform: translate(-50%, -50%) rotate(-15deg) !important;
-        font-size: 100px !important;
-        color: rgba(39, 174, 96, 0.25) !important;
+        transform: translate(-50%, -50%) rotate(-12deg) !important;
+        font-size: 90px !important;
+        color: rgba(137, 207, 240, 0.2) !important;
         font-weight: 900 !important;
         z-index: 1 !important;
-        animation: checkPop 0.5s ease-out !important;
+        animation: checkPop 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55) !important;
         pointer-events: none !important;
     }
 
     @keyframes checkPop {
-        0% { transform: translate(-50%, -50%) rotate(-15deg) scale(0); }
-        50% { transform: translate(-50%, -50%) rotate(-15deg) scale(1.3); }
-        100% { transform: translate(-50%, -50%) rotate(-15deg) scale(1); }
+        0% { transform: translate(-50%, -50%) rotate(-12deg) scale(0); opacity: 0; }
+        50% { transform: translate(-50%, -50%) rotate(-12deg) scale(1.2); opacity: 1; }
+        100% { transform: translate(-50%, -50%) rotate(-12deg) scale(1); opacity: 1; }
     }
 
     .checklist-card-content {
@@ -678,19 +585,21 @@ st.markdown("""
     }
 
     .checklist-card strong {
-        color: #1e88e5 !important;
-        font-size: 1.1em !important;
-        font-weight: 700 !important;
+        color: var(--baby-blue) !important;
+        font-size: 1.15em !important;
+        font-weight: 600 !important;
         display: block !important;
         margin-bottom: 12px !important;
-        line-height: 1.4 !important;
+        line-height: 1.5 !important;
+        text-shadow: 0 1px 3px rgba(255, 255, 255, 0.8) !important;
     }
 
     .checklist-card small {
-        color: #546e7a !important;
-        font-size: 0.85em !important;
+        color: var(--soft-pink) !important;
+        font-size: 0.9em !important;
         display: block !important;
         margin-top: 8px !important;
+        font-weight: 500 !important;
     }
 
     .card-checkbox-container {
@@ -828,125 +737,145 @@ st.markdown("""
         padding-left: 0 !important;
     }
 
-    /* Idea cards - TREASURE CHEST SCROLLS */
-    /* Idea cards - CIRCLE SHAPE with sparkle and shimmy */
+    /* ========== IDEA CARDS - GLASSMORPHISM BUBBLES ========== */
     .idea-card {
-        padding: 30px !important;
-        margin: 20px auto !important;
-        border-radius: 15px !important;
+        padding: 35px !important;
+        margin: 25px auto !important;
+        border-radius: 35px !important;
         width: 100% !important;
-        max-width: 450px !important;
+        max-width: 480px !important;
         display: flex !important;
         flex-direction: column !important;
         align-items: center !important;
         justify-content: center !important;
-        background: linear-gradient(135deg, #FFF8DC 0%, #FFE4E1 50%, #FFB6C1 100%) !important;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
-        border: 5px solid #DAA520 !important;
-        color: #2C3E50 !important;
+        background: rgba(255, 255, 255, 0.35) !important;
+        backdrop-filter: blur(15px) !important;
+        -webkit-backdrop-filter: blur(15px) !important;
+        box-shadow: 0 8px 32px rgba(255, 182, 193, 0.25),
+                    inset 0 2px 12px rgba(255, 255, 255, 0.4),
+                    0 4px 16px rgba(137, 207, 240, 0.15) !important;
+        border: 3px solid rgba(255, 255, 255, 0.4) !important;
+        color: var(--baby-blue) !important;
         position: relative !important;
         overflow: visible !important;
-        transition: all 0.3s ease !important;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
         cursor: pointer !important;
+        animation: gentlePulse 6s infinite ease-in-out;
     }
 
-    /* Treasure chest lock */
+    /* Light bulb idea decoration */
     .idea-card::before {
-        content: '🔐';
+        content: '💡';
         position: absolute;
-        top: -15px;
+        top: -18px;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 28px;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+        font-size: 32px;
+        filter: drop-shadow(0 0 12px rgba(255, 244, 79, 0.8));
+        animation: bounceIn 1.5s ease-out;
     }
 
     .idea-card:hover {
-        transform: translateY(-8px) scale(1.03);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4),
-                    0 0 30px rgba(255, 215, 0, 0.6);
-        border-color: #FFD700;
+        transform: translateY(-10px) scale(1.04) rotate(1deg);
+        box-shadow: 0 12px 48px rgba(255, 182, 193, 0.4),
+                    inset 0 2px 18px rgba(255, 255, 255, 0.5),
+                    0 0 50px rgba(255, 244, 79, 0.3);
+        border-color: rgba(255, 244, 79, 0.7);
     }
 
+    /* Sparkle trail */
     .idea-card::after {
         content: '✨';
         position: absolute;
-        top: 30px;
-        right: 30px;
-        font-size: 2.5em;
-        animation: sparkle 2s infinite;
+        top: 25px;
+        right: 25px;
+        font-size: 2em;
+        animation: sparkleTrail 5s infinite ease-in-out;
+        --x: 15px;
+        --y: 20px;
+        filter: drop-shadow(0 0 8px rgba(255, 244, 79, 0.6));
     }
 
     .idea-card h3 {
-        color: #1e88e5 !important;
-        font-weight: 700;
+        color: var(--soft-pink) !important;
+        font-weight: 600 !important;
         text-align: center;
-        margin-bottom: 10px;
+        margin-bottom: 12px;
+        text-shadow: 0 2px 6px rgba(255, 255, 255, 0.6);
     }
 
     .idea-card p {
-        color: #37474f !important;
+        color: var(--lavender) !important;
         text-align: center;
-        font-size: 0.95em;
+        font-size: 1em;
+        line-height: 1.6;
     }
 
     .idea-card small {
-        color: #607d8b !important;
+        color: var(--baby-blue) !important;
         text-align: center;
         display: block;
-        margin-top: 10px;
+        margin-top: 12px;
+        font-weight: 500;
     }
 
-    /* Buttons - ROYAL CASTLE STYLE */
+    /* ========== BUTTONS - GLASSMORPHISM WITH SHINE ========== */
     .stButton>button {
-        background: linear-gradient(135deg, #6495ED 0%, #4169E1 100%);
-        color: white;
-        border: 4px solid #C0C0C0;
-        border-radius: 12px !important;
-        padding: 16px 40px;
-        min-width: 150px;
-        font-weight: 800;
-        font-size: 17px;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.3);
-        transition: all 0.3s ease;
+        background: rgba(137, 207, 240, 0.3);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        color: var(--baby-blue);
+        border: 2px solid rgba(255, 255, 255, 0.4);
+        border-radius: 50px !important;
+        padding: 14px 36px;
+        min-width: 140px;
+        font-weight: 600;
+        font-size: 16px;
+        box-shadow: 0 8px 24px rgba(137, 207, 240, 0.25),
+                    inset 0 2px 8px rgba(255, 255, 255, 0.3);
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         cursor: pointer;
         position: relative;
-        overflow: visible;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        font-family: 'Cinzel', serif !important;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        overflow: hidden;
+        text-transform: none;
+        letter-spacing: 0.5px;
+        font-family: 'Fredoka', sans-serif !important;
+        text-shadow: 0 1px 3px rgba(255, 255, 255, 0.5);
     }
 
+    /* Disney shine effect on buttons */
     .stButton>button::before {
-        content: '✨';
+        content: '';
         position: absolute;
-        left: 15px;
-        animation: sparkle 1.5s infinite;
-        font-size: 1.2em;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.6),
+            transparent
+        );
+        transition: left 0.6s ease;
     }
 
-    .stButton>button::after {
-        content: '✨';
-        position: absolute;
-        right: 15px;
-        animation: sparkle 1.5s infinite 0.5s;
-        font-size: 1.2em;
+    .stButton>button:hover::before {
+        left: 200%;
     }
 
     .stButton>button:hover {
-        background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);
-        box-shadow: 0 12px 40px rgba(255, 182, 193, 0.7),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.5),
-                    0 0 30px rgba(255, 182, 193, 0.8);
-        border-color: #FFD700;
-        transform: translateY(-3px) scale(1.05);
-        border-width: 4px;
+        background: rgba(255, 182, 193, 0.4);
+        color: var(--soft-pink);
+        box-shadow: 0 12px 40px rgba(255, 182, 193, 0.4),
+                    inset 0 2px 12px rgba(255, 255, 255, 0.4),
+                    0 0 30px rgba(255, 244, 79, 0.3);
+        border-color: rgba(255, 244, 79, 0.5);
+        transform: translateY(-4px) scale(1.05);
     }
 
     .stButton>button:active {
-        transform: scale(0.9);
+        transform: scale(0.95);
     }
 
     /* OVERRIDE: Card delete button - SMALLER 36px - placed AFTER general button styles */
@@ -1000,98 +929,113 @@ st.markdown("""
         background: linear-gradient(135deg, #f5fff5 0%, #e8f5e9 100%);
     }
 
-    /* Input fields - CASTLE STYLE */
+    /* ========== INPUT FIELDS - GLASSMORPHISM ========== */
     .stTextInput > div > div > input,
     .stNumberInput > div > div > input,
     .stDateInput > div > div > input {
-        color: #2C3E50 !important;
-        background: linear-gradient(180deg, #FFFFFF 0%, #F0F8FF 100%) !important;
-        border: 3px solid #C0C0C0 !important;
-        border-radius: 12px !important;
-        padding: 14px 24px !important;
-        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1),
-                    0 4px 10px rgba(0, 0, 0, 0.1);
-        font-family: 'Cormorant Garamond', serif !important;
-        font-size: 16px !important;
+        color: var(--baby-blue) !important;
+        background: rgba(255, 255, 255, 0.4) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        border: 2px solid rgba(255, 255, 255, 0.5) !important;
+        border-radius: 25px !important;
+        padding: 12px 20px !important;
+        box-shadow: inset 0 2px 8px rgba(137, 207, 240, 0.1),
+                    0 4px 12px rgba(137, 207, 240, 0.15) !important;
+        font-family: 'Quicksand', sans-serif !important;
+        font-size: 15px !important;
+        font-weight: 500 !important;
+        transition: all 0.3s ease !important;
     }
 
     .stTextInput > div > div > input:focus,
     .stNumberInput > div > div > input:focus,
     .stDateInput > div > div > input:focus {
-        border-color: #6495ED !important;
-        box-shadow: 0 0 20px rgba(100, 149, 237, 0.6),
-                    inset 0 2px 4px rgba(0, 0, 0, 0.1);
-        border-width: 3px !important;
+        border-color: rgba(255, 182, 193, 0.6) !important;
+        box-shadow: 0 0 24px rgba(255, 182, 193, 0.4),
+                    inset 0 2px 8px rgba(137, 207, 240, 0.15),
+                    0 0 40px rgba(255, 244, 79, 0.2) !important;
+        background: rgba(255, 255, 255, 0.5) !important;
     }
 
     .stSelectbox > div > div > div,
     .stMultiSelect > div > div > div {
-        color: #2c3e50 !important;
-        background-color: white !important;
-        border: 3px solid #b0e0e6 !important;
-        border-radius: 50px !important;  /* PILL SHAPE! */
-        padding: 8px 20px !important;
+        color: var(--baby-blue) !important;
+        background: rgba(255, 255, 255, 0.35) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        border: 2px solid rgba(255, 255, 255, 0.4) !important;
+        border-radius: 25px !important;
+        padding: 10px 18px !important;
+        box-shadow: 0 4px 12px rgba(137, 207, 240, 0.15) !important;
     }
 
-    /* Text area - ROUNDED */
+    /* Text area - Glassmorphism */
     .stTextArea > div > div > textarea {
-        border-radius: 30px !important;
-        border: 3px solid #b0e0e6 !important;
-        padding: 15px 20px !important;
+        border-radius: 25px !important;
+        border: 2px solid rgba(255, 255, 255, 0.4) !important;
+        padding: 14px 18px !important;
+        background: rgba(255, 255, 255, 0.35) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        color: var(--baby-blue) !important;
     }
 
-    /* Labels - Royal Castle theme */
+    /* Labels - Playful 90's style */
     label {
-        color: #4169E1 !important;
-        font-weight: 700 !important;
-        font-family: 'Cinzel', serif !important;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 14px !important;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+        color: var(--soft-pink) !important;
+        font-weight: 600 !important;
+        font-family: 'Fredoka', sans-serif !important;
+        text-transform: none !important;
+        letter-spacing: 0.3px;
+        font-size: 15px !important;
+        text-shadow: 0 1px 3px rgba(255, 255, 255, 0.6) !important;
     }
 
-    /* Tabs styling - CASTLE ARCHWAYS */
+    /* ========== TABS - GLASSMORPHISM PILLS ========== */
     .stTabs [data-baseweb="tab-list"] {
-        background: linear-gradient(135deg, #B0C4DE 0%, #87CEEB 100%);
-        border-radius: 0 !important;
-        padding: 12px 8px;
-        border: 4px solid #C0C0C0;
-        border-bottom: 6px solid #A9A9A9;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 50px !important;
+        padding: 8px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 8px 24px rgba(137, 207, 240, 0.2),
+                    inset 0 2px 8px rgba(255, 255, 255, 0.3);
     }
 
     .stTabs [data-baseweb="tab"] {
-        color: #2C3E50 !important;
-        font-weight: 800;
-        border-radius: 12px 12px 0 0 !important;
-        padding: 16px 28px !important;
-        margin: 0 5px;
-        transition: all 0.3s ease;
-        font-family: 'Cinzel', serif !important;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        background: linear-gradient(180deg, #E6F3FF 0%, #B0C4DE 100%);
-        border: 3px solid #C0C0C0;
-        border-bottom: none;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        color: var(--baby-blue) !important;
+        font-weight: 600 !important;
+        border-radius: 50px !important;
+        padding: 12px 24px !important;
+        margin: 0 4px;
+        transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        font-family: 'Fredoka', sans-serif !important;
+        text-transform: none;
+        letter-spacing: 0.3px;
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid transparent;
+        box-shadow: 0 2px 8px rgba(137, 207, 240, 0.1);
     }
 
     .stTabs [data-baseweb="tab"]:hover {
-        transform: translateY(-3px);
-        background: linear-gradient(180deg, #FFE4E1 0%, #FFB6C1 100%);
-        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+        transform: translateY(-2px) scale(1.05);
+        background: rgba(255, 182, 193, 0.3);
+        color: var(--soft-pink) !important;
+        box-shadow: 0 6px 18px rgba(255, 182, 193, 0.25);
+        border-color: rgba(255, 244, 79, 0.4);
     }
 
     .stTabs [aria-selected="true"] {
-        background: linear-gradient(180deg, #6495ED 0%, #4169E1 100%) !important;
+        background: rgba(137, 207, 240, 0.4) !important;
         color: white !important;
-        border-radius: 12px 12px 0 0 !important;
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.3);
-        border-color: #FFD700;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        border-radius: 50px !important;
+        box-shadow: 0 8px 24px rgba(137, 207, 240, 0.35),
+                    inset 0 2px 10px rgba(255, 255, 255, 0.4),
+                    0 0 30px rgba(255, 244, 79, 0.2) !important;
+        border-color: rgba(255, 255, 255, 0.5) !important;
+        text-shadow: 0 2px 6px rgba(137, 207, 240, 0.5) !important;
     }
 
     /* Progress bar - light blue */
@@ -1199,47 +1143,53 @@ st.markdown("""
     }
 
     /* Trip code box - ROYAL BANNER */
+    /* ========== TRIP CODE BOX - GLASSMORPHISM ========== */
     .trip-code-diamond {
-        background: linear-gradient(135deg, #6495ED 0%, #4169E1 50%, #FFB6C1 100%);
-        padding: 35px 60px;
-        border-radius: 15px;
-        border: 6px solid #C0C0C0;
-        border-top: 20px solid #FFD700;
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        padding: 40px 60px;
+        border-radius: 40px;
+        border: 3px solid rgba(255, 255, 255, 0.4);
         text-align: center;
         margin: 30px auto;
         max-width: 700px;
-        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4),
-                    inset 0 2px 0 rgba(255, 255, 255, 0.3);
+        box-shadow: 0 12px 40px rgba(137, 207, 240, 0.3),
+                    inset 0 2px 12px rgba(255, 255, 255, 0.4),
+                    0 0 50px rgba(255, 182, 193, 0.15);
         position: relative;
+        animation: gentlePulse 5s infinite ease-in-out;
     }
 
-    /* Royal banner hanging chain */
+    /* Sparkle decoration */
     .trip-code-diamond::before {
-        content: '⛓️';
+        content: '🎟️';
         position: absolute;
-        top: -30px;
+        top: -20px;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 30px;
-        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
+        font-size: 36px;
+        filter: drop-shadow(0 0 15px rgba(255, 244, 79, 0.8));
+        animation: bounceIn 1.2s ease-out;
     }
 
     .trip-code-diamond h3 {
-        color: white;
+        color: var(--baby-blue);
         margin: 0;
-        font-size: 2em;
-        font-weight: 900;
-        text-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
-        font-family: 'Cinzel', serif !important;
-        letter-spacing: 3px;
+        font-size: 2.2em;
+        font-weight: 700;
+        text-shadow: 0 2px 8px rgba(255, 255, 255, 0.6);
+        font-family: 'Fredoka', sans-serif !important;
+        letter-spacing: 1px;
     }
 
     .trip-code-diamond p {
-        color: #FFE4E1;
+        color: var(--soft-pink);
         margin: 15px 0 0 0;
         font-size: 1.1em;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
-        font-style: italic;
+        text-shadow: 0 1px 4px rgba(255, 255, 255, 0.5);
+        font-style: normal;
+        font-weight: 500;
     }
 
     /* Alert boxes - CIRCULAR/PILL */
