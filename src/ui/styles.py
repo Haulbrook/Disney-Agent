@@ -291,6 +291,9 @@ def apply_custom_styles() -> str:
         padding: var(--space-4);
         margin-bottom: var(--space-3);
         transition: var(--transition);
+        position: relative;
+        overflow: hidden;
+        width: 100%;
     }
 
     .checklist-card:hover {
@@ -367,18 +370,24 @@ def apply_custom_styles() -> str:
         border: 2px solid var(--primary-blue) !important;
     }
 
-    /* Delete button - proper sizing, no overflow */
+    /* Delete button - ABSOLUTE NO OVERFLOW */
     .card-delete-btn {
         flex-shrink: 0 !important;
-        margin-left: var(--space-2) !important;
-        margin-right: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 36px !important;
+        max-width: 36px !important;
+        overflow: hidden !important;
+        position: relative !important;
     }
 
     .card-delete-btn .stButton {
         margin: 0 !important;
+        padding: 0 !important;
         width: 36px !important;
         min-width: 36px !important;
         max-width: 36px !important;
+        overflow: hidden !important;
     }
 
     .card-delete-btn button {
@@ -397,6 +406,9 @@ def apply_custom_styles() -> str:
         justify-content: center !important;
         font-size: 1rem !important;
         overflow: hidden !important;
+        position: relative !important;
+        left: 0 !important;
+        right: 0 !important;
     }
 
     .card-delete-btn button:hover {
@@ -716,10 +728,11 @@ def apply_custom_styles() -> str:
         display: none;
     }
 
-    /* Fix columns to prevent overlap */
+    /* Fix columns to prevent overlap - AGGRESSIVE CONSTRAINTS */
     [data-testid="column"] {
         padding: 0 var(--space-2) !important;
-        overflow: visible !important;
+        overflow: hidden !important;
+        position: relative !important;
     }
 
     [data-testid="column"]:first-child {
@@ -729,19 +742,39 @@ def apply_custom_styles() -> str:
     [data-testid="column"]:last-child {
         padding-right: 0 !important;
         /* Ensure delete button column doesn't overflow */
-        flex: 0 0 auto !important;
+        flex: 0 0 40px !important;
+        width: 40px !important;
         min-width: 40px !important;
         max-width: 40px !important;
+        overflow: hidden !important;
     }
 
-    /* Prevent button overflow in cards */
+    /* Prevent button overflow in cards - STRICT CONTAINMENT */
     .checklist-card [data-testid="column"] {
         display: flex !important;
         align-items: center !important;
+        overflow: hidden !important;
+    }
+
+    .checklist-card [data-testid="column"]:first-child {
+        flex: 1 1 auto !important;
+        min-width: 0 !important;
+        padding-right: var(--space-3) !important;
     }
 
     .checklist-card [data-testid="column"]:last-child {
-        justify-content: flex-end !important;
+        flex: 0 0 40px !important;
+        width: 40px !important;
+        max-width: 40px !important;
+        justify-content: center !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+
+    /* Force delete button to stay in bounds */
+    .checklist-card [data-testid="column"]:last-child * {
+        max-width: 36px !important;
+        max-height: 36px !important;
     }
 
     /* Ensure proper stacking context */
