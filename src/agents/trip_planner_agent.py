@@ -11,6 +11,16 @@ import pytz
 
 from src.models.trip_data import TripDetails, ChecklistItem, IdeaSuggestion
 from src.utils.helpers import get_trip_phase, generate_checklist_id
+from src.config.prompts import (
+    SYSTEM_PROMPT,
+    CHECKLIST_PROMPT_TEMPLATE,
+    BRAINSTORMING_PROMPT_TEMPLATE,
+    FORGOTTEN_ITEMS_PROMPT_TEMPLATE,
+    PERSONALIZED_SUGGESTION_PROMPT_TEMPLATE,
+    FALLBACK_CHECKLIST
+)
+from src.config.constants import DEFAULT_MODEL, DEFAULT_TEMPERATURE, MAX_TOKENS
+from src.utils.logger import log_api_call, log_error, safe_execute
 
 
 class TripPlannerAgent:
@@ -22,44 +32,17 @@ class TripPlannerAgent:
     - Managing pre-trip needs
     """
 
-    def __init__(self, api_key: str, model: str = "gpt-4-turbo-preview"):
-        """Initialize the Trip Planner Agent with OpenAI"""
+    def __init__(self, api_key: str, model: str = None):
+        """
+        Initialize the Trip Planner Agent with OpenAI
+
+        Args:
+            api_key: OpenAI API key
+            model: Model to use (defaults to DEFAULT_MODEL from config)
+        """
         self.client = OpenAI(api_key=api_key)
-        self.model = model
-        self.system_prompt = self._build_system_prompt()
-
-    def _build_system_prompt(self) -> str:
-        """Build the system prompt for the agent"""
-        return """You are an expert Disney trip planning assistant with deep knowledge of:
-- Walt Disney World, Disneyland, and other Disney destinations
-- Trip planning logistics and timelines
-- Family travel needs and considerations
-- Disney-specific tips, tricks, and hidden gems
-
-Your role is to help families plan magical Disney vacations by:
-1. Creating comprehensive, personalized checklists
-2. Brainstorming creative ideas and suggestions
-3. Anticipating needs (both obvious and easily forgotten)
-4. Providing actionable, specific advice
-5. PROACTIVELY suggesting checklist items when appropriate
-
-IMPORTANT CHECKLIST MANAGEMENT:
-- When you identify something the traveler should remember to pack or prepare, you can suggest adding it to their checklist
-- Use this special format ANYWHERE in your response: [ADD_ITEM: item_description | category | priority]
-  - item_description: Clear, actionable description (e.g., "Pack portable phone charger")
-  - category: shopping, packing, health, tech, home-prep, or travel-day
-  - priority: high, medium, or low
-- You can suggest multiple items in one response
-- Examples:
-  * "That's a great idea! [ADD_ITEM: Pack cooling towels for hot days | packing | medium]"
-  * "Don't forget [ADD_ITEM: Download My Disney Experience app | tech | high] before you go!"
-  * "Based on your party having young kids, [ADD_ITEM: Bring stroller or carrier | packing | high] would be helpful."
-
-When user explicitly asks you to "add to checklist" or "remind me", definitely suggest the item.
-When you notice they might need something based on context, proactively suggest it.
-
-Be enthusiastic, helpful, and thorough. Consider different age groups, special needs,
-budget constraints, and timeframes when making recommendations."""
+        self.model = model or DEFAULT_MODEL
+        self.system_prompt = SYSTEM_PROMPT
 
     def generate_comprehensive_checklist(self, trip_details: TripDetails) -> List[ChecklistItem]:
         """
@@ -69,74 +52,30 @@ budget constraints, and timeframes when making recommendations."""
         phase = get_trip_phase(trip_details.start_date)
         days_until = (trip_details.start_date - datetime.now(pytz.UTC)).days
 
-        prompt = f"""Generate a comprehensive Disney trip PERSONAL PREPARATION checklist for the following trip:
-
-Destination: {trip_details.destination}
-Trip Date: {trip_details.start_date.strftime('%B %d, %Y')}
-Days Until Trip: {days_until}
-Party Size: {trip_details.party_size}
-Ages: {', '.join(map(str, trip_details.ages)) if trip_details.ages else 'Not specified'}
-Interests: {', '.join(trip_details.interests) if trip_details.interests else 'General Disney experience'}
-Special Needs: {', '.join(trip_details.special_needs) if trip_details.special_needs else 'None'}
-
-Planning Phase: {phase}
-
-IMPORTANT: This traveler has ALREADY taken care of ALL park and hotel transactions including:
-- Park tickets (already purchased)
-- Dining reservations (not needed)
-- Hotel booking (already done)
-- Parking pass (already secured)
-- Dining plans (already arranged)
-- Transportation (already handled)
-
-DO NOT include any of the above items.
-
-Focus ONLY on PERSONAL PREPARATION tasks:
-1. Shopping/purchasing items to bring (clothes, toiletries, gear, accessories)
-2. Packing essentials (what to actually pack in suitcases/bags)
-3. Technology prep (chargers, batteries, apps to download, etc.)
-4. Health prep (medications, first aid, prescriptions, health documents)
-5. Home preparation (mail hold, pet care, house security, etc.)
-6. Day-before/day-of travel tasks
-7. CRITICAL: Easily forgotten items that people always wish they brought:
-   - Phone/camera chargers and portable batteries
-   - Rain gear (ponchos, umbrellas)
-   - Comfortable walking shoes (broken in)
-   - Sunscreen, lip balm, aloe vera
-   - Pain relievers, band-aids, blister prevention
-   - Snacks and refillable water bottles
-   - Cooling towels, handheld fans
-   - Autograph books and pens (for kids)
-   - Small backpack or park bag
-   - Extra ziplock bags (for wet items/phones)
-   - Hand sanitizer and wet wipes
-   - Compression socks for long days
-   - Stroller/carrier accessories if needed
-
-For each item, specify:
-- The task description (be specific and action-oriented)
-- Category (shopping, packing, health, tech, home-prep, travel-day, etc.)
-- Priority (high, medium, low)
-- Suggested deadline (relative to trip date)
-
-Return ONLY a valid JSON array of checklist items with this structure:
-[
-  {{
-    "text": "Purchase portable phone charger/power bank",
-    "category": "shopping",
-    "priority": "high",
-    "deadline": "2 weeks before"
-  }}
-]"""
+        # Build prompt from template
+        prompt = CHECKLIST_PROMPT_TEMPLATE.format(
+            destination=trip_details.destination,
+            start_date=trip_details.start_date.strftime('%B %d, %Y'),
+            days_until=days_until,
+            party_size=trip_details.party_size,
+            ages=', '.join(map(str, trip_details.ages)) if trip_details.ages else 'Not specified',
+            interests=', '.join(trip_details.interests) if trip_details.interests else 'General Disney experience',
+            budget_range=trip_details.budget_range or 'Not specified',
+            special_needs=', '.join(trip_details.special_needs) if trip_details.special_needs else 'None',
+            trip_phase=phase
+        )
 
         try:
+            log_api_call('OpenAI', 'chat.completions', {'model': self.model, 'purpose': 'checklist_generation'})
+
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[
                     {"role": "system", "content": self.system_prompt},
                     {"role": "user", "content": prompt}
                 ],
-                temperature=0.7,
+                temperature=DEFAULT_TEMPERATURE,
+                max_tokens=MAX_TOKENS,
                 response_format={"type": "json_object"}
             )
 
@@ -161,10 +100,11 @@ Return ONLY a valid JSON array of checklist items with this structure:
                     completed=False
                 ))
 
+            log_api_call('OpenAI', 'chat.completions', response_summary=f"{len(checklist)} items generated")
             return checklist
 
         except Exception as e:
-            print(f"Error generating checklist: {e}")
+            log_error("Error generating checklist", e, {'trip_destination': trip_details.destination})
             return self._get_fallback_checklist()
 
     def brainstorm_ideas(self, trip_details: TripDetails, focus: str = "general") -> List[IdeaSuggestion]:
@@ -175,37 +115,19 @@ Return ONLY a valid JSON array of checklist items with this structure:
             trip_details: Trip information
             focus: Specific focus area (dining, activities, surprises, budget-friendly, etc.)
         """
-        prompt = f"""Brainstorm creative Disney trip ideas for:
-
-Destination: {trip_details.destination}
-Party Size: {trip_details.party_size}
-Ages: {', '.join(map(str, trip_details.ages)) if trip_details.ages else 'Not specified'}
-Interests: {', '.join(trip_details.interests) if trip_details.interests else 'All Disney experiences'}
-Budget: {trip_details.budget_range or 'Not specified'}
-Focus Area: {focus}
-
-Generate 8-10 creative, specific ideas that could enhance this trip. Include:
-- Unique dining experiences
-- Special activities or experiences
-- Hidden gems and lesser-known attractions
-- Photo opportunities
-- Budget-friendly magic moments
-- Special surprises for kids/family
-- Time-saving tips specific to their situation
-
-Return ONLY a valid JSON object with an "ideas" array:
-{{
-  "ideas": [
-    {{
-      "title": "Brief catchy title",
-      "description": "Detailed description of the idea",
-      "category": "dining|activities|photos|surprises|tips",
-      "tags": ["tag1", "tag2"]
-    }}
-  ]
-}}"""
+        # Build prompt from template
+        prompt = BRAINSTORMING_PROMPT_TEMPLATE.format(
+            destination=trip_details.destination,
+            start_date=trip_details.start_date.strftime('%B %d, %Y'),
+            party_size=trip_details.party_size,
+            ages=', '.join(map(str, trip_details.ages)) if trip_details.ages else 'Not specified',
+            interests=', '.join(trip_details.interests) if trip_details.interests else 'All Disney experiences',
+            budget_range=trip_details.budget_range or 'Not specified'
+        )
 
         try:
+            log_api_call('OpenAI', 'chat.completions', {'model': self.model, 'purpose': 'brainstorming'})
+
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[
@@ -213,6 +135,7 @@ Return ONLY a valid JSON object with an "ideas" array:
                     {"role": "user", "content": prompt}
                 ],
                 temperature=0.9,  # Higher temperature for creativity
+                max_tokens=MAX_TOKENS,
                 response_format={"type": "json_object"}
             )
 
@@ -231,43 +154,49 @@ Return ONLY a valid JSON object with an "ideas" array:
                     saved=False
                 ))
 
+            log_api_call('OpenAI', 'chat.completions', response_summary=f"{len(ideas)} ideas generated")
             return ideas
 
         except Exception as e:
-            print(f"Error brainstorming ideas: {e}")
+            log_error("Error brainstorming ideas", e, {'trip_destination': trip_details.destination})
             return []
 
     def get_personalized_suggestion(self, trip_details: TripDetails, question: str) -> str:
         """
         Get a personalized suggestion or answer to a specific question
         """
-        prompt = f"""Answer this question about a Disney trip:
+        days_until = (trip_details.start_date - datetime.now(pytz.UTC)).days
 
-Question: {question}
-
-Trip Context:
-- Destination: {trip_details.destination}
-- Date: {trip_details.start_date.strftime('%B %d, %Y')}
-- Party Size: {trip_details.party_size}
-- Ages: {', '.join(map(str, trip_details.ages)) if trip_details.ages else 'Not specified'}
-- Interests: {', '.join(trip_details.interests) if trip_details.interests else 'General'}
-
-Provide a helpful, specific answer tailored to their situation. Be conversational and enthusiastic."""
+        # Build prompt from template
+        prompt = PERSONALIZED_SUGGESTION_PROMPT_TEMPLATE.format(
+            question=question,
+            destination=trip_details.destination,
+            start_date=trip_details.start_date.strftime('%B %d, %Y'),
+            days_until=days_until,
+            party_size=trip_details.party_size,
+            ages=', '.join(map(str, trip_details.ages)) if trip_details.ages else 'Not specified',
+            interests=', '.join(trip_details.interests) if trip_details.interests else 'General',
+            budget_range=trip_details.budget_range or 'Not specified'
+        )
 
         try:
+            log_api_call('OpenAI', 'chat.completions', {'model': self.model, 'purpose': 'personalized_suggestion'})
+
             response = self.client.chat.completions.create(
                 model=self.model,
                 messages=[
                     {"role": "system", "content": self.system_prompt},
                     {"role": "user", "content": prompt}
                 ],
-                temperature=0.7
+                temperature=DEFAULT_TEMPERATURE,
+                max_tokens=MAX_TOKENS
             )
 
             return response.choices[0].message.content
 
         except Exception as e:
-            return f"I apologize, but I encountered an error: {str(e)}"
+            log_error("Error getting personalized suggestion", e)
+            return f"I apologize, but I encountered an error. Please try again later."
 
     def suggest_forgotten_items(self, current_checklist: List[ChecklistItem]) -> List[str]:
         """
@@ -345,31 +274,13 @@ Return as a simple JSON array of strings:
 
     def _get_fallback_checklist(self) -> List[ChecklistItem]:
         """Fallback checklist if AI generation fails"""
-        fallback_items = [
-            ("Book park reservations", "booking", "high"),
-            ("Purchase park tickets", "booking", "high"),
-            ("Book dining reservations (180 days out)", "booking", "high"),
-            ("Book hotel accommodations", "booking", "high"),
-            ("Purchase travel insurance", "booking", "medium"),
-            ("Charge MagicBands", "disney-specific", "medium"),
-            ("Download My Disney Experience app", "tech", "high"),
-            ("Pack phone chargers and portable battery", "tech", "high"),
-            ("Pack comfortable walking shoes", "packing", "high"),
-            ("Pack sunscreen and hats", "packing", "high"),
-            ("Pack rain ponchos", "packing", "medium"),
-            ("Prepare day bags/backpacks", "packing", "medium"),
-            ("Print park tickets and confirmations", "documents", "high"),
-            ("Pack medications and first aid kit", "packing", "high"),
-            ("Notify bank of travel plans", "documents", "medium"),
-        ]
-
         return [
             ChecklistItem(
                 id=generate_checklist_id(),
-                text=text,
-                category=category,
-                priority=priority,
+                text=item["text"],
+                category=item["category"],
+                priority=item["priority"],
                 completed=False
             )
-            for text, category, priority in fallback_items
+            for item in FALLBACK_CHECKLIST
         ]
