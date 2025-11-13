@@ -1,916 +1,759 @@
 """
-Disney Trip Planning Agent - Premium Modern Styles Module
-
-A sleek, professional Disney-inspired design system featuring:
-- Modern glassmorphism and depth
-- Sophisticated color palette with Disney magic
-- Smooth micro-interactions and transitions
-- Premium typography and spacing
-- Elegant animations and effects
+Disney Trip Planning Agent - Clean Modern UI
+Completely rebuilt frontend with proper layout, no overlapping elements,
+and clean, professional Disney-inspired design.
 """
 
 
 def apply_custom_styles() -> str:
     """
-    Returns premium, modern CSS styling with sophisticated Disney aesthetics.
+    Returns clean, modern CSS styling with proper layout and no overlapping issues.
 
-    Features:
-    - Glassmorphism and frosted effects
-    - Deep navy blues, elegant golds, and magical teals
-    - Smooth animations and micro-interactions
-    - Professional typography with Poppins and Inter
-    - Clean, spacious layout with perfect hierarchy
-    - Subtle Disney magic without overwhelming design
+    Fixes:
+    - No overlapping buttons
+    - Icons don't show text behind them
+    - Clean sidebar with proper collapse
+    - Proper spacing and layout
+    - Modern, professional Disney theme
 
     Returns:
-        str: Complete CSS within <style> tags for st.markdown()
+        str: Complete CSS within <style> tags
     """
     return """
 <style>
     /* ============================================================================
-       MODERN DISNEY PREMIUM THEME
-       Sleek, Professional, with Magical Touches
+       CLEAN MODERN DISNEY UI - REBUILT FROM SCRATCH
+       No overlapping, clean layout, professional design
     ============================================================================ */
 
-    /* Import Modern Professional Fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+    /* Import clean modern fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
 
     /* ============================================================================
-       ROOT VARIABLES - Premium Disney Palette
+       ROOT RESET - Clean slate
     ============================================================================ */
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* ============================================================================
+       DESIGN TOKENS - Professional Disney Palette
+    ============================================================================ */
+
     :root {
-        /* Primary Colors - Deep & Sophisticated */
-        --disney-navy: #0A2540;
-        --disney-royal-blue: #1E3A8A;
-        --disney-sky: #3B82F6;
-        --disney-teal: #14B8A6;
-        --disney-gold: #F59E0B;
-        --disney-rose: #F472B6;
+        /* Brand Colors */
+        --primary-blue: #1E40AF;
+        --primary-teal: #0D9488;
+        --accent-gold: #F59E0B;
+        --accent-purple: #7C3AED;
 
-        /* Neutral Colors - Clean & Modern */
+        /* Neutrals */
         --white: #FFFFFF;
-        --off-white: #F8FAFC;
-        --light-gray: #E2E8F0;
-        --mid-gray: #94A3B8;
-        --dark-gray: #334155;
-        --black: #0F172A;
+        --gray-50: #F9FAFB;
+        --gray-100: #F3F4F6;
+        --gray-200: #E5E7EB;
+        --gray-300: #D1D5DB;
+        --gray-400: #9CA3AF;
+        --gray-500: #6B7280;
+        --gray-600: #4B5563;
+        --gray-700: #374151;
+        --gray-800: #1F2937;
+        --gray-900: #111827;
 
-        /* Glass Effects */
-        --glass-bg: rgba(255, 255, 255, 0.1);
-        --glass-border: rgba(255, 255, 255, 0.2);
+        /* Background */
+        --bg-primary: #FFFFFF;
+        --bg-secondary: #F9FAFB;
+        --bg-dark: #0F172A;
 
-        /* Shadows - Depth & Elevation */
-        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        /* Spacing */
+        --space-1: 0.25rem;
+        --space-2: 0.5rem;
+        --space-3: 0.75rem;
+        --space-4: 1rem;
+        --space-5: 1.25rem;
+        --space-6: 1.5rem;
+        --space-8: 2rem;
+        --space-10: 2.5rem;
+        --space-12: 3rem;
 
-        /* Magic Glow */
-        --glow-blue: 0 0 20px rgba(59, 130, 246, 0.3);
-        --glow-gold: 0 0 20px rgba(245, 158, 11, 0.3);
-        --glow-teal: 0 0 20px rgba(20, 184, 166, 0.3);
-
-        /* Spacing System */
-        --space-xs: 0.25rem;
-        --space-sm: 0.5rem;
-        --space-md: 1rem;
-        --space-lg: 1.5rem;
-        --space-xl: 2rem;
-        --space-2xl: 3rem;
-
-        /* Border Radius */
+        /* Radius */
         --radius-sm: 0.375rem;
         --radius-md: 0.5rem;
         --radius-lg: 0.75rem;
         --radius-xl: 1rem;
-        --radius-2xl: 1.5rem;
         --radius-full: 9999px;
 
+        /* Shadows */
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+
         /* Transitions */
-        --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-        --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
-        --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
-        --transition-bounce: 500ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        --transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     /* ============================================================================
-       MODERN ANIMATIONS
+       BASE STYLES
     ============================================================================ */
 
-    @keyframes fadeInUp {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    @keyframes fadeInScale {
-        from {
-            opacity: 0;
-            transform: scale(0.95);
-        }
-        to {
-            opacity: 1;
-            transform: scale(1);
-        }
-    }
-
-    @keyframes magicSparkle {
-        0%, 100% {
-            opacity: 0;
-            transform: scale(0) rotate(0deg);
-        }
-        50% {
-            opacity: 1;
-            transform: scale(1) rotate(180deg);
-        }
-    }
-
-    @keyframes gentleFloat {
-        0%, 100% {
-            transform: translateY(0px);
-        }
-        50% {
-            transform: translateY(-8px);
-        }
-    }
-
-    @keyframes shimmerGlow {
-        0% {
-            background-position: -200% center;
-        }
-        100% {
-            background-position: 200% center;
-        }
-    }
-
-    @keyframes pulseGlow {
-        0%, 100% {
-            box-shadow: var(--shadow-md);
-        }
-        50% {
-            box-shadow: var(--shadow-xl), var(--glow-blue);
-        }
-    }
-
-    @keyframes gradientShift {
-        0% {
-            background-position: 0% 50%;
-        }
-        50% {
-            background-position: 100% 50%;
-        }
-        100% {
-            background-position: 0% 50%;
-        }
-    }
-
-    /* ============================================================================
-       BASE STYLES - Typography & Layout
-    ============================================================================ */
-
-    * {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-        letter-spacing: -0.01em;
+    body {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
     }
 
     h1, h2, h3, h4, h5, h6 {
-        font-family: 'Poppins', sans-serif !important;
-        font-weight: 600;
-        letter-spacing: -0.02em;
-        line-height: 1.2;
-    }
-
-    h1 {
-        font-size: 2.5rem;
+        font-family: 'Plus Jakarta Sans', sans-serif !important;
         font-weight: 700;
+        line-height: 1.2;
+        color: var(--gray-900);
     }
 
-    h2 {
-        font-size: 2rem;
-        font-weight: 600;
-    }
-
-    h3 {
-        font-size: 1.5rem;
+    p {
+        line-height: 1.6;
+        color: var(--gray-700);
     }
 
     /* ============================================================================
-       MAIN BACKGROUND - Elegant Gradient
+       MAIN LAYOUT - Clean white background
     ============================================================================ */
 
     .main {
-        background: linear-gradient(
-            135deg,
-            #0A2540 0%,
-            #1E3A8A 25%,
-            #3B82F6 50%,
-            #14B8A6 75%,
-            #0EA5E9 100%
-        );
-        background-size: 400% 400%;
-        animation: gradientShift 20s ease infinite;
-        min-height: 100vh;
-        position: relative;
+        background: var(--bg-secondary) !important;
+        padding: var(--space-6) !important;
     }
 
-    /* Subtle magical overlay */
-    .main::before {
-        content: '';
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background:
-            radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 80% 70%, rgba(20, 184, 166, 0.1) 0%, transparent 50%),
-            radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
-        pointer-events: none;
-        z-index: 0;
-    }
-
-    /* Floating sparkles */
-    .main::after {
-        content: '✨';
-        position: fixed;
-        top: 10%;
-        right: 15%;
-        font-size: 2rem;
-        opacity: 0.6;
-        animation: gentleFloat 6s ease-in-out infinite, magicSparkle 3s ease-in-out infinite;
-        pointer-events: none;
-        z-index: 1;
+    .main .block-container {
+        max-width: 1400px !important;
+        padding: var(--space-8) var(--space-6) !important;
     }
 
     /* ============================================================================
-       SIDEBAR - Modern Glass Panel
+       SIDEBAR - Clean and professional
     ============================================================================ */
 
     [data-testid="stSidebar"] {
-        background: linear-gradient(
-            180deg,
-            rgba(10, 37, 64, 0.95) 0%,
-            rgba(30, 58, 138, 0.95) 100%
-        ) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
-        border-right: 1px solid var(--glass-border) !important;
-        box-shadow: var(--shadow-2xl) !important;
+        background: var(--white) !important;
+        border-right: 1px solid var(--gray-200) !important;
+        box-shadow: var(--shadow-sm) !important;
     }
 
     [data-testid="stSidebar"] > div {
-        padding: var(--space-lg) !important;
+        padding: var(--space-6) var(--space-4) !important;
     }
 
-    /* Sidebar title styling */
-    [data-testid="stSidebar"] h1,
-    [data-testid="stSidebar"] h2,
-    [data-testid="stSidebar"] h3 {
-        color: var(--white) !important;
-        margin-bottom: var(--space-lg) !important;
-        background: linear-gradient(135deg, #FFFFFF 0%, #3B82F6 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+    /* Fix sidebar collapse button - hide the text */
+    [data-testid="stSidebar"] button[kind="header"] {
+        background: transparent !important;
+        border: none !important;
+        padding: var(--space-2) !important;
+        color: var(--gray-600) !important;
+        font-size: 0 !important; /* Hide text */
     }
 
-    /* Sidebar inputs and widgets */
+    /* Show only the icon */
+    [data-testid="stSidebar"] button[kind="header"]:before {
+        font-size: 1.25rem !important;
+    }
+
+    /* Sidebar headers */
+    [data-testid="stSidebar"] h1 {
+        font-size: 1.5rem;
+        color: var(--gray-900);
+        margin-bottom: var(--space-6);
+        padding-bottom: var(--space-4);
+        border-bottom: 2px solid var(--primary-blue);
+    }
+
+    [data-testid="stSidebar"] h2 {
+        font-size: 1.125rem;
+        color: var(--gray-800);
+        margin-top: var(--space-6);
+        margin-bottom: var(--space-3);
+    }
+
     [data-testid="stSidebar"] label {
-        color: var(--light-gray) !important;
+        color: var(--gray-700) !important;
         font-weight: 500 !important;
         font-size: 0.875rem !important;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-bottom: var(--space-sm) !important;
+        margin-bottom: var(--space-2) !important;
     }
 
     /* ============================================================================
-       MAIN HEADER - Hero Title
+       HEADER - Clean and modern
     ============================================================================ */
 
     .main-header {
+        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%);
+        padding: var(--space-8) var(--space-6);
+        border-radius: var(--radius-xl);
+        margin-bottom: var(--space-8);
         text-align: center;
-        font-size: 3.5rem;
-        font-weight: 800;
-        padding: var(--space-2xl) var(--space-xl);
-        background: linear-gradient(
-            135deg,
-            #FFFFFF 0%,
-            #3B82F6 30%,
-            #14B8A6 60%,
-            #F59E0B 100%
-        );
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        background-size: 200% auto;
-        animation: shimmerGlow 4s linear infinite;
-        position: relative;
-        margin-bottom: var(--space-2xl);
-        letter-spacing: -0.03em;
+        box-shadow: var(--shadow-lg);
     }
 
-    .main-header::before {
-        content: '🏰';
-        position: absolute;
-        left: 5%;
-        top: 50%;
-        transform: translateY(-50%);
+    .main-header h1 {
+        color: var(--white);
         font-size: 2.5rem;
-        animation: gentleFloat 4s ease-in-out infinite;
-        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+        margin: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: var(--space-3);
     }
 
-    .main-header::after {
-        content: '✨';
-        position: absolute;
-        right: 5%;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 2rem;
-        animation: gentleFloat 4s ease-in-out infinite 2s, magicSparkle 3s ease-in-out infinite;
-    }
-
-    /* ============================================================================
-       COUNTDOWN BOX - Premium Card
-    ============================================================================ */
-
-    .countdown-box {
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(20, 184, 166, 0.1) 100%) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
-        border: 1px solid var(--glass-border) !important;
-        border-radius: var(--radius-2xl) !important;
-        padding: var(--space-2xl) !important;
-        margin: var(--space-xl) auto !important;
-        max-width: 600px !important;
-        box-shadow: var(--shadow-xl), var(--glow-blue) !important;
-        transition: all var(--transition-slow) !important;
-        animation: fadeInScale 0.6s ease-out !important;
-    }
-
-    .countdown-box:hover {
-        transform: translateY(-4px) scale(1.02) !important;
-        box-shadow: var(--shadow-2xl), var(--glow-teal) !important;
-    }
-
-    .countdown-box h2 {
-        color: var(--white) !important;
-        font-size: 3rem !important;
-        font-weight: 800 !important;
-        margin-bottom: var(--space-sm) !important;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3) !important;
-    }
-
-    .countdown-box p {
-        color: var(--light-gray) !important;
-        font-size: 1.125rem !important;
-        font-weight: 500 !important;
+    .main-header p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.125rem;
+        margin-top: var(--space-3);
+        margin-bottom: 0;
     }
 
     /* ============================================================================
-       TABS - Clean & Modern
+       TABS - Clean modern tabs
     ============================================================================ */
 
     .stTabs {
-        margin-top: var(--space-xl);
+        background: var(--white);
+        border-radius: var(--radius-lg);
+        padding: var(--space-4);
+        box-shadow: var(--shadow);
+        margin-bottom: var(--space-6);
     }
 
     [data-baseweb="tab-list"] {
-        gap: var(--space-md);
-        background: var(--glass-bg) !important;
-        backdrop-filter: blur(10px) !important;
-        border-radius: var(--radius-xl) !important;
-        padding: var(--space-sm) !important;
-        border: 1px solid var(--glass-border) !important;
+        gap: var(--space-2);
+        background: var(--gray-100) !important;
+        border-radius: var(--radius-md) !important;
+        padding: var(--space-1) !important;
     }
 
     [data-baseweb="tab"] {
         background: transparent !important;
         border: none !important;
-        border-radius: var(--radius-lg) !important;
-        padding: var(--space-md) var(--space-xl) !important;
-        color: var(--light-gray) !important;
+        border-radius: var(--radius-md) !important;
+        padding: var(--space-3) var(--space-5) !important;
+        color: var(--gray-600) !important;
         font-weight: 500 !important;
-        font-size: 0.875rem !important;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        transition: all var(--transition-base) !important;
+        font-size: 0.9375rem !important;
+        transition: var(--transition) !important;
+        white-space: nowrap !important;
     }
 
     [data-baseweb="tab"]:hover {
-        background: var(--glass-bg) !important;
-        color: var(--white) !important;
+        background: var(--white) !important;
+        color: var(--gray-900) !important;
     }
 
     [data-baseweb="tab"][aria-selected="true"] {
-        background: linear-gradient(135deg, var(--disney-sky) 0%, var(--disney-teal) 100%) !important;
-        color: var(--white) !important;
-        box-shadow: var(--shadow-lg), var(--glow-blue) !important;
+        background: var(--white) !important;
+        color: var(--primary-blue) !important;
+        box-shadow: var(--shadow-sm) !important;
+        font-weight: 600 !important;
+    }
+
+    /* Hide the tab underline */
+    [data-baseweb="tab-highlight"] {
+        display: none !important;
     }
 
     /* ============================================================================
-       CHECKLIST CARDS - Premium Glass Cards
+       CARDS - Clean card design
     ============================================================================ */
 
-    .checklist-card {
-        background: var(--glass-bg) !important;
-        backdrop-filter: blur(20px) !important;
-        -webkit-backdrop-filter: blur(20px) !important;
-        border: 1px solid var(--glass-border) !important;
-        border-radius: var(--radius-xl) !important;
-        padding: var(--space-lg) !important;
-        margin-bottom: var(--space-lg) !important;
-        box-shadow: var(--shadow-lg) !important;
-        transition: all var(--transition-slow) !important;
-        cursor: pointer !important;
-        position: relative !important;
-        overflow: hidden !important;
-        animation: fadeInUp 0.4s ease-out !important;
+    .card {
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius-lg);
+        padding: var(--space-5);
+        margin-bottom: var(--space-4);
+        transition: var(--transition);
+        box-shadow: var(--shadow-sm);
     }
 
-    .checklist-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, var(--disney-sky) 0%, var(--disney-teal) 50%, var(--disney-gold) 100%);
-        opacity: 0;
-        transition: opacity var(--transition-base);
+    .card:hover {
+        border-color: var(--primary-blue);
+        box-shadow: var(--shadow-md);
+        transform: translateY(-2px);
+    }
+
+    /* Checklist card */
+    .checklist-card {
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-left: 4px solid var(--gray-300);
+        border-radius: var(--radius-lg);
+        padding: var(--space-4);
+        margin-bottom: var(--space-3);
+        transition: var(--transition);
     }
 
     .checklist-card:hover {
-        transform: translateY(-4px) !important;
-        box-shadow: var(--shadow-xl), var(--glow-blue) !important;
-        border-color: var(--disney-sky) !important;
+        border-left-color: var(--primary-blue);
+        box-shadow: var(--shadow);
     }
 
-    .checklist-card:hover::before {
-        opacity: 1;
-    }
-
-    /* Priority indicators */
-    .checklist-card[data-priority="high"]::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 4px;
-        background: linear-gradient(180deg, #EF4444 0%, #DC2626 100%);
-        box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-    }
-
-    .checklist-card[data-priority="medium"]::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 4px;
-        background: linear-gradient(180deg, #F59E0B 0%, #D97706 100%);
-        box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
-    }
-
-    .checklist-card[data-priority="low"]::after {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 0;
-        bottom: 0;
-        width: 4px;
-        background: linear-gradient(180deg, #10B981 0%, #059669 100%);
-        box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
-    }
-
-    .checklist-card strong {
-        color: var(--white) !important;
-        font-size: 1.125rem !important;
-        font-weight: 600 !important;
-        display: block !important;
-        margin-bottom: var(--space-sm) !important;
-        line-height: 1.4 !important;
-    }
-
-    .checklist-card small {
-        color: var(--mid-gray) !important;
-        font-size: 0.875rem !important;
-        display: block !important;
-        margin-top: var(--space-sm) !important;
-    }
-
-    /* Completed state */
     .checklist-card.completed {
-        opacity: 0.6 !important;
-        background: rgba(30, 58, 138, 0.3) !important;
-    }
-
-    .checklist-card.completed strong {
-        text-decoration: line-through;
+        background: var(--gray-50);
         opacity: 0.7;
     }
 
-    /* ============================================================================
-       BADGES & PILLS
-    ============================================================================ */
-
-    .category-badge {
-        display: inline-block;
-        padding: var(--space-xs) var(--space-md);
-        background: var(--glass-bg);
-        backdrop-filter: blur(10px);
-        border: 1px solid var(--glass-border);
-        border-radius: var(--radius-full);
-        color: var(--light-gray);
-        font-size: 0.75rem;
-        font-weight: 500;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-right: var(--space-sm);
+    .checklist-card[data-priority="high"] {
+        border-left-color: #EF4444;
     }
 
-    .priority-badge {
-        display: inline-block;
-        padding: var(--space-xs) var(--space-md);
-        border-radius: var(--radius-full);
-        font-size: 0.75rem;
+    .checklist-card[data-priority="medium"] {
+        border-left-color: #F59E0B;
+    }
+
+    .checklist-card[data-priority="low"] {
+        border-left-color: #10B981;
+    }
+
+    .checklist-card strong {
+        color: var(--gray-900);
+        font-size: 1rem;
         font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
+        display: block;
+        margin-bottom: var(--space-2);
     }
 
-    .priority-badge.priority-high {
-        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
-        color: var(--white);
-        box-shadow: 0 2px 10px rgba(239, 68, 68, 0.3);
-    }
-
-    .priority-badge.priority-medium {
-        background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%);
-        color: var(--white);
-        box-shadow: 0 2px 10px rgba(245, 158, 11, 0.3);
-    }
-
-    .priority-badge.priority-low {
-        background: linear-gradient(135deg, #10B981 0%, #059669 100%);
-        color: var(--white);
-        box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+    .checklist-card small {
+        color: var(--gray-500);
+        font-size: 0.875rem;
     }
 
     /* ============================================================================
-       BUTTONS - Modern & Sleek
+       BUTTONS - Proper spacing, no overlap
     ============================================================================ */
+
+    .stButton {
+        margin: 0 !important;
+    }
 
     .stButton > button {
-        background: linear-gradient(135deg, var(--disney-sky) 0%, var(--disney-teal) 100%) !important;
+        background: linear-gradient(135deg, var(--primary-blue) 0%, var(--primary-teal) 100%) !important;
         color: var(--white) !important;
         border: none !important;
-        border-radius: var(--radius-lg) !important;
-        padding: var(--space-md) var(--space-xl) !important;
+        border-radius: var(--radius-md) !important;
+        padding: var(--space-3) var(--space-5) !important;
         font-weight: 600 !important;
-        font-size: 0.875rem !important;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        box-shadow: var(--shadow-lg), var(--glow-blue) !important;
-        transition: all var(--transition-base) !important;
+        font-size: 0.9375rem !important;
+        transition: var(--transition) !important;
+        box-shadow: var(--shadow) !important;
         cursor: pointer !important;
+        width: 100% !important;
+        text-align: center !important;
     }
 
     .stButton > button:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: var(--shadow-xl), var(--glow-teal) !important;
+        box-shadow: var(--shadow-md) !important;
+        transform: translateY(-1px);
     }
 
     .stButton > button:active {
-        transform: translateY(0) !important;
+        transform: translateY(0);
     }
 
-    /* Delete button */
+    /* Secondary button */
+    .stButton.secondary > button {
+        background: var(--white) !important;
+        color: var(--primary-blue) !important;
+        border: 2px solid var(--primary-blue) !important;
+    }
+
+    /* Delete button - proper sizing, no overlap */
+    .card-delete-btn {
+        margin-left: auto !important;
+        flex-shrink: 0 !important;
+    }
+
     .card-delete-btn button {
-        background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%) !important;
-        width: 40px !important;
-        height: 40px !important;
-        min-width: 40px !important;
+        background: #EF4444 !important;
+        width: 36px !important;
+        height: 36px !important;
+        min-width: 36px !important;
+        min-height: 36px !important;
         padding: 0 !important;
         border-radius: var(--radius-full) !important;
-        box-shadow: var(--shadow-md) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 1.125rem !important;
     }
 
     .card-delete-btn button:hover {
-        transform: scale(1.1) rotate(10deg) !important;
-        box-shadow: var(--shadow-lg), 0 0 20px rgba(239, 68, 68, 0.5) !important;
+        background: #DC2626 !important;
+        transform: scale(1.05);
+    }
+
+    /* Button row - proper flex layout to prevent overlap */
+    .button-row {
+        display: flex !important;
+        gap: var(--space-3) !important;
+        align-items: center !important;
+        margin-top: var(--space-3) !important;
+    }
+
+    .button-row > * {
+        flex: 1 1 auto !important;
+    }
+
+    .button-row .card-delete-btn {
+        flex: 0 0 auto !important;
     }
 
     /* ============================================================================
-       INPUT FIELDS - Clean & Modern
+       INPUTS - Clean form inputs
     ============================================================================ */
 
     .stTextInput > div > div > input,
     .stTextArea > div > div > textarea,
-    .stSelectbox > div > div > select,
-    .stMultiSelect > div > div {
-        background: var(--glass-bg) !important;
-        backdrop-filter: blur(10px) !important;
-        border: 1px solid var(--glass-border) !important;
+    .stSelectbox > div > div,
+    .stMultiSelect > div > div,
+    .stNumberInput > div > div > input,
+    .stDateInput > div > div > input {
+        background: var(--white) !important;
+        border: 1px solid var(--gray-300) !important;
         border-radius: var(--radius-md) !important;
-        color: var(--white) !important;
-        padding: var(--space-md) !important;
-        font-size: 0.875rem !important;
-        transition: all var(--transition-base) !important;
+        padding: var(--space-3) var(--space-4) !important;
+        font-size: 0.9375rem !important;
+        color: var(--gray-900) !important;
+        transition: var(--transition) !important;
     }
 
     .stTextInput > div > div > input:focus,
     .stTextArea > div > div > textarea:focus,
-    .stSelectbox > div > div > select:focus {
-        border-color: var(--disney-sky) !important;
-        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+    .stSelectbox > div > div:focus-within,
+    .stNumberInput > div > div > input:focus,
+    .stDateInput > div > div > input:focus {
+        border-color: var(--primary-blue) !important;
+        box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1) !important;
         outline: none !important;
     }
 
     /* ============================================================================
-       CHECKBOXES - Modern Toggle Style
+       CHECKBOXES - Modern checkbox style
     ============================================================================ */
 
     .stCheckbox {
-        padding: var(--space-sm) 0;
+        padding: var(--space-2) 0;
     }
 
     .stCheckbox > label {
-        color: var(--light-gray) !important;
+        color: var(--gray-700) !important;
         font-weight: 500 !important;
         cursor: pointer !important;
-        transition: color var(--transition-base) !important;
-    }
-
-    .stCheckbox > label:hover {
-        color: var(--white) !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: var(--space-3) !important;
     }
 
     .stCheckbox input[type="checkbox"] {
-        width: 20px;
-        height: 20px;
-        border-radius: var(--radius-sm);
-        border: 2px solid var(--glass-border);
-        background: var(--glass-bg);
-        cursor: pointer;
-        transition: all var(--transition-base);
+        width: 20px !important;
+        height: 20px !important;
+        border-radius: var(--radius-sm) !important;
+        border: 2px solid var(--gray-300) !important;
+        background: var(--white) !important;
+        cursor: pointer !important;
+        flex-shrink: 0 !important;
     }
 
     .stCheckbox input[type="checkbox"]:checked {
-        background: linear-gradient(135deg, var(--disney-sky) 0%, var(--disney-teal) 100%);
-        border-color: var(--disney-sky);
-        box-shadow: var(--glow-blue);
+        background: var(--primary-blue) !important;
+        border-color: var(--primary-blue) !important;
     }
 
     /* ============================================================================
-       CHAT INTERFACE - Sleek Messages
+       BADGES - Clean pill badges
     ============================================================================ */
 
-    .stChatMessage {
-        background: var(--glass-bg) !important;
-        backdrop-filter: blur(20px) !important;
-        border: 1px solid var(--glass-border) !important;
-        border-radius: var(--radius-xl) !important;
-        padding: var(--space-lg) !important;
-        margin-bottom: var(--space-md) !important;
-        animation: fadeInUp 0.3s ease-out !important;
+    .badge {
+        display: inline-flex;
+        align-items: center;
+        padding: var(--space-1) var(--space-3);
+        border-radius: var(--radius-full);
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.025em;
     }
 
-    .stChatMessage[data-testid="chat-message-user"] {
-        background: linear-gradient(135deg, rgba(59, 130, 246, 0.2) 0%, rgba(20, 184, 166, 0.2) 100%) !important;
-        border-color: var(--disney-sky) !important;
+    .badge-primary {
+        background: rgba(30, 64, 175, 0.1);
+        color: var(--primary-blue);
     }
 
-    .stChatMessage[data-testid="chat-message-assistant"] {
-        background: var(--glass-bg) !important;
+    .badge-success {
+        background: rgba(16, 185, 129, 0.1);
+        color: #059669;
+    }
+
+    .badge-warning {
+        background: rgba(245, 158, 11, 0.1);
+        color: #D97706;
+    }
+
+    .badge-danger {
+        background: rgba(239, 68, 68, 0.1);
+        color: #DC2626;
     }
 
     /* ============================================================================
-       ALERTS & NOTIFICATIONS
+       ALERTS - Clean notification style
     ============================================================================ */
 
     .stAlert {
-        background: var(--glass-bg) !important;
-        backdrop-filter: blur(20px) !important;
-        border: 1px solid var(--glass-border) !important;
-        border-radius: var(--radius-lg) !important;
-        padding: var(--space-lg) !important;
-        margin: var(--space-md) 0 !important;
-        animation: fadeInScale 0.3s ease-out !important;
+        background: var(--white) !important;
+        border: 1px solid var(--gray-200) !important;
+        border-left: 4px solid var(--primary-blue) !important;
+        border-radius: var(--radius-md) !important;
+        padding: var(--space-4) !important;
+        margin: var(--space-4) 0 !important;
     }
 
     .stSuccess {
-        border-left: 4px solid #10B981 !important;
-        box-shadow: 0 0 20px rgba(16, 185, 129, 0.2) !important;
+        border-left-color: #10B981 !important;
+        background: #F0FDF4 !important;
     }
 
     .stWarning {
-        border-left: 4px solid #F59E0B !important;
-        box-shadow: 0 0 20px rgba(245, 158, 11, 0.2) !important;
+        border-left-color: #F59E0B !important;
+        background: #FFFBEB !important;
     }
 
     .stError {
-        border-left: 4px solid #EF4444 !important;
-        box-shadow: 0 0 20px rgba(239, 68, 68, 0.2) !important;
+        border-left-color: #EF4444 !important;
+        background: #FEF2F2 !important;
     }
 
     .stInfo {
-        border-left: 4px solid #3B82F6 !important;
-        box-shadow: 0 0 20px rgba(59, 130, 246, 0.2) !important;
+        border-left-color: var(--primary-blue) !important;
+        background: #EFF6FF !important;
     }
 
     /* ============================================================================
-       PROGRESS INDICATORS
+       CHAT INTERFACE - Clean message bubbles
     ============================================================================ */
 
-    .stProgress > div > div {
-        background: var(--glass-bg) !important;
-        border-radius: var(--radius-full) !important;
-    }
-
-    .stProgress > div > div > div {
-        background: linear-gradient(90deg, var(--disney-sky) 0%, var(--disney-teal) 50%, var(--disney-gold) 100%) !important;
-        border-radius: var(--radius-full) !important;
-        box-shadow: var(--glow-blue) !important;
-    }
-
-    /* ============================================================================
-       EXPANDERS - Clean Accordions
-    ============================================================================ */
-
-    .streamlit-expanderHeader {
-        background: var(--glass-bg) !important;
-        backdrop-filter: blur(10px) !important;
-        border: 1px solid var(--glass-border) !important;
+    .stChatMessage {
+        background: var(--white) !important;
+        border: 1px solid var(--gray-200) !important;
         border-radius: var(--radius-lg) !important;
-        padding: var(--space-md) !important;
-        color: var(--white) !important;
-        font-weight: 600 !important;
-        transition: all var(--transition-base) !important;
+        padding: var(--space-4) !important;
+        margin-bottom: var(--space-3) !important;
     }
 
-    .streamlit-expanderHeader:hover {
-        background: rgba(59, 130, 246, 0.2) !important;
-        border-color: var(--disney-sky) !important;
+    .stChatMessage[data-testid="chat-message-user"] {
+        background: #EFF6FF !important;
+        border-color: var(--primary-blue) !important;
+    }
+
+    .stChatMessage[data-testid="chat-message-assistant"] {
+        background: var(--gray-50) !important;
     }
 
     /* ============================================================================
-       METRICS - Dashboard Cards
+       METRICS - Dashboard cards
     ============================================================================ */
 
     [data-testid="stMetric"] {
-        background: var(--glass-bg) !important;
-        backdrop-filter: blur(20px) !important;
-        border: 1px solid var(--glass-border) !important;
-        border-radius: var(--radius-xl) !important;
-        padding: var(--space-lg) !important;
-        box-shadow: var(--shadow-lg) !important;
-        transition: all var(--transition-base) !important;
-    }
-
-    [data-testid="stMetric"]:hover {
-        transform: translateY(-2px);
-        box-shadow: var(--shadow-xl), var(--glow-blue);
+        background: var(--white);
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius-lg);
+        padding: var(--space-5);
+        box-shadow: var(--shadow-sm);
     }
 
     [data-testid="stMetricLabel"] {
-        color: var(--mid-gray) !important;
-        font-size: 0.875rem !important;
-        font-weight: 500 !important;
+        color: var(--gray-600);
+        font-size: 0.875rem;
+        font-weight: 500;
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.025em;
     }
 
     [data-testid="stMetricValue"] {
-        color: var(--white) !important;
-        font-size: 2rem !important;
-        font-weight: 700 !important;
+        color: var(--gray-900);
+        font-size: 2rem;
+        font-weight: 700;
+        margin-top: var(--space-2);
     }
 
     /* ============================================================================
-       RESPONSIVE DESIGN - Mobile Optimization
+       PROGRESS BAR - Clean progress indicator
     ============================================================================ */
 
-    @media (max-width: 768px) {
-        .main-header {
-            font-size: 2rem;
-            padding: var(--space-xl) var(--space-md);
-        }
-
-        .countdown-box {
-            padding: var(--space-lg) !important;
-            margin: var(--space-md) !important;
-        }
-
-        .countdown-box h2 {
-            font-size: 2rem !important;
-        }
-
-        .checklist-card {
-            padding: var(--space-md) !important;
-        }
-
-        [data-baseweb="tab"] {
-            padding: var(--space-sm) var(--space-md) !important;
-            font-size: 0.75rem !important;
-        }
+    .stProgress > div > div {
+        background: var(--gray-200) !important;
+        border-radius: var(--radius-full) !important;
+        height: 8px !important;
     }
 
-    @media (max-width: 480px) {
-        .main-header {
-            font-size: 1.5rem;
-        }
-
-        h1 {
-            font-size: 1.75rem;
-        }
-
-        h2 {
-            font-size: 1.5rem;
-        }
-
-        h3 {
-            font-size: 1.25rem;
-        }
+    .stProgress > div > div > div {
+        background: linear-gradient(90deg, var(--primary-blue) 0%, var(--primary-teal) 100%) !important;
+        border-radius: var(--radius-full) !important;
     }
 
     /* ============================================================================
-       SCROLLBAR - Modern Styling
+       EXPANDER - Clean accordion
+    ============================================================================ */
+
+    .streamlit-expanderHeader {
+        background: var(--white) !important;
+        border: 1px solid var(--gray-200) !important;
+        border-radius: var(--radius-md) !important;
+        padding: var(--space-4) !important;
+        font-weight: 600 !important;
+        color: var(--gray-900) !important;
+    }
+
+    .streamlit-expanderHeader:hover {
+        background: var(--gray-50) !important;
+        border-color: var(--primary-blue) !important;
+    }
+
+    .streamlit-expanderContent {
+        border: 1px solid var(--gray-200) !important;
+        border-top: none !important;
+        border-radius: 0 0 var(--radius-md) var(--radius-md) !important;
+        padding: var(--space-4) !important;
+    }
+
+    /* ============================================================================
+       DATAFRAME - Clean table style
+    ============================================================================ */
+
+    .stDataFrame {
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+    }
+
+    /* ============================================================================
+       SCROLLBAR - Modern scrollbar
     ============================================================================ */
 
     ::-webkit-scrollbar {
-        width: 10px;
-        height: 10px;
+        width: 12px;
+        height: 12px;
     }
 
     ::-webkit-scrollbar-track {
-        background: var(--glass-bg);
-        border-radius: var(--radius-md);
+        background: var(--gray-100);
     }
 
     ::-webkit-scrollbar-thumb {
-        background: linear-gradient(180deg, var(--disney-sky) 0%, var(--disney-teal) 100%);
+        background: var(--gray-400);
         border-radius: var(--radius-md);
-        box-shadow: var(--glow-blue);
+        border: 3px solid var(--gray-100);
     }
 
     ::-webkit-scrollbar-thumb:hover {
-        background: linear-gradient(180deg, var(--disney-teal) 0%, var(--disney-gold) 100%);
+        background: var(--gray-500);
     }
 
     /* ============================================================================
-       LOADING STATES - Skeleton Screens
+       RESPONSIVE DESIGN
     ============================================================================ */
 
-    .skeleton {
-        background: linear-gradient(
-            90deg,
-            var(--glass-bg) 25%,
-            rgba(255, 255, 255, 0.2) 50%,
-            var(--glass-bg) 75%
-        );
-        background-size: 200% 100%;
-        animation: shimmerGlow 1.5s infinite;
-        border-radius: var(--radius-md);
+    @media (max-width: 768px) {
+        .main .block-container {
+            padding: var(--space-4) var(--space-3) !important;
+        }
+
+        .main-header h1 {
+            font-size: 1.75rem;
+        }
+
+        .main-header {
+            padding: var(--space-6) var(--space-4);
+        }
+
+        [data-baseweb="tab"] {
+            padding: var(--space-2) var(--space-3) !important;
+            font-size: 0.875rem !important;
+        }
+
+        .card, .checklist-card {
+            padding: var(--space-3);
+        }
+    }
+
+    /* ============================================================================
+       STREAMLIT-SPECIFIC FIXES
+    ============================================================================ */
+
+    /* Hide Streamlit branding */
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+
+    /* Fix toolbar */
+    .stApp [data-testid="stToolbar"] {
+        display: none;
+    }
+
+    /* Fix columns to prevent overlap */
+    [data-testid="column"] {
+        padding: 0 var(--space-2) !important;
+    }
+
+    [data-testid="column"]:first-child {
+        padding-left: 0 !important;
+    }
+
+    [data-testid="column"]:last-child {
+        padding-right: 0 !important;
+    }
+
+    /* Ensure proper stacking context */
+    .stButton,
+    .stCheckbox,
+    .stTextInput,
+    .stSelectbox {
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Fix spinner */
+    .stSpinner > div {
+        border-color: var(--primary-blue) transparent var(--primary-blue) transparent !important;
     }
 
     /* ============================================================================
        UTILITY CLASSES
     ============================================================================ */
 
-    .text-gradient {
-        background: linear-gradient(135deg, #FFFFFF 0%, #3B82F6 50%, #14B8A6 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
+    .mt-1 { margin-top: var(--space-1) !important; }
+    .mt-2 { margin-top: var(--space-2) !important; }
+    .mt-3 { margin-top: var(--space-3) !important; }
+    .mt-4 { margin-top: var(--space-4) !important; }
+    .mt-6 { margin-top: var(--space-6) !important; }
+    .mt-8 { margin-top: var(--space-8) !important; }
 
-    .glass-panel {
-        background: var(--glass-bg);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid var(--glass-border);
-        border-radius: var(--radius-xl);
-        padding: var(--space-lg);
-        box-shadow: var(--shadow-lg);
-    }
+    .mb-1 { margin-bottom: var(--space-1) !important; }
+    .mb-2 { margin-bottom: var(--space-2) !important; }
+    .mb-3 { margin-bottom: var(--space-3) !important; }
+    .mb-4 { margin-bottom: var(--space-4) !important; }
+    .mb-6 { margin-bottom: var(--space-6) !important; }
+    .mb-8 { margin-bottom: var(--space-8) !important; }
 
-    .magic-hover {
-        transition: all var(--transition-base);
-    }
+    .flex { display: flex !important; }
+    .items-center { align-items: center !important; }
+    .justify-between { justify-content: space-between !important; }
+    .gap-2 { gap: var(--space-2) !important; }
+    .gap-3 { gap: var(--space-3) !important; }
+    .gap-4 { gap: var(--space-4) !important; }
 
-    .magic-hover:hover {
-        transform: translateY(-4px);
-        box-shadow: var(--shadow-xl), var(--glow-blue);
-    }
+    .text-center { text-align: center !important; }
+    .font-bold { font-weight: 700 !important; }
+    .text-sm { font-size: 0.875rem !important; }
+    .text-xs { font-size: 0.75rem !important; }
 
 </style>
 """
