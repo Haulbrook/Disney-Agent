@@ -367,10 +367,18 @@ def apply_custom_styles() -> str:
         border: 2px solid var(--primary-blue) !important;
     }
 
-    /* Delete button - proper sizing, no overlap */
+    /* Delete button - proper sizing, no overflow */
     .card-delete-btn {
-        margin-left: auto !important;
         flex-shrink: 0 !important;
+        margin-left: var(--space-2) !important;
+        margin-right: 0 !important;
+    }
+
+    .card-delete-btn .stButton {
+        margin: 0 !important;
+        width: 36px !important;
+        min-width: 36px !important;
+        max-width: 36px !important;
     }
 
     .card-delete-btn button {
@@ -379,12 +387,16 @@ def apply_custom_styles() -> str:
         height: 36px !important;
         min-width: 36px !important;
         min-height: 36px !important;
+        max-width: 36px !important;
+        max-height: 36px !important;
         padding: 0 !important;
+        margin: 0 !important;
         border-radius: var(--radius-full) !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        font-size: 1.125rem !important;
+        font-size: 1rem !important;
+        overflow: hidden !important;
     }
 
     .card-delete-btn button:hover {
@@ -397,15 +409,21 @@ def apply_custom_styles() -> str:
         display: flex !important;
         gap: var(--space-3) !important;
         align-items: center !important;
+        justify-content: space-between !important;
         margin-top: var(--space-3) !important;
+        width: 100% !important;
     }
 
-    .button-row > * {
+    .button-row > *:not(.card-delete-btn) {
         flex: 1 1 auto !important;
+        min-width: 0 !important;
     }
 
     .button-row .card-delete-btn {
-        flex: 0 0 auto !important;
+        flex: 0 0 36px !important;
+        min-width: 36px !important;
+        max-width: 36px !important;
+        margin-left: var(--space-3) !important;
     }
 
     /* ============================================================================
@@ -701,6 +719,7 @@ def apply_custom_styles() -> str:
     /* Fix columns to prevent overlap */
     [data-testid="column"] {
         padding: 0 var(--space-2) !important;
+        overflow: visible !important;
     }
 
     [data-testid="column"]:first-child {
@@ -709,6 +728,20 @@ def apply_custom_styles() -> str:
 
     [data-testid="column"]:last-child {
         padding-right: 0 !important;
+        /* Ensure delete button column doesn't overflow */
+        flex: 0 0 auto !important;
+        min-width: 40px !important;
+        max-width: 40px !important;
+    }
+
+    /* Prevent button overflow in cards */
+    .checklist-card [data-testid="column"] {
+        display: flex !important;
+        align-items: center !important;
+    }
+
+    .checklist-card [data-testid="column"]:last-child {
+        justify-content: flex-end !important;
     }
 
     /* Ensure proper stacking context */
