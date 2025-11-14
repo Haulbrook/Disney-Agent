@@ -26,8 +26,8 @@ def apply_custom_styles() -> str:
        No overlapping, clean layout, professional design
     ============================================================================ */
 
-    /* Import clean modern fonts */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+    /* Import design guide fonts */
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Source+Sans+Pro:wght@300;400;600;700&display=swap');
 
     /* ============================================================================
        ROOT RESET - Clean slate
@@ -44,11 +44,18 @@ def apply_custom_styles() -> str:
     ============================================================================ */
 
     :root {
-        /* Brand Colors */
-        --primary-blue: #1E40AF;
-        --primary-teal: #0D9488;
-        --accent-gold: #F59E0B;
-        --accent-purple: #7C3AED;
+        /* Brand Colors - From Design Guide */
+        --primary: #2C3E50;
+        --secondary: #3498DB;
+        --accent: #E74C3C;
+        --light-gray: #ECF0F1;
+        --medium-gray: #95A5A6;
+
+        /* Legacy support - map old names to new colors */
+        --primary-blue: #2C3E50;
+        --primary-teal: #3498DB;
+        --accent-gold: #E74C3C;
+        --accent-purple: #2C3E50;
 
         /* Neutrals */
         --white: #FFFFFF;
@@ -102,13 +109,15 @@ def apply_custom_styles() -> str:
     ============================================================================ */
 
     body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif !important;
+        font-size: 16px;
+        line-height: 1.6;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
     }
 
     h1, h2, h3, h4, h5, h6 {
-        font-family: 'Plus Jakarta Sans', sans-serif !important;
+        font-family: 'Playfair Display', serif !important;
         font-weight: 700;
         line-height: 1.2;
         color: var(--gray-900);
