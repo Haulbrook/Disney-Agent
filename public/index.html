@@ -181,12 +181,16 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="idea-card">
+                                    <div class="idea-card" style="cursor: pointer;" onclick="scrollToPhotoLocations()">
                                         <div class="idea-icon">
                                             <i class="fa fa-camera"></i>
                                         </div>
                                         <h4>PhotoPass Memories</h4>
-                                        <p>Capture every magical moment with Disney PhotoPass. Professional photos throughout the parks!</p>
+                                        <p>Capture every magical moment with Disney PhotoPass. Click to see the best photo spots!</p>
+                                        <div style="margin-top: 15px; padding: 10px; background: linear-gradient(135deg, rgba(139, 95, 191, 0.1) 0%, rgba(255, 182, 193, 0.1) 100%); border-radius: 10px;">
+                                            <p style="margin: 0; font-weight: 600; color: var(--royal-purple);">📸 Photo Locations:</p>
+                                            <p style="margin: 5px 0 0 0; font-size: 14px;">Castle shots<br>Hidden Magic Shots<br>Character backdrops<br>Park icons & more!</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -276,6 +280,69 @@
                             </div>
                         </div>
                         <p style="text-align: center; margin-top: 20px; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; color: var(--royal-purple); font-weight: 600;">🎭 Pro Tip: Download times each morning in the My Disney Experience app - showtimes can change!</p>
+                    </div>
+                </div>
+                <div class="col-md-12" id="photo-locations-section" style="display: none; margin-bottom: 30px;">
+                    <div style="background: linear-gradient(135deg, rgba(255, 182, 193, 0.15) 0%, rgba(139, 95, 191, 0.15) 100%); border-radius: 20px; padding: 30px; border: 3px solid var(--blush-pink);">
+                        <h3 style="color: var(--royal-purple); text-align: center; margin-bottom: 20px;">📸 Best PhotoPass Locations & Magic Shots</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 10px;">
+                                    <h4 style="color: var(--royal-purple); margin-bottom: 10px;">🏰 Magic Kingdom</h4>
+                                    <p style="margin: 5px 0; font-weight: 600;">Iconic Spots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Castle Hub:</strong> Classic castle with statue of Walt & Mickey<br>• <strong>Main Street U.S.A.:</strong> Early morning or golden hour shots<br>• <strong>Partners Statue:</strong> In front of castle - arrive early!</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600;">Hidden Gems:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Tangled Restroom Area:</strong> Beautiful lantern displays<br>• <strong>Peter Pan Queue Exit:</strong> London skyline backdrop<br>• <strong>Be Our Guest Bridge:</strong> Gorgeous castle views</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600; color: var(--rose-gold);">✨ Magic Shots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• Tinker Bell dust effect near castle<br>• Lightsaber effects in Tomorrowland<br>• Holiday magic shots (ask photographers!)</p>
+                                </div>
+
+                                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 10px;">
+                                    <h4 style="color: var(--royal-purple); margin-bottom: 10px;">🎬 Hollywood Studios</h4>
+                                    <p style="margin: 5px 0; font-weight: 600;">Iconic Spots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Hollywood Tower Hotel:</strong> Front entrance dramatic shots<br>• <strong>Chinese Theatre:</strong> Classic Hollywood backdrop<br>• <strong>Echo Lake:</strong> Dinosaur Gertie with Santa hat!</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600;">Hidden Gems:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Star Wars Galaxy's Edge:</strong> Millennium Falcon cockpit<br>• <strong>Toy Story Land:</strong> Giant toys perspective shots<br>• <strong>Sunset Boulevard:</strong> Theater marquee at golden hour</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600; color: var(--rose-gold);">✨ Magic Shots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• BB-8 or Porgs in Galaxy's Edge<br>• Woody's boot in Toy Story Land<br>• Holiday projections on Tower</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 10px;">
+                                    <h4 style="color: var(--royal-purple); margin-bottom: 10px;">🌍 EPCOT</h4>
+                                    <p style="margin: 5px 0; font-weight: 600;">Iconic Spots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Spaceship Earth:</strong> Classic EPCOT ball shot<br>• <strong>World Showcase Lagoon:</strong> Each country pavilion<br>• <strong>France Pavilion:</strong> Eiffel Tower backdrop</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600;">Hidden Gems:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Japan Pavilion:</strong> Torii gate & gardens<br>• <strong>Morocco Pavilion:</strong> Intricate architecture details<br>• <strong>Norway Pavilion:</strong> Viking ship & Frozen backdrops<br>• <strong>UK Pavilion:</strong> Phone booth & British gardens</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600; color: var(--rose-gold);">✨ Magic Shots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• Figment character overlay<br>• Holiday characters at each country<br>• Remy in France!</p>
+                                </div>
+
+                                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 10px;">
+                                    <h4 style="color: var(--royal-purple); margin-bottom: 10px;">🦁 Animal Kingdom</h4>
+                                    <p style="margin: 5px 0; font-weight: 600;">Iconic Spots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Tree of Life:</strong> Multiple angles, incredible detail<br>• <strong>Discovery Island:</strong> Bridge with tree background<br>• <strong>Pandora:</strong> Floating mountains day & NIGHT</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600;">Hidden Gems:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Harambe Village:</strong> African marketplace details<br>• <strong>Asia Bridge:</strong> Prayer flags & mountains<br>• <strong>DinoLand:</strong> Fun, kitschy roadside Americana vibes</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600; color: var(--rose-gold);">✨ Magic Shots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• Banshee flying in Pandora<br>• Kevin the bird from Up!<br>• Holiday puppets (Merry Menagerie)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px; padding: 20px; background: rgba(255, 255, 255, 0.8); border-radius: 10px;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: var(--royal-purple); text-align: center;">💡 Pro PhotoPass Tips:</p>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p style="margin: 5px 0; font-size: 14px;"><strong>⏰ Best Times:</strong><br>Early morning (park open) or golden hour (1 hour before close)</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p style="margin: 5px 0; font-size: 14px;"><strong>🎨 Magic Shots:</strong><br>Always ask photographers "Do you have any magic shots here?"</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p style="margin: 5px 0; font-size: 14px;"><strong>📱 Memory Maker:</strong><br>All photos auto-download to your app - unlimited!</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-12">

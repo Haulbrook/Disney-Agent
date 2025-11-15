@@ -31,6 +31,15 @@ function scrollToShowsSchedule() {
     }
 }
 
+// Function to scroll to photo locations section
+function scrollToPhotoLocations() {
+    const section = document.getElementById('photo-locations-section');
+    if (section) {
+        section.style.display = 'block';
+        scrollToID('#photo-locations-section', 750);
+    }
+}
+
 // Initialize app when DOM is ready
 $(document).ready(function() {
     loadData();
