@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Plan your magical Disney vacation with our elegant AI-powered trip planning assistant">
+    <title>Disney Trip Planning - Royal Princess Edition</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏰</text></svg>">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay hidden">
+        <div class="loading-spinner">
+            <div class="spinner"></div>
+            <p>Creating your magical plan...</p>
+        </div>
+    </div>
+
+    <!-- Main Header -->
+    <header class="main-header">
+        <div class="sparkle sparkle-left">✨</div>
+        <h1>
+            <span class="castle-icon">🏰</span>
+            Disney Trip Planning Agent
+            <span class="sparkle-icon">✨</span>
+        </h1>
+        <p class="subtitle">Your Royal Guide to a Magical Vacation</p>
+        <div class="sparkle sparkle-right">✨</div>
+    </header>
+
+    <!-- Trip Code Section -->
+    <section id="tripCodeSection" class="trip-code-section">
+        <div class="container">
+            <div class="trip-code-setup" id="tripCodeSetup">
+                <h2>🔐 Trip Code for Multi-User Collaboration</h2>
+                <p class="info-text">Share your trip with family and friends! Enter a trip code to collaborate on planning together.</p>
+
+                <div class="trip-code-options">
+                    <div class="trip-code-option">
+                        <h3>Create New Trip</h3>
+                        <input type="text" id="newTripCode" placeholder="e.g., 'OurDisneyTrip2024'" class="trip-code-input">
+                        <button onclick="createTrip()" class="btn btn-primary">🎉 Create New Trip</button>
+                    </div>
+
+                    <div class="trip-code-option">
+                        <h3>Join Existing Trip</h3>
+                        <input type="text" id="joinTripCode" placeholder="Enter friend's trip code" class="trip-code-input">
+                        <button onclick="joinTrip()" class="btn btn-primary">🤝 Join Trip</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="trip-code-display hidden" id="tripCodeDisplay">
+                <div class="trip-code-diamond">
+                    <h3>💎 Trip Code: <span id="currentTripCode"></span> 💎</h3>
+                    <p>Share this code with your travel companions!</p>
+                </div>
+                <button onclick="changeTrip()" class="btn btn-secondary">🔄 Change Trip Code</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content hidden" id="mainContent">
+        <div class="container">
+            <!-- Countdown Timer -->
+            <div id="countdownBox" class="countdown-box">
+                ⏰ <span id="countdownText">Loading...</span> until your magical adventure! 🎉
+            </div>
+
+            <!-- Trip Setup Sidebar -->
+            <aside class="trip-sidebar">
+                <h2>🎯 Your Trip Details</h2>
+
+                <form id="tripForm">
+                    <div class="form-group">
+                        <label for="destination">Destination</label>
+                        <select id="destination" required>
+                            <option value="Walt Disney World">Walt Disney World</option>
+                            <option value="Disneyland Resort">Disneyland Resort</option>
+                            <option value="Disneyland Paris">Disneyland Paris</option>
+                            <option value="Tokyo Disney Resort">Tokyo Disney Resort</option>
+                            <option value="Hong Kong Disneyland">Hong Kong Disneyland</option>
+                            <option value="Shanghai Disney Resort">Shanghai Disney Resort</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="startDate">Trip Start Date</label>
+                        <input type="date" id="startDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="endDate">Trip End Date</label>
+                        <input type="date" id="endDate" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="partySize">Party Size</label>
+                        <input type="number" id="partySize" min="1" max="20" value="4" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ages">Ages (comma-separated)</label>
+                        <input type="text" id="ages" placeholder="e.g., 8, 10, 35, 37" value="8, 10, 35, 37" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Interests</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="Thrill Rides"> Thrill Rides
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="Character Meet & Greets" checked> Character Meet & Greets
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="Shows & Entertainment"> Shows & Entertainment
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="Dining Experiences"> Dining Experiences
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="Shopping"> Shopping
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="Relaxation"> Relaxation
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="Photography"> Photography
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="interests" value="Fireworks & Parades" checked> Fireworks & Parades
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget">Budget Range</label>
+                        <select id="budget" required>
+                            <option value="Budget-Friendly">Budget-Friendly</option>
+                            <option value="Moderate" selected>Moderate</option>
+                            <option value="Deluxe">Deluxe</option>
+                            <option value="No Budget Constraints">No Budget Constraints</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Special Considerations</label>
+                        <div class="checkbox-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="special" value="Wheelchair Access"> Wheelchair Access
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="special" value="Dietary Restrictions"> Dietary Restrictions
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="special" value="First-Time Visitors"> First-Time Visitors
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="special" value="Celebrating Special Occasion"> Celebrating Special Occasion
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="special" value="Traveling with Toddlers"> Traveling with Toddlers
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" name="special" value="Traveling with Teens"> Traveling with Teens
+                            </label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-large">
+                        🚀 Create/Update Trip Plan
+                    </button>
+                </form>
+            </aside>
+
+            <!-- Main Tab Content -->
+            <div class="main-tabs">
+                <div class="tab-navigation">
+                    <button class="tab-button active" data-tab="checklist">✅ Checklists</button>
+                    <button class="tab-button" data-tab="ideas">💡 Ideas & Suggestions</button>
+                    <button class="tab-button" data-tab="assistant">🤖 AI Assistant</button>
+                    <button class="tab-button" data-tab="summary">📋 Trip Summary</button>
+                </div>
+
+                <!-- Tab: Checklist -->
+                <div class="tab-content active" id="checklistTab">
+                    <h2>Trip Planning Checklist</h2>
+
+                    <div class="checklist-header">
+                        <h3>Your Personalized Checklist</h3>
+                        <div class="checklist-actions">
+                            <button onclick="findForgottenItems()" class="btn btn-secondary">
+                                🔍 Find Forgotten Items
+                            </button>
+                            <button onclick="toggleFilters()" class="btn btn-secondary">
+                                🔍 Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="filterSection" class="filter-section hidden">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="showCompleted" checked> Show Completed
+                        </label>
+                        <div class="filter-group">
+                            <label>Priority:</label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="priority-filter" value="high" checked> High
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="priority-filter" value="medium" checked> Medium
+                            </label>
+                            <label class="checkbox-label">
+                                <input type="checkbox" class="priority-filter" value="low" checked> Low
+                            </label>
+                        </div>
+                    </div>
+
+                    <div id="checklistContainer" class="checklist-grid">
+                        <div class="empty-state">
+                            <p>👈 Create your trip plan to generate a personalized checklist!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Ideas -->
+                <div class="tab-content" id="ideasTab">
+                    <h2>💡 Trip Ideas & Suggestions</h2>
+
+                    <div class="ideas-header">
+                        <h3>Brainstormed Ideas for Your Trip</h3>
+                        <div class="ideas-actions">
+                            <select id="ideaFocus" class="idea-focus-select">
+                                <option value="general">General</option>
+                                <option value="dining">Dining</option>
+                                <option value="activities">Activities</option>
+                                <option value="surprises">Surprises</option>
+                                <option value="budget-friendly">Budget-Friendly</option>
+                                <option value="photos">Photos</option>
+                            </select>
+                            <button onclick="generateIdeas()" class="btn btn-secondary">
+                                🔄 Generate New Ideas
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="ideasContainer" class="ideas-grid">
+                        <div class="empty-state">
+                            <p>✨ Generate your trip plan to see magical ideas!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: AI Assistant -->
+                <div class="tab-content" id="assistantTab">
+                    <h2>🤖 AI Trip Planning Assistant</h2>
+                    <p class="assistant-intro">Ask me anything about your Disney trip!</p>
+
+                    <div class="chat-container" id="chatContainer">
+                        <div class="chat-welcome">
+                            <h3>👋 Hello! I'm your Disney planning assistant</h3>
+                            <p>I can help you with recommendations, tips, and answer any questions about your magical vacation!</p>
+                        </div>
+                    </div>
+
+                    <div class="chat-input-container">
+                        <input type="text" id="chatInput" placeholder="Ask a question about your trip..." class="chat-input">
+                        <button onclick="sendMessage()" class="btn btn-primary">Send</button>
+                    </div>
+                </div>
+
+                <!-- Tab: Summary -->
+                <div class="tab-content" id="summaryTab">
+                    <h2>📋 Trip Summary</h2>
+
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <h3>Trip Details</h3>
+                            <div id="tripDetailsDisplay">
+                                <p class="empty-state">Create your trip plan to see details here!</p>
+                            </div>
+                        </div>
+
+                        <div class="summary-card">
+                            <h3>Planning Progress</h3>
+                            <div id="progressDisplay">
+                                <div class="metric">
+                                    <div class="metric-label">Checklist Progress</div>
+                                    <div class="metric-value" id="progressPercentage">0%</div>
+                                    <div class="progress-bar">
+                                        <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                                    </div>
+                                </div>
+                                <div class="metrics-row">
+                                    <div class="metric">
+                                        <div class="metric-label">Total Tasks</div>
+                                        <div class="metric-value" id="totalTasks">0</div>
+                                    </div>
+                                    <div class="metric">
+                                        <div class="metric-label">Completed</div>
+                                        <div class="metric-value" id="completedTasks">0</div>
+                                    </div>
+                                    <div class="metric">
+                                        <div class="metric-label">Remaining</div>
+                                        <div class="metric-value" id="remainingTasks">0</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="data-management">
+                        <button onclick="saveData()" class="btn btn-primary">💾 Save Trip Data</button>
+                        <button onclick="clearData()" class="btn btn-danger">🗑️ Clear All Data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <p>✨ Built with magic and love for Disney families ✨</p>
+        <p class="footer-credits">Powered by AI • Designed for Royalty</p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
+</body>
+</html>
