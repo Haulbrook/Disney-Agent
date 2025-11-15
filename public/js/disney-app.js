@@ -5,13 +5,22 @@
 
 // Global state
 let tripData = {
-    destination: '',
+    destination: 'Walt Disney World',
     partySize: 4,
-    startDate: '',
-    endDate: '',
+    startDate: '2025-12-06',
+    endDate: '2025-12-13',
     checklist: [],
     createdAt: null
 };
+
+// Function to scroll to character dining section
+function scrollToCharacterDining() {
+    const section = document.getElementById('character-dining-section');
+    if (section) {
+        section.style.display = 'block';
+        scrollToID('#character-dining-section', 750);
+    }
+}
 
 // Initialize app when DOM is ready
 $(document).ready(function() {
@@ -88,6 +97,34 @@ function createTrip() {
 function generateChecklist(destination, partySize, startDate, endDate) {
     const tripLengthDays = Math.ceil((new Date(endDate) - new Date(startDate)) / (1000 * 60 * 60 * 24)) + 1;
     const checklist = [];
+
+    // Haulbrook Family Specific Items
+    checklist.push({
+        id: generateId(),
+        title: '🎟️ Mickey\'s Very Merry Christmas Party Tickets',
+        description: 'Confirm party tickets for Tuesday, Dec 9. Enter at 4:00 PM',
+        category: 'Planning',
+        daysBeforeTrip: 30,
+        completed: false
+    });
+
+    checklist.push({
+        id: generateId(),
+        title: '⛳ Mini Golf Passes',
+        description: 'Free mini golf passes included! Fantasia Gardens or Winter Summerland',
+        category: 'Planning',
+        daysBeforeTrip: 0,
+        completed: false
+    });
+
+    checklist.push({
+        id: generateId(),
+        title: '🏨 Check-In at Coronado Springs',
+        description: 'Resort check-in at 3:00 PM on Saturday, Dec 6',
+        category: 'Planning',
+        daysBeforeTrip: 1,
+        completed: false
+    });
 
     // Pre-trip planning items
     checklist.push({

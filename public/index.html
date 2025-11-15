@@ -168,12 +168,16 @@
                         <div id="ideas-container">
                             <div class="row">
                                 <div class="col-md-4">
-                                    <div class="idea-card">
+                                    <div class="idea-card" style="cursor: pointer;" onclick="scrollToCharacterDining()">
                                         <div class="idea-icon">
                                             <i class="fa fa-cutlery"></i>
                                         </div>
                                         <h4>Character Dining</h4>
-                                        <p>Book a magical character breakfast or dinner experience. Meet your favorite Disney characters while enjoying delicious food!</p>
+                                        <p>You have character dining reservations! Click to see your schedule.</p>
+                                        <div style="margin-top: 15px; padding: 10px; background: linear-gradient(135deg, rgba(139, 95, 191, 0.1) 0%, rgba(255, 182, 193, 0.1) 100%); border-radius: 10px;">
+                                            <p style="margin: 0; font-weight: 600; color: var(--royal-purple);">📅 Your Reservations:</p>
+                                            <p style="margin: 5px 0 0 0; font-size: 14px;">Dec 7 - Tusker House (11:15 AM)<br>Dec 8 - Tony's Town Square (12:20 PM)<br>Dec 9 - 1900 Park Fare (9:25 AM)<br>Dec 10 - 50's Prime Time (11:00 AM)<br>Dec 11 - Akershus Royal Banquet (11:05 AM)<br>Dec 12 - Steakhouse 71 (6:45 PM)</p>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -211,6 +215,24 @@
                     <div class="section-heading">
                         <h2>✅ Your Trip Planning Checklist</h2>
                         <p>Never forget the essentials for your magical adventure!</p>
+                    </div>
+                </div>
+                <div class="col-md-12" id="character-dining-section" style="display: none; margin-bottom: 30px;">
+                    <div style="background: linear-gradient(135deg, rgba(139, 95, 191, 0.15) 0%, rgba(255, 182, 193, 0.15) 100%); border-radius: 20px; padding: 30px; border: 3px solid var(--soft-lavender);">
+                        <h3 style="color: var(--royal-purple); text-align: center; margin-bottom: 20px;">🍽️ Your Character Dining Reservations</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p style="margin: 10px 0;"><strong>📅 Sunday, Dec 7:</strong> Tusker House - 11:15 AM<br><small>Animal Kingdom | Character Breakfast</small></p>
+                                <p style="margin: 10px 0;"><strong>📅 Monday, Dec 8:</strong> Tony's Town Square - 12:20 PM<br><small>Magic Kingdom | Lunch</small></p>
+                                <p style="margin: 10px 0;"><strong>📅 Tuesday, Dec 9:</strong> 1900 Park Fare - 9:25 AM<br><small>Grand Floridian Resort | Character Breakfast</small></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p style="margin: 10px 0;"><strong>📅 Wednesday, Dec 10:</strong> 50's Prime Time Cafe - 11:00 AM<br><small>Hollywood Studios | Fantasmic Dining Package</small></p>
+                                <p style="margin: 10px 0;"><strong>📅 Thursday, Dec 11:</strong> Akershus Royal Banquet Hall - 11:05 AM<br><small>EPCOT | Princess Character Dining</small></p>
+                                <p style="margin: 10px 0;"><strong>📅 Friday, Dec 12:</strong> Steakhouse 71 - 6:45 PM<br><small>Contemporary Resort | Dinner</small></p>
+                            </div>
+                        </div>
+                        <p style="text-align: center; margin-top: 20px; color: var(--rose-gold); font-style: italic;">✨ Arrive 15 minutes early for all reservations!</p>
                     </div>
                 </div>
                 <div class="col-md-12">
