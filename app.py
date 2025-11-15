@@ -569,7 +569,7 @@ def main():
                         # Checkbox and delete button below the card - wrapped for proper layout
                         st.markdown('<div class="card-action-row">', unsafe_allow_html=True)
 
-                        action_col1, action_col2 = st.columns([7, 1], gap="small")
+                        action_col1, action_col2 = st.columns([20, 1], gap="small")
                         with action_col1:
                             checked = st.checkbox(
                                 "Complete",
