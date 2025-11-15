@@ -4,12 +4,13 @@
 ============================================================================ */
 
 :root {
-    /* Princess Color Palette */
-    --royal-purple: #8B5FBF;
-    --soft-lavender: #B8A4D9;
-    --blush-pink: #FFB6C1;
-    --rose-gold: #B76E79;
-    --gold: #D4AF37;
+    /* New Color Palette */
+    --royal-purple: #746bab;      /* (116,107,171) - Purple */
+    --soft-lavender: #76d0c0;     /* (118,208,192) - Light Teal */
+    --blush-pink: #1ab28a;        /* (26,178,138) - Teal Green */
+    --rose-gold: #fbbe4f;         /* (251,190,79) - Bright Gold */
+    --gold: #fbbe4f;              /* (251,190,79) - Bright Gold */
+    --accent-blue: #4a62d8;       /* (74,98,216) - Blue */
     --pearl-white: #F8F6F9;
 }
 
@@ -22,14 +23,14 @@ body {
     font-family: 'Montserrat', sans-serif !important;
 }
 
-/* Banner Background - Purple Gradient */
+/* Banner Background - New Color Gradient */
 .banner {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%) !important;
+    background: linear-gradient(135deg, var(--accent-blue) 0%, var(--royal-purple) 50%, var(--soft-lavender) 100%) !important;
 }
 
 /* Left Sidebar Styling */
 .left-side {
-    background: rgba(139, 95, 191, 0.15);
+    background: rgba(116, 107, 171, 0.15);
     backdrop-filter: blur(10px);
     border-radius: 15px;
     padding: 30px;
@@ -40,7 +41,7 @@ body {
     background: rgba(255, 255, 255, 0.95);
     border: 3px solid var(--soft-lavender);
     border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(139, 95, 191, 0.2);
+    box-shadow: 0 8px 32px rgba(116, 107, 171, 0.2);
 }
 
 .submit-form h4 {
@@ -65,7 +66,7 @@ body {
 .submit-form input:focus,
 .submit-form select:focus {
     border-color: var(--royal-purple);
-    box-shadow: 0 0 0 3px rgba(139, 95, 191, 0.1);
+    box-shadow: 0 0 0 3px rgba(116, 107, 171, 0.1);
 }
 
 .submit-form .btn {
@@ -75,13 +76,13 @@ body {
     font-weight: 700;
     padding: 15px 30px;
     border-radius: 50px;
-    box-shadow: 0 4px 15px rgba(139, 95, 191, 0.3);
+    box-shadow: 0 4px 15px rgba(116, 107, 171, 0.3);
     transition: all 0.3s ease;
 }
 
 .submit-form .btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(139, 95, 191, 0.4);
+    box-shadow: 0 6px 20px rgba(116, 107, 171, 0.4);
 }
 
 /* Countdown Section */
@@ -91,7 +92,7 @@ body {
     border-radius: 20px;
     text-align: center;
     color: white;
-    box-shadow: 0 8px 32px rgba(255, 182, 193, 0.3);
+    box-shadow: 0 8px 32px rgba(26, 178, 138, 0.3);
 }
 
 .countdown-display h2 {
@@ -131,13 +132,13 @@ body {
     border-radius: 20px;
     padding: 30px;
     margin-bottom: 25px;
-    box-shadow: 0 8px 24px rgba(139, 95, 191, 0.15);
+    box-shadow: 0 8px 24px rgba(116, 107, 171, 0.15);
     transition: all 0.3s ease;
 }
 
 .checklist-item:hover {
     transform: translateY(-5px);
-    box-shadow: 0 12px 32px rgba(139, 95, 191, 0.25);
+    box-shadow: 0 12px 32px rgba(116, 107, 171, 0.25);
     border-left-color: var(--blush-pink);
 }
 
@@ -199,14 +200,14 @@ body {
     border-radius: 20px;
     padding: 30px;
     margin-bottom: 25px;
-    box-shadow: 0 4px 16px rgba(139, 95, 191, 0.1);
+    box-shadow: 0 4px 16px rgba(116, 107, 171, 0.1);
     transition: all 0.3s ease;
     text-align: center;
 }
 
 .idea-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 8px 24px rgba(139, 95, 191, 0.2);
+    box-shadow: 0 8px 24px rgba(116, 107, 171, 0.2);
     border-color: var(--royal-purple);
 }
 
@@ -235,7 +236,7 @@ body {
     border-radius: 20px;
     padding: 30px;
     min-height: 250px;
-    box-shadow: 0 4px 16px rgba(139, 95, 191, 0.1);
+    box-shadow: 0 4px 16px rgba(116, 107, 171, 0.1);
 }
 
 .summary-card h4 {
@@ -254,7 +255,7 @@ body {
     align-items: center;
     justify-content: center;
     margin: 0 auto 20px;
-    box-shadow: 0 4px 16px rgba(139, 95, 191, 0.3);
+    box-shadow: 0 4px 16px rgba(116, 107, 171, 0.3);
 }
 
 .progress-circle span {
@@ -287,7 +288,7 @@ body {
 
 .action-buttons .btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(139, 95, 191, 0.4);
+    box-shadow: 0 4px 15px rgba(116, 107, 171, 0.4);
 }
 
 .action-buttons .btn-danger {
@@ -306,7 +307,7 @@ body {
 
 /* Footer */
 footer {
-    background: linear-gradient(135deg, var(--royal-purple) 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--royal-purple) 0%, var(--accent-blue) 100%);
     padding: 40px 0;
 }
 
@@ -326,12 +327,12 @@ footer {
 .page-direction-button a {
     background: linear-gradient(135deg, var(--gold) 0%, var(--rose-gold) 100%) !important;
     border: none !important;
-    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+    box-shadow: 0 4px 15px rgba(251, 190, 79, 0.3);
 }
 
 .page-direction-button a:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 6px 20px rgba(251, 190, 79, 0.4);
 }
 
 /* Responsive */
