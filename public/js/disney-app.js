@@ -75,8 +75,8 @@ function createTrip() {
     saveData();
     updateUI();
 
-    // Scroll to checklist
-    scrollToID('#checklist', 750);
+    // Scroll to dashboard to see stats
+    scrollToID('#summary', 750);
 
     // Show success message
     showNotification('✨ Your magical trip plan has been created!', 'success');
