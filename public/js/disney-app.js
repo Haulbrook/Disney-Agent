@@ -22,6 +22,15 @@ function scrollToCharacterDining() {
     }
 }
 
+// Function to scroll to shows schedule section
+function scrollToShowsSchedule() {
+    const section = document.getElementById('shows-schedule-section');
+    if (section) {
+        section.style.display = 'block';
+        scrollToID('#shows-schedule-section', 750);
+    }
+}
+
 // Initialize app when DOM is ready
 $(document).ready(function() {
     loadData();
