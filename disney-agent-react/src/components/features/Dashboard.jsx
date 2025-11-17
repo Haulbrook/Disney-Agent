@@ -24,9 +24,9 @@ const Dashboard = () => {
             <h4>Trip Details</h4>
             {tripData.createdAt ? (
               <div className="trip-details">
-                <p><strong>Destination:</strong> {tripData.destination}</p>
-                <p><strong>Party Size:</strong> {tripData.partySize} guests</p>
-                <p><strong>Dates:</strong> {new Date(tripData.startDate).toLocaleDateString()} - {new Date(tripData.endDate).toLocaleDateString()}</p>
+                <p><strong>Destination:</strong> {tripData.destination || 'Not set'}</p>
+                <p><strong>Party Size:</strong> {tripData.partySize || 0} guests</p>
+                <p><strong>Dates:</strong> {tripData.startDate && tripData.endDate ? `${new Date(tripData.startDate).toLocaleDateString()} - ${new Date(tripData.endDate).toLocaleDateString()}` : 'Not set'}</p>
               </div>
             ) : (
               <p className="empty-message">Create your trip to see details here</p>

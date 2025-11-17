@@ -25,7 +25,7 @@ const Checklist = () => {
     );
   }
 
-  const categories = [...new Set(tripData.checklist.map(item => item.category))];
+  const categories = [...new Set(tripData.checklist.filter(item => item.category).map(item => item.category))];
 
   return (
     <section id="checklist" className="checklist-section">
@@ -49,12 +49,14 @@ const Checklist = () => {
                     hoverable={true}
                   >
                     <div className="checklist-header">
-                      <h4>{item.title}</h4>
-                      <span className={`priority-badge priority-${item.priority}`}>
-                        ⭐ {item.priority.toUpperCase()}
-                      </span>
+                      <h4>{item.title || 'Untitled'}</h4>
+                      {item.priority && (
+                        <span className={`priority-badge priority-${item.priority}`}>
+                          ⭐ {item.priority.toUpperCase()}
+                        </span>
+                      )}
                     </div>
-                    <p>{item.description}</p>
+                    <p>{item.description || ''}</p>
                     <div className="checklist-actions">
                       <label className="checkbox-label">
                         <input
