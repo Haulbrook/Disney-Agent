@@ -1,6 +1,7 @@
 [build]
-  publish = "public"
-  functions = "netlify/functions"
+  base = "disney-agent-react"
+  publish = "disney-agent-react/dist"
+  command = "npm run build"
 
 [[redirects]]
   from = "/*"
