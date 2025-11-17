@@ -1,18 +1,28 @@
 import React from 'react';
+import { TripProvider } from './context/TripContext';
+import Hero from './components/features/Hero';
+import Dashboard from './components/features/Dashboard';
+import Countdown from './components/features/Countdown';
+import TripIdeas from './components/features/TripIdeas';
+import Checklist from './components/features/Checklist';
+import TripForm from './components/features/TripForm';
+import Footer from './components/layout/Footer';
 import './styles/theme.css';
 import './App.css';
 
 function App() {
-  // Simple test render to debug blank screen
   return (
-    <div className="App">
-      <h1 style={{padding: '40px', textAlign: 'center', color: '#746bab'}}>
-        🏰 Disney Trip Planner Loading...
-      </h1>
-      <p style={{textAlign: 'center', color: '#666'}}>
-        If you see this, React is working! Debugging components...
-      </p>
-    </div>
+    <TripProvider>
+      <div className="App">
+        <Hero />
+        <Dashboard />
+        <Countdown />
+        <TripIdeas />
+        <Checklist />
+        <TripForm />
+        <Footer />
+      </div>
+    </TripProvider>
   );
 }
 
