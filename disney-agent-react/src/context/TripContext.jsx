@@ -22,16 +22,27 @@ export const TripProvider = ({ children }) => {
 
   // Load from localStorage on mount
   useEffect(() => {
-    const savedTrip = localStorage.getItem('disneyTripData');
-    if (savedTrip) {
-      setTripData(JSON.parse(savedTrip));
+    try {
+      const savedTrip = localStorage.getItem('disneyTripData');
+      if (savedTrip) {
+        const parsed = JSON.parse(savedTrip);
+        setTripData(parsed);
+      }
+    } catch (error) {
+      console.error('Error loading trip data from localStorage:', error);
+      // Clear corrupted data
+      localStorage.removeItem('disneyTripData');
     }
   }, []);
 
   // Save to localStorage whenever tripData changes
   useEffect(() => {
-    if (tripData.createdAt) {
-      localStorage.setItem('disneyTripData', JSON.stringify(tripData));
+    try {
+      if (tripData.createdAt) {
+        localStorage.setItem('disneyTripData', JSON.stringify(tripData));
+      }
+    } catch (error) {
+      console.error('Error saving trip data to localStorage:', error);
     }
   }, [tripData]);
 
