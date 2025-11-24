@@ -25,23 +25,43 @@ DEFAULT_TEMPERATURE = 0.7
 MAX_TOKENS = 2000
 
 # ============================================================================
-# UI THEME COLORS (Soft Princess Disney Aesthetic)
+# UI THEME COLORS - Disney Magical Kingdom Palette
 # ============================================================================
 THEME_COLORS = {
-    'sky_blue': '#87CEEB',
-    'silver': '#C0C0C0',
-    'pastel_pink': '#FFB6C1',
-    'soft_purple': '#E6E6FA',
-    'cream': '#FFF8DC',
+    # Disney Castle Blues
+    'royal_blue': '#1a237e',
+    'midnight': '#0d1b3e',
+    'sky': '#5c6bc0',
+    'light_blue': '#7986cb',
+    'ice': '#e8eaf6',
+    # Disney Golds & Sparkles
     'gold': '#FFD700',
-    'light_gold': '#FFF4CC',
+    'light_gold': '#FFECB3',
+    'bronze': '#CD853F',
+    'sparkle': '#FFF8DC',
+    # Disney Princess Purples & Pinks
+    'purple': '#7b1fa2',
+    'light_purple': '#CE93D8',
+    'pink': '#F48FB1',
+    'rose': '#FCE4EC',
+    # Disney Magic Accents
+    'teal': '#00BCD4',
+    'turquoise': '#4DD0E1',
+    'mint': '#B2DFDB',
+    # Legacy Support
+    'sky_blue': '#5c6bc0',
+    'silver': '#CE93D8',
+    'pastel_pink': '#F48FB1',
+    'soft_purple': '#CE93D8',
+    'cream': '#FFF8DC',
 }
 
 # ============================================================================
-# FONTS
+# FONTS - Disney-Inspired Typography
 # ============================================================================
 HEADER_FONT = 'Cinzel'
-BODY_FONT = 'Cormorant Garamond'
+BODY_FONT = 'Quicksand'
+SCRIPT_FONT = 'Satisfy'
 
 # ============================================================================
 # CHECKLIST CATEGORIES
@@ -111,28 +131,47 @@ SPECIAL_NEEDS_OPTIONS = [
 ]
 
 # ============================================================================
-# EMOJI CONSTANTS (Consistent visual language)
+# EMOJI CONSTANTS - Disney Magical Language
 # ============================================================================
 EMOJI = {
+    # Disney Icons
     'castle': '🏰',
+    'mickey': '🐭',
+    'crown': '👑',
+    'fairy': '🧚',
+    'wand': '🪄',
+    'magic': '🪄',
+    # Sparkle & Magic
     'sparkle': '✨',
+    'star': '⭐',
+    'stars': '🌟',
+    'fireworks': '🎆',
+    'rainbow': '🌈',
+    'diamond': '💎',
+    # Actions & Status
     'check': '✅',
     'party': '🎉',
     'idea': '💡',
     'chat': '💬',
     'calendar': '📅',
     'clock': '⏰',
-    'star': '⭐',
-    'magic': '🪄',
-    'fireworks': '🎆',
     'search': '🔍',
     'plus': '➕',
     'trash': '🗑️',
     'save': '💾',
     'download': '⬇️',
     'share': '🔗',
+    # Notifications
     'warning': '⚠️',
-    'info': 'ℹ️'
+    'info': 'ℹ️',
+    'success': '✅',
+    'error': '❌',
+    # Family & Fun
+    'family': '👨‍👩‍👧‍👦',
+    'heart': '❤️',
+    'gift': '🎁',
+    'balloon': '🎈',
+    'camera': '📸',
 }
 
 # ============================================================================

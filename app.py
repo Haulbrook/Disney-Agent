@@ -200,8 +200,13 @@ if 'pending_suggestions' not in st.session_state:
 
 def main():
     """Main application"""
-    # Header
-    st.markdown('<h1 class="main-header">🏰 Disney Trip Planning Agent ✨</h1>', unsafe_allow_html=True)
+    # Header - Magical Disney Castle Banner
+    st.markdown('''
+    <div class="main-header">
+        <h1>🏰 Disney Trip Planning Agent ✨</h1>
+        <p>Where Dreams Come True & Magic Happens</p>
+    </div>
+    ''', unsafe_allow_html=True)
 
     # Check for API key
     if not st.session_state.agent:
@@ -220,8 +225,12 @@ def main():
 
     # Show trip code input if not set or if user wants to change
     if not st.session_state.trip_code:
-        st.markdown("---")
-        st.subheader("🔐 Trip Code for Multi-User Collaboration")
+        st.markdown("""
+        <div style="text-align: center; padding: 1.5rem 0;">
+            <div style="font-size: 3rem; margin-bottom: 0.5rem;">🏰👨‍👩‍👧‍👦✨</div>
+        </div>
+        """, unsafe_allow_html=True)
+        st.subheader("🔐 Family Trip Code - Plan Together!")
         st.info("💡 **Share your trip with family and friends!** Enter a trip code to collaborate on planning together. Everyone with the same code can view and edit the trip.")
 
         col1, col2 = st.columns(2)
@@ -236,7 +245,7 @@ def main():
                 help="This code will be shared with your travel companions"
             )
 
-            if st.button("🎉 Create New Trip", use_container_width=True):
+            if st.button("✨ Start New Adventure ✨", use_container_width=True):
                 if new_trip_code and len(new_trip_code) >= 3:
                     firebase = get_firebase_manager()
                     if firebase.is_enabled():
@@ -265,7 +274,7 @@ def main():
                 help="Get this code from your travel companion"
             )
 
-            if st.button("🤝 Join Trip", use_container_width=True):
+            if st.button("🏰 Join the Magic 🏰", use_container_width=True):
                 if join_trip_code:
                     firebase = get_firebase_manager()
                     if firebase.is_enabled():
@@ -310,7 +319,7 @@ def main():
 
     # Sidebar - Trip Setup
     with st.sidebar:
-        st.header("🎯 Your Trip Details")
+        st.header("✨ Your Magical Trip")
 
         # Load saved values if available
         default_destination = st.session_state.trip_details.destination if st.session_state.trip_details else "Walt Disney World"
@@ -368,7 +377,7 @@ def main():
             default=default_needs
         )
 
-        if st.button("🚀 Create/Update Trip Plan", use_container_width=True):
+        if st.button("✨ Create Your Magical Plan ✨", use_container_width=True):
             with st.spinner("Creating your magical trip plan..."):
                 # Convert dates to datetime
                 start_dt = datetime.combine(trip_date, datetime.min.time())
@@ -405,22 +414,38 @@ def main():
 
     # Main content
     if not st.session_state.trip_details:
+        st.markdown("""
+        <div style="text-align: center; padding: 2rem;">
+            <div style="font-size: 4rem; margin-bottom: 1rem;">🏰✨🎆</div>
+        </div>
+        """, unsafe_allow_html=True)
         st.info("👈 Start by entering your trip details in the sidebar and click 'Create Trip Plan'")
         st.markdown("""
-        ### Welcome to Your Disney Trip Planning Agent! 🎉
+        ### ✨ Welcome to Your Magical Disney Trip Planner! ✨
 
-        This AI-powered assistant will help you with:
-        - ✅ **Comprehensive packing checklists** (never forget the essentials!)
-        - 💡 **Creative trip ideas** and suggestions
-        - ⏰ **Countdown timer** to your magical adventure
-        - 🤖 **AI assistant** for all your Disney questions
+        *"All our dreams can come true, if we have the courage to pursue them."* - Walt Disney
 
-        ### 💾 Your Trip is Always Saved!
-        - **Everything is saved automatically** - trip details, checklists, checked items, chat history
-        - **Come back anytime** - your trip will be right here waiting for you
-        - **No login needed** - your data is securely saved on your device
-        - **Close and reopen** - everything will be exactly as you left it!
-        """)
+        This **FREE** AI-powered assistant helps families plan the perfect Disney vacation:
+
+        | Feature | Description |
+        |---------|-------------|
+        | ✅ **Smart Checklists** | Never forget the essentials with AI-generated packing lists |
+        | 💡 **Creative Ideas** | Personalized tips for dining, activities & magical moments |
+        | ⏰ **Countdown Timer** | Watch the magic countdown to your adventure! |
+        | 🤖 **AI Assistant** | Ask anything about your Disney trip |
+        | 👨‍👩‍👧‍👦 **Family Collaboration** | Share your trip code so everyone can help plan |
+
+        ### 💾 Your Adventure is Always Saved!
+        - ✨ **Auto-save everything** - trip details, checklists, chat history
+        - 🔄 **Come back anytime** - your trip will be waiting
+        - 🔗 **Share with family** - use trip codes to plan together
+        - 🆓 **Always free** - because magic should be for everyone!
+
+        ---
+        <div style="text-align: center; color: #7b1fa2; font-family: 'Satisfy', cursive; font-size: 1.2rem;">
+            ✨ Start your magical journey in the sidebar! ✨
+        </div>
+        """, unsafe_allow_html=True)
         return
 
     # Countdown Timer
@@ -434,22 +459,22 @@ def main():
     </div>
     """, unsafe_allow_html=True)
 
-    # Tabs for different sections
+    # Tabs for different sections - Magical Navigation
     tab1, tab2, tab3, tab4 = st.tabs([
         "✅ Checklists",
-        "💡 Ideas & Suggestions",
-        "🤖 AI Assistant",
-        "📋 Trip Summary"
+        "💡 Magical Ideas",
+        "🤖 AI Fairy Godmother",
+        "📋 My Adventure"
     ])
 
     # Tab 1: Checklists
     with tab1:
-        st.header("Trip Planning Checklist")
+        st.header("🏰 Trip Planning Checklist")
 
         # Top row: Subheader on left, Add Custom Item on right - MOBILE OPTIMIZED
         top_col1, top_col2 = st.columns([3, 2])
         with top_col1:
-            st.subheader("Your Personalized Checklist")
+            st.subheader("✨ Your Personalized Checklist")
         with top_col2:
             # Add custom item - compact version
             with st.expander("➕ Add Item", expanded=False):
@@ -595,17 +620,17 @@ def main():
 
     # Tab 2: Ideas & Suggestions
     with tab2:
-        st.header("💡 Trip Ideas & Suggestions")
+        st.header("💡 Magical Trip Ideas")
 
         col1, col2 = st.columns([3, 1])
         with col1:
-            st.subheader("Brainstormed Ideas for Your Trip")
+            st.subheader("✨ Enchanted Ideas for Your Adventure")
         with col2:
             focus = st.selectbox(
                 "Focus",
                 ["general", "dining", "activities", "surprises", "budget-friendly", "photos"]
             )
-            if st.button("🔄 Generate New Ideas"):
+            if st.button("🪄 Wish Upon a Star"):
                 with st.spinner("Brainstorming magical ideas..."):
                     new_ideas = st.session_state.agent.brainstorm_ideas(
                         st.session_state.trip_details,
@@ -634,9 +659,9 @@ def main():
 
     # Tab 3: AI Assistant
     with tab3:
-        st.header("🤖 AI Trip Planning Assistant")
-        st.write("Ask me anything about your Disney trip!")
-        st.info("💡 **Pro tip:** I can help you add items to your checklist! Just tell me what you need to remember, or I'll proactively suggest items based on our conversation.")
+        st.header("🧚 Your AI Fairy Godmother")
+        st.write("*Bibbidi-Bobbidi-Boo!* Ask me anything about your magical Disney journey!")
+        st.info("✨ **Magic tip:** I can add items to your checklist! Just tell me what you need, and I'll help make your wishes come true!")
 
         # Chat interface
         for message in st.session_state.chat_history:
@@ -749,12 +774,12 @@ def main():
 
     # Tab 4: Trip Summary
     with tab4:
-        st.header("📋 Trip Summary")
+        st.header("📋 Your Magical Adventure Summary")
 
         col1, col2 = st.columns(2)
 
         with col1:
-            st.subheader("Trip Details")
+            st.subheader("🏰 Trip Details")
             st.write(f"**Destination:** {st.session_state.trip_details.destination}")
             st.write(f"**Start Date:** {st.session_state.trip_details.start_date.strftime('%B %d, %Y')}")
             st.write(f"**End Date:** {st.session_state.trip_details.end_date.strftime('%B %d, %Y')}")
@@ -764,7 +789,7 @@ def main():
             st.write(f"**Ages:** {', '.join(map(str, st.session_state.trip_details.ages))}")
 
         with col2:
-            st.subheader("Planning Progress")
+            st.subheader("✨ Planning Progress")
             total_items = len(st.session_state.checklist)
             completed_items = sum(1 for item in st.session_state.checklist if item.completed)
             progress = (completed_items / total_items * 100) if total_items > 0 else 0
@@ -777,28 +802,28 @@ def main():
             st.metric("Remaining", total_items - completed_items)
 
         st.markdown("---")
-        st.subheader("Interests & Preferences")
+        st.subheader("🎭 Interests & Preferences")
         st.write(f"**Interests:** {', '.join(st.session_state.trip_details.interests)}")
         st.write(f"**Budget:** {st.session_state.trip_details.budget_range}")
         if st.session_state.trip_details.special_needs:
             st.write(f"**Special Considerations:** {', '.join(st.session_state.trip_details.special_needs)}")
 
         st.markdown("---")
-        st.subheader("Data Management")
+        st.subheader("💾 Data Management")
         col1, col2 = st.columns(2)
         with col1:
-            if st.button("💾 Save Trip Data"):
+            if st.button("✨ Save My Magic ✨"):
                 save_trip_data()
-                st.success("Trip data saved!")
+                st.success("✨ Trip data saved!")
         with col2:
-            if st.button("🗑️ Clear All Data"):
+            if st.button("🧹 Start Fresh"):
                 st.session_state.trip_details = None
                 st.session_state.checklist = []
                 st.session_state.ideas = []
                 st.session_state.chat_history = []
                 if DATA_FILE.exists():
                     DATA_FILE.unlink()
-                st.success("All data cleared!")
+                st.success("All data cleared! Ready for a new adventure!")
                 st.rerun()
 
 
