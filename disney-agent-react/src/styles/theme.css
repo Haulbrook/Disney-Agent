@@ -1,0 +1,222 @@
+/* Disney Magical Kingdom Theme - Castles, Mickey Heads & Pure Magic */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&family=Quicksand:wght@300;400;500;600;700&family=Satisfy&display=swap');
+
+:root {
+    /* Disney Castle Blues */
+    --disney-royal-blue: #1a237e;
+    --disney-midnight: #0d1b3e;
+    --disney-sky: #5c6bc0;
+    --disney-light-blue: #7986cb;
+    --disney-ice: #e8eaf6;
+
+    /* Disney Golds & Sparkles */
+    --disney-gold: #ffd700;
+    --disney-light-gold: #ffecb3;
+    --disney-bronze: #cd853f;
+    --disney-sparkle: #fff8dc;
+
+    /* Disney Princess Purples & Pinks */
+    --disney-purple: #7b1fa2;
+    --disney-light-purple: #ce93d8;
+    --disney-pink: #f48fb1;
+    --disney-rose: #fce4ec;
+
+    /* Disney Magic Accents */
+    --disney-teal: #00bcd4;
+    --disney-turquoise: #4dd0e1;
+    --disney-mint: #b2dfdb;
+
+    /* Legacy mappings */
+    --primary-purple: var(--disney-purple);
+    --vibrant-cyan: var(--disney-turquoise);
+    --soft-teal: var(--disney-mint);
+    --deep-teal: var(--disney-teal);
+    --bright-gold: var(--disney-gold);
+    --accent-blue: var(--disney-royal-blue);
+    --pearl-white: var(--disney-sparkle);
+    --soft-gray: #9e9e9e;
+    --dark-slate: var(--disney-royal-blue);
+    --light-bg: var(--disney-ice);
+
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 12px;
+    --space-lg: 16px;
+    --space-xl: 20px;
+    --space-2xl: 40px;
+
+    /* Typography */
+    --font-size-base: 1rem;
+    --font-size-sm: 0.875rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    --font-size-3xl: 2.5rem;
+
+    /* Magical Shadows */
+    --shadow-sm: 0 2px 8px rgba(26, 35, 126, 0.15);
+    --shadow-md: 0 4px 16px rgba(26, 35, 126, 0.2);
+    --shadow-lg: 0 8px 24px rgba(26, 35, 126, 0.25);
+    --shadow-xl: 0 12px 32px rgba(26, 35, 126, 0.3);
+    --shadow-glow: 0 0 30px rgba(255, 215, 0, 0.4);
+    --shadow-pink-glow: 0 0 20px rgba(244, 143, 177, 0.3);
+
+    /* Border Radius */
+    --radius-sm: 10px;
+    --radius-md: 15px;
+    --radius-lg: 20px;
+    --radius-xl: 30px;
+    --radius-full: 50px;
+
+    /* Transitions */
+    --transition-fast: all 0.2s ease;
+    --transition-base: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: all 0.5s ease;
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Quicksand', 'Helvetica', sans-serif;
+    font-size: var(--font-size-base);
+    color: var(--disney-royal-blue);
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: linear-gradient(180deg,
+        var(--disney-ice) 0%,
+        #ffffff 30%,
+        #fff8e1 60%,
+        var(--disney-rose) 100%);
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--disney-royal-blue);
+}
+
+h1 { font-size: var(--font-size-3xl); font-weight: 900; }
+h2 { font-size: var(--font-size-2xl); }
+h3 { font-size: var(--font-size-xl); }
+h4 { font-size: var(--font-size-lg); }
+
+/* Magical Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-15px) rotate(5deg); }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+}
+
+@keyframes glow-pulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255, 215, 0, 0.3); }
+    50% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.6); }
+}
+
+@keyframes mickey-bob {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-5px) rotate(5deg); }
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+    50% { opacity: 1; transform: scale(1) rotate(180deg); }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.5s ease-out;
+}
+
+/* Mickey Head SVG pattern for backgrounds */
+.mickey-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='55' r='25' fill='%231a237e' fill-opacity='0.04'/%3E%3Ccircle cx='30' cy='30' r='15' fill='%231a237e' fill-opacity='0.04'/%3E%3Ccircle cx='70' cy='30' r='15' fill='%231a237e' fill-opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 80px 80px;
+}
+
+/* Castle SVG pattern */
+.castle-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath fill='%231a237e' fill-opacity='0.03' d='M100 180 L100 120 L80 120 L80 100 L70 100 L70 80 L60 80 L60 60 L50 60 L50 40 L70 40 L70 30 L75 30 L75 20 L80 20 L80 30 L90 30 L90 40 L100 40 L100 30 L105 30 L105 20 L110 20 L110 30 L120 30 L120 40 L130 40 L130 60 L140 60 L140 80 L150 80 L150 100 L140 100 L140 120 L120 120 L120 180 Z'/%3E%3C/svg%3E");
+    background-size: 150px 150px;
+}
+
+/* Utility Classes */
+.text-gold { color: var(--disney-gold) !important; }
+.text-purple { color: var(--disney-purple) !important; }
+.text-pink { color: var(--disney-pink) !important; }
+.bg-gradient-royal {
+    background: linear-gradient(135deg, var(--disney-royal-blue) 0%, var(--disney-purple) 100%);
+}
+.bg-gradient-magic {
+    background: linear-gradient(135deg, var(--disney-purple) 0%, var(--disney-pink) 50%, var(--disney-gold) 100%);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--disney-ice);
+    border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, var(--disney-light-purple), var(--disney-pink));
+    border-radius: var(--radius-full);
+    border: 2px solid var(--disney-ice);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, var(--disney-purple), var(--disney-pink));
+}
+
+/* Selection Highlight */
+::selection {
+    background: var(--disney-light-gold);
+    color: var(--disney-royal-blue);
+}

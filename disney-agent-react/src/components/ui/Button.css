@@ -1,0 +1,112 @@
+/* Button Component - Based on Agent's Button Patterns (63 extracted) */
+
+.btn {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: var(--transition-base);
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-sm);
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.btn:hover {
+  transform: translateY(-3px) scale(1.02);
+}
+
+.btn:active {
+  transform: translateY(-1px) scale(1);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn:disabled:hover {
+  transform: none;
+}
+
+/* Variants */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-purple) 0%, var(--vibrant-cyan) 100%);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(73, 252, 212, 0.5);
+}
+
+.btn-secondary {
+  background: linear-gradient(135deg, var(--vibrant-cyan) 0%, var(--bright-gold) 100%);
+  color: white;
+  box-shadow: var(--shadow-md);
+}
+
+.btn-secondary:hover {
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(251, 190, 79, 0.5);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-danger:hover {
+  box-shadow: 0 4px 12px rgba(255, 20, 147, 0.4);
+}
+
+.btn-outline {
+  background: transparent;
+  border: 2px solid var(--vibrant-cyan);
+  color: var(--primary-purple);
+}
+
+.btn-outline:hover {
+  background: var(--vibrant-cyan);
+  color: white;
+}
+
+/* Sizes */
+.btn-small {
+  padding: var(--space-sm) var(--space-lg);
+  font-size: var(--font-size-sm);
+}
+
+.btn-medium {
+  padding: var(--space-lg) var(--space-2xl);
+  font-size: var(--font-size-sm);
+}
+
+.btn-large {
+  padding: var(--space-xl) calc(var(--space-2xl) * 1.5);
+  font-size: var(--font-size-base);
+}

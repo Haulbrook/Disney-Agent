@@ -1,0 +1,333 @@
+/* Hero Component - Disney Magical Kingdom Theme */
+
+.hero {
+  background: linear-gradient(135deg,
+    var(--disney-royal-blue) 0%,
+    var(--disney-purple) 50%,
+    var(--disney-sky) 100%);
+  padding: 60px 0;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 4px solid var(--disney-gold);
+}
+
+/* Castle silhouette watermark */
+.hero::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  height: 200px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Cpath fill='rgba(255,255,255,0.08)' d='M100 100 L100 60 L85 60 L85 50 L75 50 L75 40 L65 40 L65 25 L80 25 L80 15 L85 15 L85 10 L90 10 L90 20 L100 20 L100 10 L105 10 L105 5 L110 5 L110 15 L115 15 L115 25 L120 25 L120 40 L135 40 L135 50 L125 50 L125 60 L115 60 L115 100 Z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: contain;
+  pointer-events: none;
+}
+
+/* Mickey head in corner */
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  width: 80px;
+  height: 80px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='55' r='25' fill='rgba(255,215,0,0.25)'/%3E%3Ccircle cx='30' cy='30' r='15' fill='rgba(255,215,0,0.25)'/%3E%3Ccircle cx='70' cy='30' r='15' fill='rgba(255,215,0,0.25)'/%3E%3C/svg%3E");
+  background-size: contain;
+  animation: mickey-bob 4s ease-in-out infinite;
+  pointer-events: none;
+}
+
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 5fr 5fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Sidebar */
+.hero-sidebar {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  border: 2px solid var(--disney-gold);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Mickey pattern overlay on sidebar */
+.hero-sidebar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='55' r='25' fill='white' fill-opacity='0.03'/%3E%3Ccircle cx='30' cy='30' r='15' fill='white' fill-opacity='0.03'/%3E%3Ccircle cx='70' cy='30' r='15' fill='white' fill-opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 80px 80px;
+  pointer-events: none;
+  border-radius: var(--radius-xl);
+}
+
+.logo h1 {
+  color: white;
+  font-family: 'Cinzel', serif;
+  font-weight: 900;
+  margin-bottom: 10px;
+  font-size: var(--font-size-2xl);
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 20px rgba(255,215,0,0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.logo .subtitle {
+  color: var(--disney-light-gold);
+  font-family: 'Satisfy', cursive;
+  font-weight: 400;
+  letter-spacing: 1px;
+  font-size: var(--font-size-lg);
+  position: relative;
+  z-index: 1;
+}
+
+.hero-nav {
+  margin-top: var(--space-2xl);
+  position: relative;
+  z-index: 1;
+}
+
+.hero-nav h4 {
+  color: var(--disney-light-gold);
+  margin-bottom: var(--space-lg);
+  font-size: var(--font-size-base);
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 600;
+}
+
+.hero-nav ul {
+  list-style: none;
+}
+
+.hero-nav li {
+  margin-bottom: var(--space-md);
+}
+
+.hero-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  text-decoration: none;
+  padding: var(--space-md) var(--space-lg);
+  border: 2px solid var(--disney-gold);
+  border-radius: var(--radius-md);
+  transition: var(--transition-bounce);
+  cursor: pointer;
+  font-weight: 500;
+  font-family: 'Quicksand', sans-serif;
+  background: rgba(255, 215, 0, 0.05);
+}
+
+.hero-nav a:hover {
+  background: rgba(255, 215, 0, 0.2);
+  border-color: var(--disney-light-gold);
+  transform: translateX(8px);
+  box-shadow: var(--shadow-glow);
+}
+
+.hero-nav em {
+  color: var(--disney-gold);
+  font-style: normal;
+  font-weight: 700;
+}
+
+.hero-cta {
+  margin-top: var(--space-2xl);
+  position: relative;
+  z-index: 1;
+}
+
+.cta-button {
+  width: 100%;
+  background: linear-gradient(135deg, var(--disney-gold) 0%, var(--disney-bronze) 100%);
+  border: 2px solid var(--disney-light-gold);
+  color: var(--disney-royal-blue);
+  padding: var(--space-lg) var(--space-2xl);
+  border-radius: var(--radius-full);
+  font-weight: 800;
+  font-size: var(--font-size-base);
+  font-family: 'Quicksand', sans-serif;
+  cursor: pointer;
+  transition: var(--transition-bounce);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer effect on button */
+.cta-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: 0.5s;
+}
+
+.cta-button:hover::before {
+  left: 100%;
+}
+
+.cta-button:hover {
+  transform: translateY(-4px) scale(1.03);
+  box-shadow: var(--shadow-lg), 0 0 30px rgba(255, 215, 0, 0.5);
+}
+
+/* Welcome Section */
+.hero-welcome {
+  background-image: url('https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?w=800');
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--radius-xl);
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+  border: 3px solid var(--disney-gold);
+}
+
+.welcome-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg,
+    rgba(26, 35, 126, 0.85) 0%,
+    rgba(123, 31, 162, 0.85) 50%,
+    rgba(92, 107, 192, 0.85) 100%);
+  border-radius: var(--radius-xl);
+}
+
+/* Castle watermark in welcome */
+.welcome-overlay::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 250px;
+  height: 150px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 100'%3E%3Cpath fill='rgba(255,255,255,0.1)' d='M100 100 L100 60 L85 60 L85 50 L75 50 L75 40 L65 40 L65 25 L80 25 L80 15 L85 15 L85 10 L90 10 L90 20 L100 20 L100 10 L105 10 L105 5 L110 5 L110 15 L115 15 L115 25 L120 25 L120 40 L135 40 L135 50 L125 50 L125 60 L115 60 L115 100 Z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: contain;
+  pointer-events: none;
+}
+
+.welcome-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: white;
+  padding: var(--space-2xl);
+}
+
+.floating-icon {
+  font-size: 70px;
+  margin-bottom: var(--space-xl);
+  opacity: 0.95;
+  text-shadow: 0 2px 15px rgba(0, 0, 0, 0.4);
+  animation: float 6s ease-in-out infinite;
+  display: block;
+}
+
+.welcome-content h2 {
+  font-size: 40px;
+  margin-bottom: 15px;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4), 0 0 30px rgba(255, 215, 0, 0.3);
+  font-weight: 900;
+  color: white;
+  font-family: 'Cinzel', serif;
+}
+
+.welcome-content h3 {
+  font-size: 28px;
+  opacity: 0.95;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.4);
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-bottom: var(--space-lg);
+  font-family: 'Satisfy', cursive;
+  color: var(--disney-light-gold);
+}
+
+.welcome-content p {
+  margin-top: var(--space-xl);
+  font-size: var(--font-size-lg);
+  opacity: 0.9;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.4);
+  font-weight: 400;
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Sparkle decorations */
+.welcome-content::before,
+.welcome-content::after {
+  content: '✨';
+  position: absolute;
+  font-size: 24px;
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.welcome-content::before {
+  top: 20px;
+  left: 20px;
+}
+
+.welcome-content::after {
+  bottom: 20px;
+  right: 20px;
+  animation-delay: 1s;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-welcome {
+    min-height: 300px;
+  }
+
+  .hero::after {
+    width: 50px;
+    height: 50px;
+    top: 10px;
+    right: 15px;
+  }
+}

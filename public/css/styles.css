@@ -1,0 +1,1039 @@
+/* ============================================================================
+   ROYAL PRINCESS THEME - DISNEY MAGIC
+   Elegant, sophisticated design for a princess family
+   Professional HTML/CSS/JS Site
+============================================================================ */
+
+/* ============================================================================
+   ROOT RESET
+============================================================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ============================================================================
+   ROYAL COLOR PALETTE - Princess Theme
+============================================================================ */
+
+:root {
+    /* Royal Princess Colors */
+    --royal-purple: #8B5FBF;
+    --soft-lavender: #B8A4D9;
+    --blush-pink: #FFB6C1;
+    --rose-gold: #B76E79;
+    --pearl-white: #F8F6F9;
+    --champagne: #F7E7CE;
+    --dusty-rose: #D4A5A5;
+    --deep-purple: #6B46A8;
+    --soft-peach: #FFE5D9;
+    --lavender-mist: #E6E6FA;
+
+    /* Accent Colors */
+    --gold: #D4AF37;
+    --rose: #FF69B4;
+    --mint: #98D8C8;
+
+    /* Neutrals */
+    --white: #FFFFFF;
+    --ivory: #FFFFF0;
+    --cream: #FFF8F0;
+    --light-gray: #F5F5F5;
+    --medium-gray: #D3D3D3;
+    --soft-gray: #E8E8E8;
+    --charcoal: #4A4A4A;
+    --deep-charcoal: #2D2D2D;
+
+    /* Gradients */
+    --gradient-royal: linear-gradient(135deg, #8B5FBF 0%, #B8A4D9 100%);
+    --gradient-sunset: linear-gradient(135deg, #FFB6C1 0%, #B76E79 100%);
+    --gradient-pearl: linear-gradient(135deg, #F8F6F9 0%, #E6E6FA 100%);
+    --gradient-gold: linear-gradient(135deg, #D4AF37 0%, #F7E7CE 100%);
+    --gradient-magic: linear-gradient(135deg, #8B5FBF 0%, #FFB6C1 50%, #D4AF37 100%);
+
+    /* Spacing System (8px base) */
+    --space-xs: 0.25rem;   /* 4px */
+    --space-sm: 0.5rem;    /* 8px */
+    --space-md: 1rem;      /* 16px */
+    --space-lg: 1.5rem;    /* 24px */
+    --space-xl: 2rem;      /* 32px */
+    --space-2xl: 3rem;     /* 48px */
+    --space-3xl: 4rem;     /* 64px */
+
+    /* Border Radius */
+    --radius-sm: 0.5rem;
+    --radius-md: 1rem;
+    --radius-lg: 1.5rem;
+    --radius-xl: 2rem;
+    --radius-full: 9999px;
+
+    /* Shadows - Elegant and soft */
+    --shadow-soft: 0 2px 8px rgba(139, 95, 191, 0.08);
+    --shadow-md: 0 4px 16px rgba(139, 95, 191, 0.12);
+    --shadow-lg: 0 8px 32px rgba(139, 95, 191, 0.16);
+    --shadow-xl: 0 16px 48px rgba(139, 95, 191, 0.2);
+    --shadow-glow: 0 0 20px rgba(255, 182, 193, 0.3);
+    --shadow-gold: 0 4px 16px rgba(212, 175, 55, 0.2);
+
+    /* Transitions */
+    --transition-fast: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-elegant: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================================
+   BASE STYLES
+============================================================================ */
+
+body {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--charcoal);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background-attachment: fixed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    min-height: 100vh;
+}
+
+/* Optional: Add Disney castle silhouette background */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><text x="50%" y="50%" font-size="200" text-anchor="middle" fill="rgba(255,255,255,0.03)">🏰</text></svg>');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50%;
+    pointer-events: none;
+    z-index: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--deep-purple);
+    letter-spacing: -0.02em;
+}
+
+h1 { font-size: 3.5rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 2rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+    line-height: 1.7;
+    color: var(--charcoal);
+    font-weight: 400;
+}
+
+.container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 var(--space-xl);
+    position: relative;
+    z-index: 1;
+}
+
+/* ============================================================================
+   HEADER - Magical Disney Entrance
+============================================================================ */
+
+.main-header {
+    background: var(--gradient-magic);
+    padding: var(--space-3xl) var(--space-xl);
+    text-align: center;
+    box-shadow: var(--shadow-xl), var(--shadow-glow);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: var(--space-2xl);
+}
+
+.main-header h1 {
+    color: var(--white);
+    font-size: 3.5rem;
+    margin: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-md);
+    flex-wrap: wrap;
+}
+
+.main-header .subtitle {
+    color: var(--ivory);
+    font-size: 1.25rem;
+    margin-top: var(--space-md);
+    margin-bottom: 0;
+}
+
+.sparkle {
+    position: absolute;
+    font-size: 2rem;
+    animation: sparkle 3s infinite;
+}
+
+.sparkle-left {
+    top: 20px;
+    left: 30px;
+}
+
+.sparkle-right {
+    bottom: 20px;
+    right: 30px;
+    animation-delay: 1.5s;
+}
+
+@keyframes sparkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+/* ============================================================================
+   TRIP CODE SECTION
+============================================================================ */
+
+.trip-code-section {
+    padding: var(--space-2xl) 0;
+}
+
+.trip-code-options {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--space-xl);
+    margin-top: var(--space-xl);
+}
+
+.trip-code-option {
+    background: var(--white);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 2px solid var(--lavender-mist);
+}
+
+.trip-code-option h3 {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-md);
+    color: var(--deep-purple);
+}
+
+.trip-code-input {
+    width: 100%;
+    padding: var(--space-md);
+    border: 2px solid var(--lavender-mist);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: var(--space-md);
+    transition: var(--transition-smooth);
+}
+
+.trip-code-input:focus {
+    outline: none;
+    border-color: var(--royal-purple);
+    box-shadow: 0 0 0 4px rgba(139, 95, 191, 0.1);
+}
+
+.trip-code-diamond {
+    background: var(--gradient-gold);
+    padding: var(--space-xl) var(--space-2xl);
+    text-align: center;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-gold);
+    border: 3px solid var(--gold);
+    margin-bottom: var(--space-lg);
+}
+
+.trip-code-diamond h3 {
+    color: var(--deep-purple);
+    margin: 0 0 var(--space-sm) 0;
+    font-size: 1.75rem;
+}
+
+.trip-code-diamond p {
+    color: var(--charcoal);
+    margin: 0;
+    font-size: 1rem;
+}
+
+.info-text {
+    color: var(--charcoal);
+    margin-bottom: var(--space-lg);
+    text-align: center;
+}
+
+/* ============================================================================
+   COUNTDOWN BOX - Royal Timer
+============================================================================ */
+
+.countdown-box {
+    background: var(--gradient-sunset);
+    padding: var(--space-xl);
+    border-radius: var(--radius-lg);
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--white);
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    margin: var(--space-xl) 0;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+/* ============================================================================
+   MAIN CONTENT LAYOUT
+============================================================================ */
+
+.main-content {
+    padding: var(--space-2xl) 0;
+    position: relative;
+    z-index: 1;
+}
+
+.main-content .container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    max-width: 1600px;
+}
+
+/* ============================================================================
+   TRIP FORM - Compact & Collapsible
+============================================================================ */
+
+.trip-sidebar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 2px solid var(--lavender-mist);
+}
+
+.trip-sidebar h2 {
+    color: var(--deep-purple);
+    font-size: 1.25rem;
+    margin-bottom: var(--space-lg);
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    cursor: pointer;
+}
+
+.trip-sidebar h2:hover {
+    color: var(--royal-purple);
+}
+
+/* Compact 2-column form layout */
+.trip-sidebar form {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--space-md);
+}
+
+.form-group {
+    margin-bottom: var(--space-lg);
+}
+
+.form-group label {
+    display: block;
+    color: var(--lavender-mist);
+    font-weight: 500;
+    font-size: 0.9rem;
+    margin-bottom: var(--space-sm);
+}
+
+.form-group input[type="text"],
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group select {
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    background: var(--white);
+    color: var(--deep-purple);
+    border: 2px solid var(--lavender-mist);
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    font-family: 'Montserrat', sans-serif;
+    transition: var(--transition-smooth);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    background: var(--white);
+    border-color: var(--royal-purple);
+    box-shadow: 0 0 0 3px rgba(139, 95, 191, 0.1);
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.checkbox-label {
+    color: var(--lavender-mist);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+}
+
+/* ============================================================================
+   TABS - Royal Navigation
+============================================================================ */
+
+.main-tabs {
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(10px);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-xl);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.tab-navigation {
+    display: flex;
+    gap: var(--space-sm);
+    background: var(--lavender-mist);
+    border-radius: var(--radius-md);
+    padding: var(--space-sm);
+    margin-bottom: var(--space-xl);
+}
+
+.tab-button {
+    flex: 1;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    padding: var(--space-md) var(--space-lg);
+    color: var(--royal-purple);
+    font-weight: 600;
+    font-size: 1rem;
+    font-family: 'Cormorant Garamond', serif;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+}
+
+.tab-button:hover {
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--deep-purple);
+    transform: translateY(-2px);
+}
+
+.tab-button.active {
+    background: var(--gradient-royal);
+    color: var(--white);
+    box-shadow: var(--shadow-md);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================================
+   CHECKLIST
+============================================================================ */
+
+.checklist-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+    gap: var(--space-md);
+}
+
+.checklist-actions {
+    display: flex;
+    gap: var(--space-md);
+}
+
+.filter-section {
+    background: var(--lavender-mist);
+    padding: var(--space-lg);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--space-lg);
+    display: flex;
+    gap: var(--space-lg);
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+}
+
+.checklist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+    gap: var(--space-xl);
+}
+
+.checklist-item {
+    background: linear-gradient(135deg, var(--white) 0%, var(--pearl-white) 100%);
+    border: 3px solid var(--lavender-mist);
+    border-left: 8px solid var(--soft-lavender);
+    border-radius: var(--radius-xl);
+    padding: var(--space-2xl);
+    transition: var(--transition-smooth);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    animation: fadeIn 0.5s ease-out;
+    min-height: 140px;
+}
+
+.checklist-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--gradient-magic);
+    opacity: 0;
+    transition: var(--transition-smooth);
+}
+
+.checklist-item:hover {
+    border-left-color: var(--royal-purple);
+    box-shadow: var(--shadow-md);
+    transform: translateX(4px);
+}
+
+.checklist-item:hover::before {
+    opacity: 1;
+}
+
+.checklist-item.completed {
+    background: var(--lavender-mist);
+    opacity: 0.7;
+}
+
+.checklist-item.priority-high {
+    border-left-color: var(--rose);
+}
+
+.checklist-item.priority-medium {
+    border-left-color: var(--gold);
+}
+
+.checklist-item.priority-low {
+    border-left-color: var(--mint);
+}
+
+.checklist-item-title {
+    color: var(--deep-purple);
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: var(--space-md);
+    font-family: 'Cormorant Garamond', serif;
+    line-height: 1.4;
+}
+
+.checklist-item-meta {
+    color: var(--charcoal);
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: var(--space-lg);
+}
+
+.checklist-item-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-lg);
+}
+
+.checklist-item-actions .checkbox-label {
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.checklist-item-actions input[type="checkbox"] {
+    width: 28px !important;
+    height: 28px !important;
+}
+
+/* ============================================================================
+   IDEAS GRID
+============================================================================ */
+
+.ideas-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--space-xl);
+    flex-wrap: wrap;
+    gap: var(--space-md);
+}
+
+.ideas-actions {
+    display: flex;
+    gap: var(--space-md);
+    align-items: center;
+}
+
+.idea-focus-select {
+    padding: var(--space-sm) var(--space-md);
+    border: 2px solid var(--lavender-mist);
+    border-radius: var(--radius-md);
+    font-family: 'Montserrat', sans-serif;
+    color: var(--deep-purple);
+    background: var(--white);
+}
+
+.ideas-grid {
+    display: grid;
+    gap: var(--space-lg);
+}
+
+.idea-card {
+    background: linear-gradient(135deg, var(--soft-peach) 0%, var(--pearl-white) 100%);
+    border: 2px solid var(--dusty-rose);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition-smooth);
+    animation: fadeIn 0.5s ease-out;
+}
+
+.idea-card:hover {
+    border-color: var(--rose-gold);
+    box-shadow: var(--shadow-md), var(--shadow-glow);
+    transform: translateY(-4px);
+}
+
+.idea-card h3 {
+    color: var(--deep-purple);
+    margin-bottom: var(--space-md);
+    font-size: 1.5rem;
+}
+
+.idea-card p {
+    color: var(--charcoal);
+    margin-bottom: var(--space-md);
+    line-height: 1.7;
+}
+
+.idea-card-meta {
+    color: var(--charcoal);
+    opacity: 0.7;
+    font-size: 0.875rem;
+}
+
+/* ============================================================================
+   CHAT INTERFACE
+============================================================================ */
+
+.assistant-intro {
+    text-align: center;
+    color: var(--charcoal);
+    margin-bottom: var(--space-lg);
+}
+
+.chat-container {
+    background: var(--pearl-white);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    min-height: 400px;
+    max-height: 600px;
+    overflow-y: auto;
+    margin-bottom: var(--space-lg);
+    border: 2px solid var(--lavender-mist);
+}
+
+.chat-welcome {
+    text-align: center;
+    padding: var(--space-2xl);
+}
+
+.chat-welcome h3 {
+    margin-bottom: var(--space-md);
+}
+
+.chat-message {
+    background: var(--white);
+    border: 2px solid var(--lavender-mist);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
+    box-shadow: var(--shadow-soft);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.chat-message.user {
+    background: linear-gradient(135deg, var(--soft-peach) 0%, var(--pearl-white) 100%);
+    border-color: var(--dusty-rose);
+    margin-left: var(--space-2xl);
+}
+
+.chat-message.assistant {
+    background: linear-gradient(135deg, var(--lavender-mist) 0%, var(--pearl-white) 100%);
+    border-color: var(--soft-lavender);
+    margin-right: var(--space-2xl);
+}
+
+.chat-input-container {
+    display: flex;
+    gap: var(--space-md);
+}
+
+.chat-input {
+    flex: 1;
+    padding: var(--space-md) var(--space-lg);
+    border: 2px solid var(--lavender-mist);
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    transition: var(--transition-smooth);
+}
+
+.chat-input:focus {
+    outline: none;
+    border-color: var(--royal-purple);
+    box-shadow: 0 0 0 4px rgba(139, 95, 191, 0.1);
+}
+
+/* ============================================================================
+   SUMMARY SECTION
+============================================================================ */
+
+.summary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+}
+
+.summary-card {
+    background: var(--gradient-pearl);
+    border: 2px solid var(--lavender-mist);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    box-shadow: var(--shadow-soft);
+}
+
+.summary-card h3 {
+    margin-bottom: var(--space-lg);
+}
+
+.metric {
+    margin-bottom: var(--space-lg);
+}
+
+.metric-label {
+    color: var(--royal-purple);
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: var(--space-sm);
+}
+
+.metric-value {
+    color: var(--deep-purple);
+    font-size: 2.5rem;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+}
+
+.metrics-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+}
+
+.progress-bar {
+    background: var(--lavender-mist);
+    border-radius: var(--radius-full);
+    height: 12px;
+    overflow: hidden;
+    margin-top: var(--space-md);
+}
+
+.progress-fill {
+    background: var(--gradient-magic);
+    height: 100%;
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-glow);
+    transition: width 0.5s ease-out;
+}
+
+.data-management {
+    display: flex;
+    gap: var(--space-md);
+    justify-content: center;
+}
+
+/* ============================================================================
+   BUTTONS - Royal Actions
+============================================================================ */
+
+.btn {
+    background: var(--gradient-royal);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-lg);
+    padding: var(--space-md) var(--space-xl);
+    font-weight: 600;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    box-shadow: var(--shadow-md);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.btn:hover {
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
+    transform: translateY(-2px) scale(1.02);
+}
+
+.btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.btn-primary {
+    background: var(--gradient-royal);
+}
+
+.btn-secondary {
+    background: var(--white);
+    color: var(--royal-purple);
+    border: 2px solid var(--royal-purple);
+}
+
+.btn-danger {
+    background: var(--gradient-sunset);
+}
+
+.btn-large {
+    padding: var(--space-lg) var(--space-2xl);
+    font-size: 1.125rem;
+    width: 100%;
+}
+
+.btn-small {
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.875rem;
+}
+
+.btn-delete {
+    background: var(--gradient-sunset);
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: var(--radius-full);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.125rem;
+    flex-shrink: 0;
+}
+
+.btn-delete:hover {
+    background: linear-gradient(135deg, #FF1493 0%, #C71585 100%);
+    transform: scale(1.1) rotate(5deg);
+}
+
+/* ============================================================================
+   UTILITY CLASSES
+============================================================================ */
+
+.hidden {
+    display: none !important;
+}
+
+.empty-state {
+    text-align: center;
+    padding: var(--space-3xl);
+    color: var(--charcoal);
+    opacity: 0.7;
+}
+
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(139, 95, 191, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.loading-spinner {
+    text-align: center;
+    color: var(--white);
+}
+
+.spinner {
+    width: 60px;
+    height: 60px;
+    border: 6px solid rgba(255, 255, 255, 0.3);
+    border-top-color: var(--white);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto var(--space-lg);
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.loading-spinner p {
+    color: var(--white);
+    font-size: 1.25rem;
+}
+
+/* ============================================================================
+   FOOTER
+============================================================================ */
+
+.main-footer {
+    background: var(--gradient-royal);
+    color: var(--white);
+    text-align: center;
+    padding: var(--space-2xl);
+    margin-top: var(--space-3xl);
+}
+
+.main-footer p {
+    color: var(--white);
+    margin: var(--space-sm) 0;
+}
+
+.footer-credits {
+    opacity: 0.8;
+    font-size: 0.875rem;
+}
+
+/* ============================================================================
+   RESPONSIVE DESIGN
+============================================================================ */
+
+@media (max-width: 1024px) {
+    .checklist-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-header h1 {
+        font-size: 2rem;
+    }
+
+    h1 { font-size: 2rem; }
+    h2 { font-size: 1.75rem; }
+    h3 { font-size: 1.5rem; }
+
+    .container {
+        padding: 0 var(--space-md);
+    }
+
+    .tab-navigation {
+        flex-wrap: wrap;
+    }
+
+    .tab-button {
+        padding: var(--space-sm) var(--space-md);
+        font-size: 0.9rem;
+    }
+
+    .checklist-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-lg);
+    }
+
+    .checklist-item {
+        padding: var(--space-xl);
+        min-height: 120px;
+    }
+
+    .checklist-item-title {
+        font-size: 1.25rem;
+    }
+
+    .summary-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chat-message.user {
+        margin-left: 0;
+    }
+
+    .chat-message.assistant {
+        margin-right: 0;
+    }
+
+    .metrics-row {
+        grid-template-columns: 1fr;
+    }
+
+    .trip-code-options {
+        grid-template-columns: 1fr;
+    }
+
+    .trip-sidebar form {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================================================
+   SCROLLBAR - Royal Scrolling
+============================================================================ */
+
+::-webkit-scrollbar {
+    width: 14px;
+    height: 14px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--lavender-mist);
+    border-radius: var(--radius-md);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--gradient-royal);
+    border-radius: var(--radius-md);
+    border: 3px solid var(--lavender-mist);
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--deep-purple);
+}

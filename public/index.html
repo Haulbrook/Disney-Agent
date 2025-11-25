@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>🏰 Disney Trip Planner - Modern Edition</title>
+
+    <meta name="description" content="Plan your magical Disney vacation with our elegant AI-powered trip planning assistant">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/fontAwesome.css">
+    <link rel="stylesheet" href="css/owl-carousel.css">
+    <link rel="stylesheet" href="css/datepicker.css">
+    <link rel="stylesheet" href="css/tooplate-style.css">
+    <link rel="stylesheet" href="css/disney-modern-theme.css">
+
+    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+</head>
+
+<body>
+
+    <!-- BANNER / HEADER -->
+    <section class="banner" id="top">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="left-side">
+                        <div class="logo">
+                            <h1 style="color: white; font-weight: 900;">💫 Disney Trip Planner</h1>
+                            <p style="color: rgba(255,255,255,0.95); margin-top: 10px; font-weight: 300; letter-spacing: 2px;">Modern Edition</p>
+                        </div>
+                        <div class="tabs-content">
+                            <h4>Plan Your Magical Adventure:</h4>
+                            <ul class="social-links">
+                                <li><a href="#summary" class="scroll-link" data-id="summary">Trip <em>Dashboard</em><i class="fa fa-dashboard"></i></a></li>
+                                <li><a href="#checklist" class="scroll-link" data-id="checklist">View Your <em>Checklist</em><i class="fa fa-check-square-o"></i></a></li>
+                                <li><a href="#create-trip" class="scroll-link" data-id="create-trip">Create <em>New Trip</em><i class="fa fa-plus-circle"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="page-direction-button">
+                            <a href="#summary" class="scroll-link" data-id="summary"><i class="fa fa-dashboard"></i>View Dashboard</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-5 col-md-offset-1">
+                    <div style="
+                        background-image: url('img/mickey-and-walt.jpg');
+                        background-size: cover;
+                        background-position: center;
+                        background-repeat: no-repeat;
+                        border-radius: 20px;
+                        padding: 60px 30px;
+                        position: relative;
+                        overflow: hidden;
+                        min-height: 400px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+                    ">
+                        <!-- Overlay for text readability -->
+                        <div style="
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            right: 0;
+                            bottom: 0;
+                            background: linear-gradient(135deg, rgba(116, 107, 171, 0.85) 0%, rgba(26, 178, 138, 0.85) 100%);
+                            border-radius: 20px;
+                        "></div>
+                        <!-- Content -->
+                        <div style="position: relative; z-index: 1; text-align: center; color: white;">
+                            <i class="fa fa-magic" style="font-size: 60px; margin-bottom: 20px; opacity: 0.95; text-shadow: 0 2px 8px rgba(0,0,0,0.3); animation: float 6s ease-in-out infinite;"></i>
+                            <h2 style="font-size: 36px; margin-bottom: 15px; text-shadow: 0 2px 8px rgba(0,0,0,0.3); font-weight: 900;">Welcome to Your</h2>
+                            <h3 style="font-size: 28px; opacity: 0.95; text-shadow: 0 2px 8px rgba(0,0,0,0.3); font-weight: 300; letter-spacing: 1px;">Magical Planning Journey</h3>
+                            <p style="margin-top: 20px; font-size: 16px; opacity: 0.9; text-shadow: 0 2px 8px rgba(0,0,0,0.3); font-weight: 300;">Organize every detail of your Disney adventure with our modern trip planner</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- TRIP SUMMARY & PROGRESS (DASHBOARD) -->
+    <section id="summary">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>📋 Trip Dashboard</h2>
+                        <p>Your trip overview and progress at a glance</p>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="summary-card">
+                                <h4>Trip Details</h4>
+                                <div id="trip-details-summary">
+                                    <p>Create your trip to see details here</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="summary-card">
+                                <h4>Checklist Progress</h4>
+                                <div class="progress-display">
+                                    <div class="progress-circle">
+                                        <span id="progress-percentage">0%</span>
+                                    </div>
+                                    <div class="progress-stats">
+                                        <p><strong id="completed-count">0</strong> of <strong id="total-count">0</strong> completed</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="summary-card">
+                                <h4>Quick Actions</h4>
+                                <div class="action-buttons">
+                                    <button onclick="saveData()" class="btn btn-primary" style="margin: 10px 0;">💾 Save Trip</button>
+                                    <button onclick="clearData()" class="btn btn-danger" style="margin: 10px 0;">🗑️ Clear Data</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- COUNTDOWN SECTION -->
+    <div class="tabs-content" id="countdown-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="countdown-display" id="countdownDisplay">
+                        <h2>⏰ Countdown to Magic</h2>
+                        <div id="countdown" class="countdown-timer">
+                            <span id="countdown-text">Create your trip to see the countdown!</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- TRIP IDEAS & SUGGESTIONS -->
+    <div class="tabs-content" id="ideas">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>💡 Trip Ideas & Suggestions</h2>
+                        <p>Make the most of your magical adventure</p>
+                    </div>
+                </div>
+                <div class="wrapper">
+                    <div class="col-md-12">
+                        <div id="ideas-container">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="idea-card" style="cursor: pointer;" onclick="scrollToCharacterDining()">
+                                        <div class="idea-icon">
+                                            <i class="fa fa-cutlery"></i>
+                                        </div>
+                                        <h4>Character Dining</h4>
+                                        <p>You have character dining reservations! Click to see your schedule.</p>
+                                        <div style="margin-top: 15px; padding: 10px; background: linear-gradient(135deg, rgba(139, 95, 191, 0.1) 0%, rgba(255, 182, 193, 0.1) 100%); border-radius: 10px;">
+                                            <p style="margin: 0; font-weight: 600; color: var(--royal-purple);">📅 Your Reservations:</p>
+                                            <p style="margin: 5px 0 0 0; font-size: 14px;">Dec 7 - Tusker House (11:15 AM)<br>Dec 8 - Tony's Town Square (12:20 PM)<br>Dec 9 - 1900 Park Fare (9:25 AM)<br>Dec 10 - 50's Prime Time (11:00 AM)<br>Dec 11 - Akershus Royal Banquet (11:05 AM)<br>Dec 12 - Steakhouse 71 (6:45 PM)</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="idea-card" style="cursor: pointer;" onclick="scrollToPhotoLocations()">
+                                        <div class="idea-icon">
+                                            <i class="fa fa-camera"></i>
+                                        </div>
+                                        <h4>PhotoPass Memories</h4>
+                                        <p>Capture every magical moment with Disney PhotoPass. Click to see the best photo spots!</p>
+                                        <div style="margin-top: 15px; padding: 10px; background: linear-gradient(135deg, rgba(139, 95, 191, 0.1) 0%, rgba(255, 182, 193, 0.1) 100%); border-radius: 10px;">
+                                            <p style="margin: 0; font-weight: 600; color: var(--royal-purple);">📸 Photo Locations:</p>
+                                            <p style="margin: 5px 0 0 0; font-size: 14px;">Castle shots<br>Hidden Magic Shots<br>Character backdrops<br>Park icons & more!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="idea-card" style="cursor: pointer;" onclick="scrollToShowsSchedule()">
+                                        <div class="idea-icon">
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <h4>Evening Fireworks</h4>
+                                        <p>Don't miss the spectacular nighttime fireworks show. Click to see your complete schedule!</p>
+                                        <div style="margin-top: 15px; padding: 10px; background: linear-gradient(135deg, rgba(139, 95, 191, 0.1) 0%, rgba(255, 182, 193, 0.1) 100%); border-radius: 10px;">
+                                            <p style="margin: 0; font-weight: 600; color: var(--royal-purple);">🎆 Your Shows:</p>
+                                            <p style="margin: 5px 0 0 0; font-size: 14px;">Happily Ever After<br>Luminous<br>Fantasmic!<br>Christmas Parades<br>& More!</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- CHECKLIST SECTION (THE STAR!) -->
+    <section class="services" id="checklist">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h2>✅ Your Trip Planning Checklist</h2>
+                        <p>Never forget the essentials for your magical adventure!</p>
+                    </div>
+                </div>
+                <div class="col-md-12" id="character-dining-section" style="display: none; margin-bottom: 30px;">
+                    <div style="background: linear-gradient(135deg, rgba(139, 95, 191, 0.15) 0%, rgba(255, 182, 193, 0.15) 100%); border-radius: 20px; padding: 30px; border: 3px solid var(--soft-lavender);">
+                        <h3 style="color: var(--royal-purple); text-align: center; margin-bottom: 20px;">🍽️ Your Character Dining Reservations</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <p style="margin: 10px 0;"><strong>📅 Sunday, Dec 7:</strong> Tusker House - 11:15 AM<br><small>Animal Kingdom | Character Breakfast</small></p>
+                                <p style="margin: 10px 0;"><strong>📅 Monday, Dec 8:</strong> Tony's Town Square - 12:20 PM<br><small>Magic Kingdom | Lunch</small></p>
+                                <p style="margin: 10px 0;"><strong>📅 Tuesday, Dec 9:</strong> 1900 Park Fare - 9:25 AM<br><small>Grand Floridian Resort | Character Breakfast</small></p>
+                            </div>
+                            <div class="col-md-6">
+                                <p style="margin: 10px 0;"><strong>📅 Wednesday, Dec 10:</strong> 50's Prime Time Cafe - 11:00 AM<br><small>Hollywood Studios | Fantasmic Dining Package</small></p>
+                                <p style="margin: 10px 0;"><strong>📅 Thursday, Dec 11:</strong> Akershus Royal Banquet Hall - 11:05 AM<br><small>EPCOT | Princess Character Dining</small></p>
+                                <p style="margin: 10px 0;"><strong>📅 Friday, Dec 12:</strong> Steakhouse 71 - 6:45 PM<br><small>Contemporary Resort | Dinner</small></p>
+                            </div>
+                        </div>
+                        <p style="text-align: center; margin-top: 20px; color: var(--rose-gold); font-style: italic;">✨ Arrive 15 minutes early for all reservations!</p>
+                    </div>
+                </div>
+                <div class="col-md-12" id="shows-schedule-section" style="display: none; margin-bottom: 30px;">
+                    <div style="background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(139, 95, 191, 0.15) 100%); border-radius: 20px; padding: 30px; border: 3px solid var(--gold);">
+                        <h3 style="color: var(--royal-purple); text-align: center; margin-bottom: 20px;">🎆 Fireworks, Parades & Shows Schedule</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 10px;">
+                                    <h4 style="color: var(--royal-purple); margin-bottom: 10px;">📅 Monday, Dec 8 - Magic Kingdom</h4>
+                                    <p style="margin: 5px 0;"><strong>🎇 Happily Ever After:</strong> 9:00 PM<br><small>Fireworks & projection show on castle</small></p>
+                                    <p style="margin: 5px 0;"><strong>✨ Festival of Fantasy Parade:</strong> 2:00 PM (check app)<br><small>Daytime character parade</small></p>
+                                    <p style="margin: 5px 0;"><strong>🌟 NEW Starlight Night Parade:</strong> 8:00 PM & 10:00 PM<br><small>Arrive 45-60 min early for good spots!</small></p>
+                                </div>
+
+                                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 10px;">
+                                    <h4 style="color: var(--royal-purple); margin-bottom: 10px;">📅 Tuesday, Dec 9 - Christmas Party</h4>
+                                    <p style="margin: 5px 0;"><strong>🎄 Mickey's Once Upon a Christmastime Parade:</strong> 2 showings<br><small>First parade less crowded, second around 11 PM</small></p>
+                                    <p style="margin: 5px 0;"><strong>🎆 Minnie's Wonderful Christmastime Fireworks:</strong> Check app<br><small>Find spot 30-45 min early near castle hub</small></p>
+                                    <p style="margin: 5px 0;"><strong>❄️ Snowfall on Main Street:</strong> Multiple times<br><small>Watch parade from Main St for extra magic!</small></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 10px;">
+                                    <h4 style="color: var(--royal-purple); margin-bottom: 10px;">📅 Wednesday, Dec 10 - Hollywood Studios</h4>
+                                    <p style="margin: 5px 0;"><strong>💫 Fantasmic!:</strong> Check app for showtime<br><small>You have RESERVED SEATING with dining package!</small></p>
+                                    <p style="margin: 5px 0;"><strong>🎄 Sunset Seasons Greetings:</strong> Multiple showings<br><small>Projection show on Hollywood Tower - features Frozen, Toy Story</small></p>
+                                    <p style="margin: 5px 0; color: var(--rose-gold); font-style: italic;"><strong>✨ Tip:</strong> Arrive before general admission for Fantasmic seating</p>
+                                </div>
+
+                                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 10px;">
+                                    <h4 style="color: var(--royal-purple); margin-bottom: 10px;">📅 Thursday, Dec 11 - EPCOT</h4>
+                                    <p style="margin: 5px 0;"><strong>🌊 Luminous: The Symphony of Us:</strong> Check app for time<br><small>Fireworks, fountains & music at World Showcase Lagoon</small></p>
+                                    <p style="margin: 5px 0; font-weight: 600;">Best Viewing Spots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• Italy Pavilion (wide open views)<br>• Bridge between France & UK<br>• Showcase Plaza near Port of Entry</p>
+                                    <p style="margin: 5px 0; color: var(--rose-gold); font-style: italic;"><strong>✨ Tip:</strong> Arrive 30-45 min early</p>
+                                </div>
+                            </div>
+                        </div>
+                        <p style="text-align: center; margin-top: 20px; padding: 15px; background: rgba(255, 255, 255, 0.7); border-radius: 10px; color: var(--royal-purple); font-weight: 600;">🎭 Pro Tip: Download times each morning in the My Disney Experience app - showtimes can change!</p>
+                    </div>
+                </div>
+                <div class="col-md-12" id="photo-locations-section" style="display: none; margin-bottom: 30px;">
+                    <div style="background: linear-gradient(135deg, rgba(255, 182, 193, 0.15) 0%, rgba(139, 95, 191, 0.15) 100%); border-radius: 20px; padding: 30px; border: 3px solid var(--blush-pink);">
+                        <h3 style="color: var(--royal-purple); text-align: center; margin-bottom: 20px;">📸 Best PhotoPass Locations & Magic Shots</h3>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 10px;">
+                                    <h4 style="color: var(--royal-purple); margin-bottom: 10px;">🏰 Magic Kingdom</h4>
+                                    <p style="margin: 5px 0; font-weight: 600;">Iconic Spots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Castle Hub:</strong> Classic castle with statue of Walt & Mickey<br>• <strong>Main Street U.S.A.:</strong> Early morning or golden hour shots<br>• <strong>Partners Statue:</strong> In front of castle - arrive early!</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600;">Hidden Gems:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Tangled Restroom Area:</strong> Beautiful lantern displays<br>• <strong>Peter Pan Queue Exit:</strong> London skyline backdrop<br>• <strong>Be Our Guest Bridge:</strong> Gorgeous castle views</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600; color: var(--rose-gold);">✨ Magic Shots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• Tinker Bell dust effect near castle<br>• Lightsaber effects in Tomorrowland<br>• Holiday magic shots (ask photographers!)</p>
+                                </div>
+
+                                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 10px;">
+                                    <h4 style="color: var(--royal-purple); margin-bottom: 10px;">🎬 Hollywood Studios</h4>
+                                    <p style="margin: 5px 0; font-weight: 600;">Iconic Spots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Hollywood Tower Hotel:</strong> Front entrance dramatic shots<br>• <strong>Chinese Theatre:</strong> Classic Hollywood backdrop<br>• <strong>Echo Lake:</strong> Dinosaur Gertie with Santa hat!</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600;">Hidden Gems:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Star Wars Galaxy's Edge:</strong> Millennium Falcon cockpit<br>• <strong>Toy Story Land:</strong> Giant toys perspective shots<br>• <strong>Sunset Boulevard:</strong> Theater marquee at golden hour</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600; color: var(--rose-gold);">✨ Magic Shots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• BB-8 or Porgs in Galaxy's Edge<br>• Woody's boot in Toy Story Land<br>• Holiday projections on Tower</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 10px;">
+                                    <h4 style="color: var(--royal-purple); margin-bottom: 10px;">🌍 EPCOT</h4>
+                                    <p style="margin: 5px 0; font-weight: 600;">Iconic Spots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Spaceship Earth:</strong> Classic EPCOT ball shot<br>• <strong>World Showcase Lagoon:</strong> Each country pavilion<br>• <strong>France Pavilion:</strong> Eiffel Tower backdrop</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600;">Hidden Gems:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Japan Pavilion:</strong> Torii gate & gardens<br>• <strong>Morocco Pavilion:</strong> Intricate architecture details<br>• <strong>Norway Pavilion:</strong> Viking ship & Frozen backdrops<br>• <strong>UK Pavilion:</strong> Phone booth & British gardens</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600; color: var(--rose-gold);">✨ Magic Shots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• Figment character overlay<br>• Holiday characters at each country<br>• Remy in France!</p>
+                                </div>
+
+                                <div style="margin-bottom: 20px; padding: 15px; background: white; border-radius: 10px;">
+                                    <h4 style="color: var(--royal-purple); margin-bottom: 10px;">🦁 Animal Kingdom</h4>
+                                    <p style="margin: 5px 0; font-weight: 600;">Iconic Spots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Tree of Life:</strong> Multiple angles, incredible detail<br>• <strong>Discovery Island:</strong> Bridge with tree background<br>• <strong>Pandora:</strong> Floating mountains day & NIGHT</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600;">Hidden Gems:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• <strong>Harambe Village:</strong> African marketplace details<br>• <strong>Asia Bridge:</strong> Prayer flags & mountains<br>• <strong>DinoLand:</strong> Fun, kitschy roadside Americana vibes</p>
+                                    <p style="margin: 10px 0 5px 0; font-weight: 600; color: var(--rose-gold);">✨ Magic Shots:</p>
+                                    <p style="margin: 5px 0; font-size: 14px;">• Banshee flying in Pandora<br>• Kevin the bird from Up!<br>• Holiday puppets (Merry Menagerie)</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px; padding: 20px; background: rgba(255, 255, 255, 0.8); border-radius: 10px;">
+                            <p style="margin: 0 0 10px 0; font-weight: 600; color: var(--royal-purple); text-align: center;">💡 Pro PhotoPass Tips:</p>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <p style="margin: 5px 0; font-size: 14px;"><strong>⏰ Best Times:</strong><br>Early morning (park open) or golden hour (1 hour before close)</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p style="margin: 5px 0; font-size: 14px;"><strong>🎨 Magic Shots:</strong><br>Always ask photographers "Do you have any magic shots here?"</p>
+                                </div>
+                                <div class="col-md-4">
+                                    <p style="margin: 5px 0; font-size: 14px;"><strong>📱 Memory Maker:</strong><br>All photos auto-download to your app - unlimited!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="checklist-actions" style="text-align: center; margin-bottom: 30px;">
+                        <button onclick="findForgottenItems()" class="btn btn-primary">🔍 Find Forgotten Items</button>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div id="checklist-container" class="row">
+                        <div class="col-md-12">
+                            <div class="empty-state" style="text-align: center; padding: 60px 20px;">
+                                <i class="fa fa-magic" style="font-size: 72px; color: #B8A4D9; margin-bottom: 20px;"></i>
+                                <h3>Create Your Trip Plan First!</h3>
+                                <p style="font-size: 18px;">Scroll down to create your trip and generate your personalized checklist</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CREATE TRIP FORM (MOVED TO BOTTOM) -->
+    <section id="create-trip" style="padding: 80px 0; background: linear-gradient(135deg, #f8f6f9 0%, #e6e6fa 100%);">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading" style="text-align: center; margin-bottom: 50px;">
+                        <h2>✨ Create Your Magical Trip</h2>
+                        <p>Start planning your Disney adventure by filling out the details below</p>
+                    </div>
+                </div>
+                <div class="col-md-8 col-md-offset-2">
+                    <div class="submit-form fade-in" style="max-width: 700px; margin: 0 auto;">
+                        <h4 style="text-align: center; margin-bottom: 30px;">Trip <em>Details</em></h4>
+                        <form id="trip-form" action="" method="get">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <label for="destination">Destination:</label>
+                                        <select required name='destination' id="destination">
+                                            <option value="">Select destination...</option>
+                                            <option value="Walt Disney World">Walt Disney World</option>
+                                            <option value="Disneyland Resort">Disneyland Resort</option>
+                                            <option value="Disneyland Paris">Disneyland Paris</option>
+                                            <option value="Tokyo Disney Resort">Tokyo Disney Resort</option>
+                                            <option value="Hong Kong Disneyland">Hong Kong Disneyland</option>
+                                            <option value="Shanghai Disney Resort">Shanghai Disney Resort</option>
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <label for="partySize">Party Size:</label>
+                                        <input name="partySize" type="number" id="partySize" min="1" max="20" value="4" required>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <label for="startDate">Start Date:</label>
+                                        <input name="startDate" type="date" class="form-control" id="startDate" required>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6">
+                                    <fieldset>
+                                        <label for="endDate">End Date:</label>
+                                        <input name="endDate" type="date" class="form-control" id="endDate" required>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-12">
+                                    <fieldset>
+                                        <button type="submit" id="create-trip-btn" class="btn">✨ Create Trip Plan</button>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="primary-button">
+                        <a href="#top" class="scroll-top">Back To Top</a>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <p style="color: white; text-align: center; font-weight: 300; letter-spacing: 1px;">✨ Built with magic and love for Disney families ✨</p>
+                    <p style="color: rgba(255,255,255,0.8); text-align: center; font-size: 14px; font-weight: 300;">Powered by AI • Modernized with FrontEndAestheticAgent</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/datepicker.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/disney-app.js"></script>
+
+    <script type="text/javascript">
+    $(document).ready(function() {
+        // navigation click actions
+        $('.scroll-link').on('click', function(event){
+            event.preventDefault();
+            var sectionID = $(this).attr("data-id");
+            scrollToID('#' + sectionID, 750);
+        });
+        // scroll to top action
+        $('.scroll-top').on('click', function(event) {
+            event.preventDefault();
+            $('html, body').animate({scrollTop:0}, 'slow');
+        });
+    });
+    // scroll function
+    function scrollToID(id, speed){
+        var offSet = 0;
+        var targetOffset = $(id).offset().top - offSet;
+        $('html,body').animate({scrollTop:targetOffset}, speed);
+    }
+    </script>
+</body>
+</html>

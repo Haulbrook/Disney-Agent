@@ -1,0 +1,200 @@
+/* Checklist Component - Disney Magical Kingdom Theme */
+
+.checklist-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, var(--disney-sparkle) 0%, white 50%, var(--disney-ice) 100%);
+  position: relative;
+}
+
+/* Castle pattern background */
+.checklist-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath fill='%231a237e' fill-opacity='0.02' d='M100 180 L100 120 L80 120 L80 100 L70 100 L70 80 L60 80 L60 60 L50 60 L50 40 L70 40 L70 30 L75 30 L75 20 L80 20 L80 30 L90 30 L90 40 L100 40 L100 30 L105 30 L105 20 L110 20 L110 30 L120 30 L120 40 L130 40 L130 60 L140 60 L140 80 L150 80 L150 100 L140 100 L140 120 L120 120 L120 180 Z'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.empty-icon {
+  font-size: 80px;
+  color: var(--disney-purple);
+  opacity: 0.4;
+  display: block;
+  margin-bottom: var(--space-2xl);
+  animation: float 4s ease-in-out infinite;
+}
+
+.empty-state h3 {
+  color: var(--disney-royal-blue);
+  font-size: 1.75rem;
+  margin-bottom: var(--space-lg);
+  font-family: 'Cinzel', serif;
+}
+
+.empty-state p {
+  color: var(--disney-light-purple);
+  font-size: var(--font-size-lg);
+  font-family: 'Quicksand', sans-serif;
+}
+
+.checklist-category {
+  margin-bottom: var(--space-2xl);
+  position: relative;
+  z-index: 1;
+}
+
+.category-title {
+  color: var(--disney-royal-blue);
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-md);
+  border-bottom: 3px solid var(--disney-gold);
+  font-family: 'Cinzel', serif;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.category-title::before {
+  content: '✨';
+  font-size: 1.2rem;
+  animation: twinkle 2s ease-in-out infinite;
+}
+
+.checklist-grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.checklist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-lg);
+  gap: var(--space-md);
+}
+
+.checklist-header h4 {
+  color: var(--disney-royal-blue);
+  font-size: 1.25rem;
+  margin: 0;
+  flex: 1;
+  font-family: 'Quicksand', sans-serif;
+  font-weight: 700;
+}
+
+.priority-badge {
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  text-transform: uppercase;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.priority-high {
+  background: linear-gradient(135deg, #E91E63 0%, #AD1457 100%);
+  color: white;
+  border: 1px solid #F48FB1;
+}
+
+.priority-medium {
+  background: linear-gradient(135deg, var(--disney-gold) 0%, var(--disney-bronze) 100%);
+  color: var(--disney-royal-blue);
+  border: 1px solid var(--disney-light-gold);
+}
+
+.priority-low {
+  background: linear-gradient(135deg, var(--disney-teal) 0%, #00897B 100%);
+  color: white;
+  border: 1px solid var(--disney-turquoise);
+}
+
+.checklist-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 2px dashed var(--disney-light-purple);
+  gap: var(--space-md);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  cursor: pointer;
+  flex: 1;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  accent-color: var(--disney-purple);
+  border-radius: var(--radius-sm);
+}
+
+.checkbox-label span {
+  color: var(--disney-royal-blue);
+  font-weight: 600;
+}
+
+/* Checklist card styling */
+.checklist-card {
+  background: linear-gradient(135deg, white 0%, var(--disney-sparkle) 100%);
+  border: 2px solid var(--disney-light-purple);
+  border-left: 5px solid var(--disney-gold);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  transition: var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.checklist-card:hover {
+  border-color: var(--disney-gold);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+  transform: translateX(5px);
+}
+
+.checklist-card.completed {
+  background: linear-gradient(135deg, var(--disney-ice) 0%, var(--disney-mint) 100%);
+  opacity: 0.85;
+  border-left-color: #4CAF50;
+}
+
+/* Delete button */
+.delete-btn {
+  background: linear-gradient(135deg, #E91E63 0%, #AD1457 100%);
+  border: 2px solid #F48FB1;
+  color: white;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: var(--transition-bounce);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.delete-btn:hover {
+  transform: scale(1.1) rotate(10deg);
+  box-shadow: 0 0 15px rgba(233, 30, 99, 0.4);
+}

@@ -1,0 +1,129 @@
+/* Dashboard Component - Disney Magical Kingdom Theme */
+
+.dashboard-section {
+  padding: 60px 0;
+  background: linear-gradient(135deg, var(--disney-sparkle) 0%, white 50%, var(--disney-rose) 100%);
+  position: relative;
+}
+
+/* Mickey pattern background */
+.dashboard-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='55' r='25' fill='%231a237e' fill-opacity='0.02'/%3E%3Ccircle cx='30' cy='30' r='15' fill='%231a237e' fill-opacity='0.02'/%3E%3Ccircle cx='70' cy='30' r='15' fill='%231a237e' fill-opacity='0.02'/%3E%3C/svg%3E");
+  background-size: 100px 100px;
+  pointer-events: none;
+}
+
+.trip-details p {
+  margin: var(--space-md) 0;
+  color: var(--disney-royal-blue);
+  font-family: 'Quicksand', sans-serif;
+}
+
+.trip-details strong {
+  color: var(--disney-purple);
+  font-weight: 700;
+}
+
+.empty-message {
+  color: var(--disney-light-purple);
+  text-align: center;
+  padding: var(--space-2xl) 0;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.progress-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
+.progress-circle {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--disney-gold) 0%, var(--disney-purple) 50%, var(--disney-pink) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-xl);
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+  position: relative;
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+.progress-circle::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  background: white;
+  border-radius: 50%;
+}
+
+/* Mickey head in progress circle */
+.progress-circle::after {
+  content: '';
+  position: absolute;
+  top: -15px;
+  right: -10px;
+  width: 35px;
+  height: 35px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='55' r='25' fill='%23ffd700'/%3E%3Ccircle cx='30' cy='30' r='15' fill='%23ffd700'/%3E%3Ccircle cx='70' cy='30' r='15' fill='%23ffd700'/%3E%3C/svg%3E");
+  background-size: contain;
+  animation: mickey-bob 3s ease-in-out infinite;
+}
+
+.progress-circle span {
+  font-size: 1.85rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--disney-royal-blue) 0%, var(--disney-purple) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative;
+  z-index: 1;
+  font-family: 'Cinzel', serif;
+}
+
+.progress-stats {
+  text-align: center;
+}
+
+.progress-stats strong {
+  color: var(--disney-purple);
+  font-size: 1.25rem;
+  font-family: 'Quicksand', sans-serif;
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  margin-top: auto;
+}
+
+.action-buttons button {
+  width: 100%;
+  background: linear-gradient(135deg, var(--disney-royal-blue) 0%, var(--disney-purple) 100%);
+  border: 2px solid var(--disney-gold);
+  color: white;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-family: 'Quicksand', sans-serif;
+  cursor: pointer;
+  transition: var(--transition-bounce);
+  box-shadow: var(--shadow-sm);
+}
+
+.action-buttons button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+}
