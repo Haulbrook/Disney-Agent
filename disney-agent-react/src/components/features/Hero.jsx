@@ -1,9 +1,18 @@
 import React from 'react';
+import { useTripContext } from '../../context/TripContext';
 import './Hero.css';
 
 const Hero = () => {
+  const { currentTripCode, logout } = useTripContext();
+
   const scrollToSection = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const handleLogout = () => {
+    if (window.confirm('Are you sure you want to switch trips? Make sure you saved your trip code!')) {
+      logout();
+    }
   };
 
   return (
@@ -15,6 +24,14 @@ const Hero = () => {
               <h1>💫 Disney Trip Planner</h1>
               <p className="subtitle">Modern Edition</p>
             </div>
+
+            {currentTripCode && (
+              <div className="trip-code-badge">
+                <span className="badge-label">Trip Code</span>
+                <span className="badge-code">{currentTripCode}</span>
+              </div>
+            )}
+
             <nav className="hero-nav">
               <h4>Plan Your Magical Adventure:</h4>
               <ul>
@@ -24,13 +41,13 @@ const Hero = () => {
                   </a>
                 </li>
                 <li>
-                  <a onClick={() => scrollToSection('checklist')}>
-                    View Your <em>Checklist</em> <i className="fa fa-check-square-o"></i>
+                  <a onClick={() => scrollToSection('itinerary')}>
+                    Daily <em>Itinerary</em> <i className="fa fa-calendar"></i>
                   </a>
                 </li>
                 <li>
-                  <a onClick={() => scrollToSection('create-trip')}>
-                    Create <em>New Trip</em> <i className="fa fa-plus-circle"></i>
+                  <a onClick={() => scrollToSection('checklist')}>
+                    View Your <em>Checklist</em> <i className="fa fa-check-square-o"></i>
                   </a>
                 </li>
               </ul>
@@ -38,6 +55,9 @@ const Hero = () => {
             <div className="hero-cta">
               <button onClick={() => scrollToSection('dashboard')} className="cta-button">
                 <i className="fa fa-dashboard"></i> View Dashboard
+              </button>
+              <button onClick={handleLogout} className="logout-button">
+                <i className="fa fa-sign-out"></i> Switch Trip
               </button>
             </div>
           </div>

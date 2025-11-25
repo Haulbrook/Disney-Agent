@@ -10,7 +10,19 @@ export const useTripContext = () => {
   return context;
 };
 
+// Generate a random trip code
+function generateTripCode() {
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let code = '';
+  for (let i = 0; i < 6; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return code;
+}
+
 export const TripProvider = ({ children }) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentTripCode, setCurrentTripCode] = useState(null);
   const [tripData, setTripData] = useState({
     destination: 'Walt Disney World',
     partySize: 4,
@@ -20,42 +32,97 @@ export const TripProvider = ({ children }) => {
     createdAt: null,
   });
 
-  // Load from localStorage on mount
+  // Check for existing session on mount
   useEffect(() => {
     try {
-      const savedTrip = localStorage.getItem('disneyTripData');
-      if (savedTrip) {
-        const parsed = JSON.parse(savedTrip);
-        setTripData(parsed);
+      const savedTripCode = localStorage.getItem('currentTripCode');
+      if (savedTripCode) {
+        const allTrips = JSON.parse(localStorage.getItem('disneyTrips') || '{}');
+        if (allTrips[savedTripCode]) {
+          setTripData(allTrips[savedTripCode]);
+          setCurrentTripCode(savedTripCode);
+          setIsLoggedIn(true);
+        }
       }
     } catch (error) {
-      console.error('Error loading trip data from localStorage:', error);
-      // Clear corrupted data
-      localStorage.removeItem('disneyTripData');
+      console.error('Error loading trip data:', error);
+      localStorage.removeItem('currentTripCode');
     }
   }, []);
 
   // Save to localStorage whenever tripData changes
   useEffect(() => {
     try {
-      if (tripData.createdAt) {
-        localStorage.setItem('disneyTripData', JSON.stringify(tripData));
+      if (currentTripCode && tripData.createdAt) {
+        const allTrips = JSON.parse(localStorage.getItem('disneyTrips') || '{}');
+        allTrips[currentTripCode] = tripData;
+        localStorage.setItem('disneyTrips', JSON.stringify(allTrips));
+        localStorage.setItem('currentTripCode', currentTripCode);
       }
     } catch (error) {
-      console.error('Error saving trip data to localStorage:', error);
+      console.error('Error saving trip data:', error);
     }
-  }, [tripData]);
+  }, [tripData, currentTripCode]);
 
-  const createTrip = (destination, partySize, startDate, endDate) => {
+  // Login with existing trip code
+  const loginWithCode = (code) => {
+    const upperCode = code.toUpperCase().trim();
+    try {
+      const allTrips = JSON.parse(localStorage.getItem('disneyTrips') || '{}');
+      if (allTrips[upperCode]) {
+        setTripData(allTrips[upperCode]);
+        setCurrentTripCode(upperCode);
+        setIsLoggedIn(true);
+        localStorage.setItem('currentTripCode', upperCode);
+        return { success: true };
+      } else {
+        return { success: false, error: 'Trip code not found' };
+      }
+    } catch (error) {
+      return { success: false, error: 'Error accessing trip data' };
+    }
+  };
+
+  // Create new trip with trip code
+  const createTripWithCode = (destination, partySize, startDate, endDate) => {
+    const newCode = generateTripCode();
     const checklist = generateChecklist(destination, partySize, startDate, endDate);
-    setTripData({
+    const newTripData = {
       destination,
       partySize,
       startDate,
       endDate,
       checklist,
       createdAt: new Date().toISOString(),
+      tripCode: newCode,
+    };
+
+    setTripData(newTripData);
+    setCurrentTripCode(newCode);
+    setIsLoggedIn(true);
+
+    // Save immediately
+    const allTrips = JSON.parse(localStorage.getItem('disneyTrips') || '{}');
+    allTrips[newCode] = newTripData;
+    localStorage.setItem('disneyTrips', JSON.stringify(allTrips));
+    localStorage.setItem('currentTripCode', newCode);
+
+    return newCode;
+  };
+
+  // Logout
+  const logout = () => {
+    setIsLoggedIn(false);
+    setCurrentTripCode(null);
+    setTripData({
+      destination: 'Walt Disney World',
+      partySize: 4,
+      startDate: '2025-12-06',
+      endDate: '2025-12-13',
+      checklist: [],
+      createdAt: null,
     });
+    localStorage.removeItem('currentTripCode');
   };
 
   const updateChecklistItem = (id, completed) => {
@@ -75,29 +142,32 @@ export const TripProvider = ({ children }) => {
   };
 
   const clearData = () => {
-    if (window.confirm('Are you sure you want to clear all trip data?')) {
-      setTripData({
-        destination: 'Walt Disney World',
-        partySize: 4,
-        startDate: '',
-        endDate: '',
-        checklist: [],
-        createdAt: null,
-      });
-      localStorage.removeItem('disneyTripData');
+    if (window.confirm('Are you sure you want to delete this trip? This cannot be undone.')) {
+      const allTrips = JSON.parse(localStorage.getItem('disneyTrips') || '{}');
+      delete allTrips[currentTripCode];
+      localStorage.setItem('disneyTrips', JSON.stringify(allTrips));
+      logout();
     }
   };
 
   const saveData = () => {
-    localStorage.setItem('disneyTripData', JSON.stringify(tripData));
-    alert('Trip data saved successfully!');
+    if (currentTripCode) {
+      const allTrips = JSON.parse(localStorage.getItem('disneyTrips') || '{}');
+      allTrips[currentTripCode] = tripData;
+      localStorage.setItem('disneyTrips', JSON.stringify(allTrips));
+      alert('Trip data saved successfully!');
+    }
   };
 
   return (
     <TripContext.Provider
       value={{
         tripData,
-        createTrip,
+        isLoggedIn,
+        currentTripCode,
+        loginWithCode,
+        createTripWithCode,
+        logout,
         updateChecklistItem,
         deleteChecklistItem,
         clearData,
@@ -111,8 +181,6 @@ export const TripProvider = ({ children }) => {
 
 // Helper function to generate checklist based on trip details
 function generateChecklist(destination, partySize, startDate, endDate) {
-  const daysBefore = Math.floor((new Date(startDate) - new Date()) / (1000 * 60 * 60 * 24));
-
   const baseItems = [
     { category: 'Planning', priority: 'high', title: 'Book Resort Hotel', description: 'Reserve your Disney resort accommodation' },
     { category: 'Planning', priority: 'high', title: 'Purchase Park Tickets', description: 'Buy park hopper tickets for all days' },

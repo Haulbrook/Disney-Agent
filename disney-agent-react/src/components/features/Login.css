@@ -1,0 +1,374 @@
+/* Login Page - Disney Magical Kingdom Theme */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--disney-midnight) 0%, var(--disney-royal-blue) 50%, var(--disney-purple) 100%);
+  position: relative;
+  overflow: hidden;
+  padding: 20px;
+}
+
+/* Animated stars background */
+.login-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    radial-gradient(2px 2px at 20px 30px, white, transparent),
+    radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.8), transparent),
+    radial-gradient(1px 1px at 90px 40px, white, transparent),
+    radial-gradient(2px 2px at 130px 80px, rgba(255,255,255,0.6), transparent),
+    radial-gradient(1px 1px at 160px 120px, white, transparent),
+    radial-gradient(2px 2px at 200px 50px, rgba(255,255,255,0.7), transparent),
+    radial-gradient(1px 1px at 250px 160px, white, transparent),
+    radial-gradient(2px 2px at 300px 100px, rgba(255,255,255,0.5), transparent);
+  background-size: 350px 200px;
+  animation: twinkle 4s ease-in-out infinite;
+}
+
+/* Castle silhouette at bottom */
+.login-castle-bg {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 200px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 200'%3E%3Cpath fill='%230d1b3e' d='M0 200 L0 150 L30 150 L30 120 L50 120 L50 100 L40 100 L40 80 L55 80 L55 60 L45 60 L45 40 L60 40 L60 30 L70 30 L70 40 L85 40 L85 60 L75 60 L75 80 L90 80 L90 100 L80 100 L80 120 L100 120 L100 150 L120 150 L120 130 L140 130 L140 110 L150 110 L150 90 L160 90 L160 70 L170 70 L170 50 L180 50 L180 30 L200 30 L200 20 L220 20 L220 30 L240 30 L240 50 L250 50 L250 70 L260 70 L260 90 L270 90 L270 110 L280 110 L280 130 L300 130 L300 150 L320 150 L320 100 L330 100 L330 80 L340 80 L340 60 L350 60 L350 80 L360 80 L360 100 L370 100 L370 150 L400 150 L400 200 Z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  opacity: 0.5;
+}
+
+.login-container {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  width: 100%;
+  max-width: 420px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 215, 0, 0.2);
+  position: relative;
+  z-index: 1;
+  border: 3px solid var(--disney-gold);
+}
+
+/* Golden top border */
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 20%;
+  right: 20%;
+  height: 6px;
+  background: linear-gradient(90deg, transparent, var(--disney-gold), transparent);
+  border-radius: 3px;
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.castle-icon {
+  font-size: 4rem;
+  margin-bottom: 10px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.login-header h1 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.75rem;
+  color: var(--disney-royal-blue);
+  margin-bottom: 8px;
+}
+
+.login-header p {
+  font-family: 'Quicksand', sans-serif;
+  color: var(--disney-purple);
+  font-size: 1rem;
+}
+
+/* Option Buttons */
+.login-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.login-option-btn {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  border: 2px solid var(--disney-light-purple);
+  border-radius: var(--radius-lg);
+  background: var(--disney-ice);
+  cursor: pointer;
+  transition: var(--transition-base);
+  text-align: left;
+}
+
+.login-option-btn:hover {
+  border-color: var(--disney-gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.login-option-btn.existing:hover {
+  background: linear-gradient(135deg, var(--disney-ice) 0%, var(--disney-light-gold) 100%);
+}
+
+.login-option-btn.create:hover {
+  background: linear-gradient(135deg, var(--disney-ice) 0%, var(--disney-rose) 100%);
+}
+
+.option-icon {
+  font-size: 2rem;
+}
+
+.option-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.option-text strong {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  color: var(--disney-royal-blue);
+}
+
+.option-text small {
+  font-family: 'Quicksand', sans-serif;
+  color: var(--disney-purple);
+  font-size: 0.875rem;
+}
+
+.login-divider {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--disney-light-purple);
+  font-family: 'Quicksand', sans-serif;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--disney-light-purple);
+}
+
+/* Forms */
+.login-form,
+.create-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.back-btn {
+  align-self: flex-start;
+  background: none;
+  border: none;
+  color: var(--disney-purple);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.875rem;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: var(--transition-fast);
+}
+
+.back-btn:hover {
+  color: var(--disney-royal-blue);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.875rem;
+  color: var(--disney-royal-blue);
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group select {
+  padding: 14px 16px;
+  border: 2px solid var(--disney-light-purple);
+  border-radius: var(--radius-md);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+  transition: var(--transition-fast);
+  background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--disney-gold);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+}
+
+.trip-code-input {
+  text-align: center;
+  font-size: 1.5rem !important;
+  letter-spacing: 8px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.error-message {
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid #ff6b6b;
+  color: #d32f2f;
+  padding: 12px;
+  border-radius: var(--radius-md);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+.submit-btn {
+  padding: 16px;
+  background: linear-gradient(135deg, var(--disney-royal-blue) 0%, var(--disney-purple) 100%);
+  color: white;
+  border: none;
+  border-radius: var(--radius-lg);
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-base);
+  box-shadow: var(--shadow-md);
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.submit-btn.create {
+  background: linear-gradient(135deg, var(--disney-gold) 0%, var(--disney-bronze) 100%);
+  color: var(--disney-midnight);
+}
+
+/* Success Screen */
+.success-screen {
+  text-align: center;
+}
+
+.success-icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+  animation: float 2s ease-in-out infinite;
+}
+
+.success-screen h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.75rem;
+  color: var(--disney-royal-blue);
+  margin-bottom: 8px;
+}
+
+.success-screen p {
+  font-family: 'Quicksand', sans-serif;
+  color: var(--disney-purple);
+  margin-bottom: 16px;
+}
+
+.trip-code-display {
+  background: linear-gradient(135deg, var(--disney-gold) 0%, var(--disney-light-gold) 100%);
+  padding: 20px 30px;
+  border-radius: var(--radius-lg);
+  font-family: 'Cinzel', serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--disney-midnight);
+  letter-spacing: 8px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow-md);
+  border: 3px solid var(--disney-bronze);
+}
+
+.code-note {
+  font-size: 0.875rem !important;
+  color: var(--disney-sky) !important;
+  margin-bottom: 24px !important;
+}
+
+/* Footer Mickey Decoration */
+.login-footer {
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+}
+
+.mickey-decoration {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+  opacity: 0.3;
+}
+
+.mickey-decoration span:nth-child(1) {
+  width: 20px;
+  height: 20px;
+  background: var(--disney-royal-blue);
+  border-radius: 50%;
+  position: relative;
+  top: 8px;
+}
+
+.mickey-decoration span:nth-child(2) {
+  width: 30px;
+  height: 30px;
+  background: var(--disney-royal-blue);
+  border-radius: 50%;
+}
+
+.mickey-decoration span:nth-child(3) {
+  width: 20px;
+  height: 20px;
+  background: var(--disney-royal-blue);
+  border-radius: 50%;
+  position: relative;
+  top: 8px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .login-container {
+    padding: 30px 20px;
+  }
+
+  .login-header h1 {
+    font-size: 1.5rem;
+  }
+
+  .trip-code-display {
+    font-size: 1.75rem;
+    letter-spacing: 6px;
+    padding: 16px 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -314,6 +314,57 @@
   animation-delay: 1s;
 }
 
+/* Trip Code Badge */
+.trip-code-badge {
+  margin-top: var(--space-lg);
+  background: rgba(255, 215, 0, 0.15);
+  border: 2px solid var(--disney-gold);
+  border-radius: var(--radius-md);
+  padding: var(--space-md) var(--space-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+
+.badge-label {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.75rem;
+  color: var(--disney-light-gold);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.badge-code {
+  font-family: 'Cinzel', serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--disney-gold);
+  letter-spacing: 3px;
+}
+
+/* Logout Button */
+.logout-button {
+  width: 100%;
+  margin-top: var(--space-md);
+  background: transparent;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-full);
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  font-family: 'Quicksand', sans-serif;
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.logout-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
 /* Responsive */
 @media (max-width: 968px) {
   .hero-content {
