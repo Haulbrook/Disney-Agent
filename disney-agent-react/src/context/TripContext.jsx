@@ -29,6 +29,7 @@ export const TripProvider = ({ children }) => {
     startDate: '2025-12-06',
     endDate: '2025-12-13',
     checklist: [],
+    itinerary: [],
     createdAt: null,
   });
 
@@ -120,9 +121,24 @@ export const TripProvider = ({ children }) => {
       startDate: '2025-12-06',
       endDate: '2025-12-13',
       checklist: [],
+      itinerary: [],
       createdAt: null,
     });
     localStorage.removeItem('currentTripCode');
+  };
+
+  // Update itinerary
+  const updateItinerary = (itinerary) => {
+    setTripData((prev) => {
+      const updated = { ...prev, itinerary };
+      // Save immediately
+      if (currentTripCode) {
+        const allTrips = JSON.parse(localStorage.getItem('disneyTrips') || '{}');
+        allTrips[currentTripCode] = updated;
+        localStorage.setItem('disneyTrips', JSON.stringify(allTrips));
+      }
+      return updated;
+    });
   };
 
   const updateChecklistItem = (id, completed) => {
@@ -168,6 +184,7 @@ export const TripProvider = ({ children }) => {
         loginWithCode,
         createTripWithCode,
         logout,
+        updateItinerary,
         updateChecklistItem,
         deleteChecklistItem,
         clearData,

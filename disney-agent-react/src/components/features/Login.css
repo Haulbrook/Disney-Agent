@@ -352,6 +352,90 @@
   top: 8px;
 }
 
+/* Itinerary Setup */
+.itinerary-setup {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.setup-header {
+  text-align: center;
+}
+
+.setup-icon {
+  font-size: 3rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.setup-header h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.25rem;
+  color: var(--disney-royal-blue);
+  margin-bottom: 8px;
+}
+
+.setup-header p {
+  font-family: 'Quicksand', sans-serif;
+  color: var(--disney-purple);
+  font-size: 0.9rem;
+}
+
+.itinerary-textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid var(--disney-light-purple);
+  border-radius: var(--radius-md);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.9rem;
+  resize: vertical;
+  min-height: 200px;
+  transition: var(--transition-fast);
+  background: white;
+}
+
+.itinerary-textarea:focus {
+  outline: none;
+  border-color: var(--disney-gold);
+  box-shadow: 0 0 0 3px rgba(255, 215, 0, 0.2);
+}
+
+.itinerary-textarea::placeholder {
+  color: var(--disney-light-purple);
+}
+
+.setup-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skip-btn {
+  padding: 12px;
+  background: transparent;
+  border: 2px solid var(--disney-light-purple);
+  color: var(--disney-purple);
+  border-radius: var(--radius-lg);
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition-base);
+}
+
+.skip-btn:hover {
+  border-color: var(--disney-purple);
+  background: rgba(123, 31, 162, 0.05);
+}
+
+.setup-note {
+  text-align: center;
+  font-size: 0.8rem !important;
+  color: var(--disney-sky) !important;
+  margin-top: 8px;
+}
+
 /* Responsive */
 @media (max-width: 480px) {
   .login-container {
@@ -370,5 +454,9 @@
 
   .form-row {
     grid-template-columns: 1fr;
+  }
+
+  .itinerary-textarea {
+    min-height: 150px;
   }
 }

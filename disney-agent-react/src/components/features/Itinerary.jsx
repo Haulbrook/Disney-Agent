@@ -1,102 +1,15 @@
 import React, { useState } from 'react';
+import { useTripContext } from '../../context/TripContext';
 import './Itinerary.css';
 
 const Itinerary = () => {
+  const { tripData } = useTripContext();
   const [selectedDay, setSelectedDay] = useState(0);
 
-  const itinerary = [
-    {
-      date: 'Saturday, Dec 6',
-      title: 'Arrival Day',
-      icon: '✈️',
-      park: null,
-      highlights: [
-        { time: '3:00 PM', event: 'Resort Check-in', type: 'resort' },
-        { time: 'Evening', event: 'Disney Springs', type: 'explore' },
-      ]
-    },
-    {
-      date: 'Sunday, Dec 7',
-      title: 'Animal Kingdom',
-      icon: '🦁',
-      park: 'animal-kingdom',
-      hours: '8:00 AM - 6:00 PM',
-      highlights: [
-        { time: 'Rope Drop', event: 'Flight of Passage', type: 'ride' },
-        { time: '11:15 AM', event: 'Tusker House', type: 'dining' },
-        { time: 'Afternoon', event: 'Kilimanjaro Safaris', type: 'ride' },
-      ]
-    },
-    {
-      date: 'Monday, Dec 8',
-      title: 'Magic Kingdom',
-      icon: '🏰',
-      park: 'magic-kingdom',
-      hours: '9:00 AM - 10:00 PM',
-      highlights: [
-        { time: '11:00 AM', event: 'Hall of Presidents - SURPRISE!', type: 'special' },
-        { time: '12:20 PM', event: "Tony's Town Square", type: 'dining' },
-        { time: 'Evening', event: 'Happily Ever After Fireworks', type: 'show' },
-      ]
-    },
-    {
-      date: 'Tuesday, Dec 9',
-      title: 'Rest Day + Party',
-      icon: '🎄',
-      park: null,
-      highlights: [
-        { time: '9:25 AM', event: '1900 Park Fare', type: 'dining' },
-        { time: 'Afternoon', event: 'Mini Golf', type: 'activity' },
-        { time: '4:00 PM', event: "Mickey's Very Merry Christmas Party", type: 'special' },
-      ]
-    },
-    {
-      date: 'Wednesday, Dec 10',
-      title: 'Hollywood Studios',
-      icon: '🎬',
-      park: 'hollywood-studios',
-      hours: '9:00 AM - 7:00 PM',
-      highlights: [
-        { time: 'Rope Drop', event: 'Slinky Dog Dash', type: 'ride' },
-        { time: '11:00 AM', event: "50's Prime Time Cafe", type: 'dining' },
-        { time: '3:05 PM', event: "Oga's Cantina", type: 'dining' },
-        { time: 'Evening', event: 'Fantasmic!', type: 'show' },
-      ]
-    },
-    {
-      date: 'Thursday, Dec 11',
-      title: 'EPCOT',
-      icon: '🌍',
-      park: 'epcot',
-      hours: '9:00 AM - 9:30 PM',
-      highlights: [
-        { time: 'Rope Drop', event: 'Frozen Ever After', type: 'ride' },
-        { time: '11:05 AM', event: 'Akershus Royal Banquet Hall', type: 'dining' },
-        { time: 'Evening', event: 'Luminous Fireworks', type: 'show' },
-      ]
-    },
-    {
-      date: 'Friday, Dec 12',
-      title: 'Magic Kingdom',
-      icon: '🏰',
-      park: 'magic-kingdom',
-      hours: '9:00 AM - 6:00 PM',
-      highlights: [
-        { time: 'All Day', event: 'Ride Favorites Again!', type: 'ride' },
-        { time: '6:45 PM', event: 'Steakhouse 71', type: 'dining' },
-      ]
-    },
-    {
-      date: 'Saturday, Dec 13',
-      title: 'Departure',
-      icon: '👋',
-      park: null,
-      highlights: [
-        { time: '7:15 AM', event: 'Rix Sports Bar Breakfast', type: 'dining' },
-        { time: '11:00 AM', event: 'Check-out', type: 'resort' },
-      ]
-    },
-  ];
+  // Use itinerary from tripData, or fall back to default
+  const itinerary = tripData.itinerary && tripData.itinerary.length > 0
+    ? tripData.itinerary
+    : generateDefaultItinerary(tripData.startDate, tripData.endDate);
 
   const getTypeIcon = (type) => {
     switch (type) {
@@ -107,16 +20,42 @@ const Itinerary = () => {
       case 'resort': return '🏨';
       case 'explore': return '🗺️';
       case 'activity': return '⛳';
+      case 'event': return '📍';
       default: return '📍';
     }
   };
+
+  // Format date range for display
+  const getDateRange = () => {
+    if (!tripData.startDate || !tripData.endDate) return 'Your Trip';
+    const start = new Date(tripData.startDate);
+    const end = new Date(tripData.endDate);
+    const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    return `${monthNames[start.getMonth()]} ${start.getDate()}-${end.getDate()} at ${tripData.destination}`;
+  };
+
+  if (!itinerary || itinerary.length === 0) {
+    return (
+      <section id="itinerary" className="itinerary-section">
+        <div className="container">
+          <div className="section-header">
+            <h2>📅 Your Magical Itinerary</h2>
+            <p>No itinerary added yet</p>
+          </div>
+          <div className="itinerary-empty">
+            <p>Add your itinerary when creating a new trip to see your daily schedule here!</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="itinerary" className="itinerary-section">
       <div className="container">
         <div className="section-header">
           <h2>📅 Your Magical Itinerary</h2>
-          <p>December 6-13 at Walt Disney World</p>
+          <p>{getDateRange()}</p>
         </div>
 
         <div className="itinerary-tabs">
@@ -145,18 +84,80 @@ const Itinerary = () => {
           </div>
 
           <div className="day-highlights">
-            {itinerary[selectedDay].highlights.map((item, index) => (
-              <div key={index} className={`highlight-item ${item.type}`}>
-                <span className="highlight-time">{item.time}</span>
-                <span className="highlight-icon">{getTypeIcon(item.type)}</span>
-                <span className="highlight-event">{item.event}</span>
+            {itinerary[selectedDay].highlights && itinerary[selectedDay].highlights.length > 0 ? (
+              itinerary[selectedDay].highlights.map((item, index) => (
+                <div key={index} className={`highlight-item ${item.type}`}>
+                  <span className="highlight-time">{item.time}</span>
+                  <span className="highlight-icon">{getTypeIcon(item.type)}</span>
+                  <span className="highlight-event">{item.event}</span>
+                </div>
+              ))
+            ) : (
+              <div className="highlight-item">
+                <span className="highlight-time">All Day</span>
+                <span className="highlight-icon">📅</span>
+                <span className="highlight-event">Free day - plan your own adventure!</span>
               </div>
-            ))}
+            )}
           </div>
         </div>
       </div>
     </section>
   );
 };
+
+// Generate default itinerary based on trip dates
+function generateDefaultItinerary(startDate, endDate) {
+  if (!startDate || !endDate) return [];
+
+  const itinerary = [];
+  const start = new Date(startDate);
+  const end = new Date(endDate);
+  const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  let currentDate = new Date(start);
+  let dayIndex = 0;
+
+  while (currentDate <= end) {
+    const dayName = dayNames[currentDate.getDay()];
+    const monthName = monthNames[currentDate.getMonth()];
+    const dateNum = currentDate.getDate();
+
+    let title = 'Free Day';
+    let icon = '📅';
+    let highlights = [];
+
+    // First day is arrival
+    if (dayIndex === 0) {
+      title = 'Arrival Day';
+      icon = '✈️';
+      highlights = [{ time: 'Afternoon', event: 'Resort Check-in', type: 'resort' }];
+    }
+
+    // Last day is departure
+    const totalDays = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+    if (dayIndex === totalDays) {
+      title = 'Departure';
+      icon = '👋';
+      highlights = [{ time: 'Morning', event: 'Check-out', type: 'resort' }];
+    }
+
+    itinerary.push({
+      date: `${dayName}, ${monthName.slice(0,3)} ${dateNum}`,
+      fullDate: currentDate.toISOString().split('T')[0],
+      title,
+      icon,
+      park: null,
+      hours: null,
+      highlights
+    });
+
+    currentDate.setDate(currentDate.getDate() + 1);
+    dayIndex++;
+  }
+
+  return itinerary;
+}
 
 export default Itinerary;

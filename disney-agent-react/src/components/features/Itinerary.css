@@ -251,6 +251,23 @@
   font-weight: 500;
 }
 
+/* Empty state */
+.itinerary-empty {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  text-align: center;
+  border: 2px dashed var(--disney-light-purple);
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.itinerary-empty p {
+  font-family: 'Quicksand', sans-serif;
+  color: var(--disney-purple);
+  font-size: 1rem;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .itinerary-tabs {
