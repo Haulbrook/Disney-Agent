@@ -1,12 +1,12 @@
-/* Trip Ideas - Disney Magical Kingdom Theme */
+/* Trip Ideas - Compact Disney Theme */
 
 .trip-ideas-section {
-  padding: 60px 0;
-  background: linear-gradient(135deg, white 0%, var(--disney-sparkle) 50%, var(--disney-rose) 100%);
+  padding: 40px 0;
+  background: linear-gradient(135deg, var(--disney-sparkle) 0%, white 100%);
   position: relative;
 }
 
-/* Castle pattern background */
+/* Subtle pattern */
 .trip-ideas-section::before {
   content: '';
   position: absolute;
@@ -14,97 +14,119 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath fill='%231a237e' fill-opacity='0.015' d='M100 180 L100 120 L80 120 L80 100 L70 100 L70 80 L60 80 L60 60 L50 60 L50 40 L70 40 L70 30 L75 30 L75 20 L80 20 L80 30 L90 30 L90 40 L100 40 L100 30 L105 30 L105 20 L110 20 L110 30 L120 30 L120 40 L130 40 L130 60 L140 60 L140 80 L150 80 L150 100 L140 100 L140 120 L120 120 L120 180 Z'/%3E%3C/svg%3E");
-  background-size: 180px 180px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='55' r='12' fill='%231a237e' fill-opacity='0.02'/%3E%3Ccircle cx='38' cy='38' r='8' fill='%231a237e' fill-opacity='0.02'/%3E%3Ccircle cx='62' cy='38' r='8' fill='%231a237e' fill-opacity='0.02'/%3E%3C/svg%3E");
+  background-size: 80px 80px;
   pointer-events: none;
 }
 
-.idea-icon {
-  font-size: 3.5rem;
-  color: var(--disney-gold);
+.trip-ideas-section .section-header {
+  text-align: center;
   margin-bottom: var(--space-xl);
-  transition: var(--transition-bounce);
+  position: relative;
+  z-index: 1;
+}
+
+.trip-ideas-section .section-header h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  color: var(--disney-royal-blue);
+  margin-bottom: var(--space-sm);
+}
+
+.trip-ideas-section .section-header p {
+  font-family: 'Quicksand', sans-serif;
+  color: var(--disney-purple);
+  font-size: 0.9rem;
+}
+
+.idea-icon {
+  font-size: 2rem;
+  color: var(--disney-gold);
+  margin-bottom: var(--space-md);
+  transition: var(--transition-base);
   display: block;
 }
 
 .card-idea {
-  background: linear-gradient(135deg, white 0%, var(--disney-sparkle) 100%);
-  border: 2px solid var(--disney-light-purple);
-  border-radius: var(--radius-xl);
-  padding: var(--space-2xl);
+  background: white;
+  border: 1px solid var(--disney-light-purple);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
   transition: var(--transition-base);
   box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
-}
-
-/* Mickey decoration on hover */
-.card-idea::after {
-  content: '';
-  position: absolute;
-  top: -20px;
-  right: -20px;
-  width: 60px;
-  height: 60px;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='55' r='25' fill='%23ffd700' fill-opacity='0.2'/%3E%3Ccircle cx='30' cy='30' r='15' fill='%23ffd700' fill-opacity='0.2'/%3E%3Ccircle cx='70' cy='30' r='15' fill='%23ffd700' fill-opacity='0.2'/%3E%3C/svg%3E");
-  background-size: contain;
-  opacity: 0;
-  transition: var(--transition-base);
-}
-
-.card-idea:hover::after {
-  opacity: 1;
+  text-align: center;
 }
 
 .card-idea:hover {
   border-color: var(--disney-gold);
-  box-shadow: var(--shadow-lg), var(--shadow-glow);
-  transform: translateY(-5px);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-3px);
 }
 
 .card-idea:hover .idea-icon {
-  transform: scale(1.15) rotate(10deg);
+  transform: scale(1.1);
   color: var(--disney-purple);
-  animation: float 2s ease-in-out infinite;
 }
 
 .card-idea h4 {
   color: var(--disney-royal-blue);
-  font-size: 1.375rem;
-  margin-bottom: var(--space-lg);
-  font-weight: 800;
+  font-size: 1rem;
+  margin-bottom: var(--space-sm);
+  font-weight: 700;
   font-family: 'Cinzel', serif;
 }
 
 .card-idea p {
   color: var(--disney-royal-blue);
-  font-size: var(--font-size-base);
-  line-height: 1.7;
-  margin-bottom: var(--space-lg);
+  font-size: 0.85rem;
+  line-height: 1.5;
+  margin-bottom: var(--space-sm);
   font-family: 'Quicksand', sans-serif;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .idea-tip {
-  margin-top: var(--space-xl);
-  padding: var(--space-lg);
-  background: linear-gradient(135deg, rgba(255, 215, 0, 0.1) 0%, rgba(123, 31, 162, 0.1) 100%);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: rgba(255, 215, 0, 0.1);
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
   color: var(--disney-royal-blue);
   border: 1px dashed var(--disney-light-purple);
   font-family: 'Quicksand', sans-serif;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .idea-tip strong {
   color: var(--disney-purple);
-  font-weight: 700;
+  font-weight: 600;
 }
 
-/* Ideas grid */
-.ideas-grid {
+/* Compact grid */
+.trip-ideas-section .grid-3 {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: var(--space-xl);
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-lg);
   position: relative;
   z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+  .trip-ideas-section .grid-3 {
+    grid-template-columns: 1fr;
+    max-width: 400px;
+  }
+
+  .trip-ideas-section {
+    padding: 30px 0;
+  }
 }
