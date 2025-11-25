@@ -1,94 +1,135 @@
 {
+  "theme": "Disney Magical Kingdom",
   "colors": {
-    "scheme": "balanced",
-    "colors": [
-      "#2C3E50",
-      "#3498DB",
-      "#E74C3C",
-      "#ECF0F1",
-      "#95A5A6"
-    ],
-    "primary": "#2C3E50",
-    "secondary": "#3498DB",
-    "accent": "#E74C3C",
+    "scheme": "disney-magical",
+    "palette": {
+      "castle_blues": {
+        "royal_blue": "#1a237e",
+        "midnight": "#0d1b3e",
+        "sky": "#5c6bc0",
+        "light_blue": "#7986cb",
+        "ice": "#e8eaf6"
+      },
+      "gold_sparkle": {
+        "gold": "#FFD700",
+        "light_gold": "#FFECB3",
+        "bronze": "#CD853F",
+        "sparkle": "#FFF8DC"
+      },
+      "princess_purples": {
+        "purple": "#7b1fa2",
+        "light_purple": "#CE93D8",
+        "pink": "#F48FB1",
+        "rose": "#FCE4EC"
+      },
+      "magic_accents": {
+        "teal": "#00BCD4",
+        "turquoise": "#4DD0E1",
+        "mint": "#B2DFDB"
+      }
+    },
+    "primary": "#1a237e",
+    "secondary": "#5c6bc0",
+    "accent": "#FFD700",
     "usage_tips": [
-      "Use colors consistently",
-      "Maintain good contrast",
-      "Test accessibility"
+      "Use royal blue for headers and primary actions",
+      "Use gold for accents, borders, and highlights",
+      "Use purples and pinks for secondary elements",
+      "Use sparkle/cream colors for backgrounds",
+      "Maintain magical, whimsical feel throughout"
     ]
   },
   "layout": {
     "recommended_systems": [
-      "flexbox"
+      "flexbox",
+      "css-grid"
     ],
-    "popular_components": [],
+    "disney_components": [
+      "castle-silhouette backgrounds",
+      "mickey-head patterns",
+      "sparkle animations",
+      "floating elements",
+      "gradient cards"
+    ],
     "section_structure": [
-      "hero",
-      "content",
-      "contact"
+      "magical-header",
+      "content-cards",
+      "countdown-timer",
+      "tab-navigation",
+      "sidebar-panel"
     ],
     "layout_tips": [
-      "Use CSS Grid for page-level layouts",
-      "Use Flexbox for component-level layouts",
-      "Implement mobile-first responsive design",
-      "Use consistent spacing (8px or 4px grid)",
-      "Limit content width for readability (max 1200-1400px)"
+      "Use rounded corners (1rem-2rem) for magical feel",
+      "Add subtle shadows with blue tints",
+      "Use gradients for backgrounds and buttons",
+      "Implement card-based layouts with hover effects",
+      "Keep navigation simple and centralized"
     ]
   },
   "typography": {
     "recommended_fonts": {
-      "heading": "Playfair Display",
-      "body": "Source Sans Pro",
-      "type": "classic"
+      "heading": "Cinzel",
+      "body": "Quicksand",
+      "script": "Satisfy",
+      "type": "disney-elegant"
     },
     "size_scale": {
       "base": "16px",
-      "small": "14.0px",
+      "small": "14px",
       "h6": "16px",
-      "h5": "20.0px",
-      "h4": "25.008px",
-      "h3": "31.248px",
-      "h2": "39.056px",
-      "h1": "48.832px",
-      "display": "61.04px"
+      "h5": "20px",
+      "h4": "25px",
+      "h3": "31px",
+      "h2": "39px",
+      "h1": "49px",
+      "display": "61px"
     },
     "typography_tips": [
-      "Use a maximum of 2-3 font families",
-      "Establish a clear hierarchy with size and weight",
-      "Maintain consistent line-height (1.5-1.6 for body text)",
-      "Use system fonts for better performance",
-      "Ensure sufficient contrast for readability"
+      "Use Cinzel for headers - elegant, regal feel",
+      "Use Quicksand for body - friendly, readable",
+      "Use Satisfy for accents - whimsical, magical",
+      "Add text shadows for depth on colored backgrounds",
+      "Use gold color for special headings"
     ]
   },
   "style": {
-    "recommended_features": [],
+    "disney_features": [
+      "Castle silhouette watermarks",
+      "Mickey Mouse head icons (3 circles)",
+      "Sparkle/twinkle animations",
+      "Floating/bobbing animations",
+      "Glow effects on hover",
+      "Shimmer effects on buttons",
+      "Rainbow gradient borders"
+    ],
     "animation_suggestions": [
-      "Use subtle transitions (200-300ms) for interactive elements",
-      "Add fade-in animations for content on scroll",
-      "Implement smooth hover effects on buttons and cards",
-      "Use transform instead of position for animations (better performance)"
+      "Use 'twinkle' animation for sparkles (2-3s)",
+      "Use 'float' animation for magical elements (6s)",
+      "Use 'glow-pulse' for countdown timer (4s)",
+      "Use 'shimmer' for progress bars (2s)",
+      "Use bounce easing for button interactions"
     ],
     "modern_techniques": [
-      "Use CSS custom properties (variables) for theming",
-      "Implement smooth scrolling behavior",
-      "Add subtle shadows for depth",
-      "Use backdrop-filter for glass morphism effects",
-      "Implement dark mode support"
+      "CSS custom properties for theming",
+      "SVG data URIs for Mickey/castle patterns",
+      "Pseudo-elements for decorative icons",
+      "Linear gradients for magical backgrounds",
+      "Box-shadow glow effects"
     ],
     "accessibility_tips": [
-      "Respect prefers-reduced-motion for animations",
-      "Ensure sufficient color contrast (WCAG AA: 4.5:1)",
-      "Use semantic HTML elements",
-      "Add focus indicators for keyboard navigation",
-      "Test with screen readers"
+      "Maintain contrast despite decorative elements",
+      "Ensure all buttons are clearly visible",
+      "Keep animations subtle and optional",
+      "Test color combinations for readability",
+      "Ensure form inputs have clear focus states"
     ]
   },
   "overall_tips": [
-    "Start with mobile-first design",
-    "Maintain consistent spacing throughout",
-    "Use a design system or style guide",
-    "Test across different browsers and devices",
-    "Optimize for performance (lazy loading, code splitting)",
-    "Focus on user experience and accessibility"
+    "Keep the magic subtle - don't overwhelm",
+    "Prioritize functionality over decoration",
+    "Ensure all buttons and interactions work perfectly",
+    "Test on mobile devices for responsive design",
+    "Use Disney quotes and language sparingly",
+    "Remember: this is FREE for families - keep it welcoming"
   ]
 }
