@@ -157,6 +157,22 @@ export const TripProvider = ({ children }) => {
     }));
   };
 
+  // Add new checklist item
+  const addChecklistItem = (title, description, category = 'Custom', priority = 'medium') => {
+    const newItem = {
+      id: `item-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+      title,
+      description,
+      category,
+      priority,
+      completed: false,
+    };
+    setTripData((prev) => ({
+      ...prev,
+      checklist: [...prev.checklist, newItem],
+    }));
+  };
+
   const clearData = () => {
     if (window.confirm('Are you sure you want to delete this trip? This cannot be undone.')) {
       const allTrips = JSON.parse(localStorage.getItem('disneyTrips') || '{}');
@@ -185,6 +201,7 @@ export const TripProvider = ({ children }) => {
         createTripWithCode,
         logout,
         updateItinerary,
+        addChecklistItem,
         updateChecklistItem,
         deleteChecklistItem,
         clearData,
