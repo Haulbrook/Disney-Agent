@@ -1,0 +1,204 @@
+/* Hero Component - Based on Agent's Hero Patterns (24 extracted) */
+
+.hero {
+  background: linear-gradient(135deg,
+    var(--accent-blue) 0%,
+    var(--primary-purple) 40%,
+    var(--vibrant-cyan) 100%);
+  padding: 60px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at top right, rgba(73, 252, 212, 0.2) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+.hero-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hero-content {
+  display: grid;
+  grid-template-columns: 5fr 5fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Sidebar */
+.hero-sidebar {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: var(--shadow-lg);
+}
+
+.logo h1 {
+  color: white;
+  font-weight: 900;
+  margin-bottom: 10px;
+  font-size: var(--font-size-2xl);
+}
+
+.logo .subtitle {
+  color: rgba(255, 255, 255, 0.95);
+  font-weight: 300;
+  letter-spacing: 2px;
+  font-size: var(--font-size-sm);
+}
+
+.hero-nav {
+  margin-top: var(--space-2xl);
+}
+
+.hero-nav h4 {
+  color: white;
+  margin-bottom: var(--space-lg);
+  font-size: var(--font-size-base);
+}
+
+.hero-nav ul {
+  list-style: none;
+}
+
+.hero-nav li {
+  margin-bottom: var(--space-md);
+}
+
+.hero-nav a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  text-decoration: none;
+  padding: var(--space-md) var(--space-lg);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-base);
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.hero-nav a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.6);
+  transform: translateX(5px);
+}
+
+.hero-nav em {
+  color: var(--vibrant-cyan);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.hero-cta {
+  margin-top: var(--space-2xl);
+}
+
+.cta-button {
+  width: 100%;
+  background: linear-gradient(135deg, var(--vibrant-cyan) 0%, var(--bright-gold) 100%);
+  border: none;
+  color: white;
+  padding: var(--space-lg) var(--space-2xl);
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: var(--font-size-base);
+  cursor: pointer;
+  transition: var(--transition-base);
+  box-shadow: var(--shadow-md);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(73, 252, 212, 0.4);
+}
+
+/* Welcome Section */
+.hero-welcome {
+  background-image: url('https://images.unsplash.com/photo-1566195992011-5f6b21e539aa?w=800');
+  background-size: cover;
+  background-position: center;
+  border-radius: var(--radius-lg);
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}
+
+.welcome-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, rgba(116, 107, 171, 0.85) 0%, rgba(26, 178, 138, 0.85) 100%);
+  border-radius: var(--radius-lg);
+}
+
+.welcome-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  color: white;
+  padding: var(--space-2xl);
+}
+
+.floating-icon {
+  font-size: 60px;
+  margin-bottom: var(--space-xl);
+  opacity: 0.95;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  animation: float 6s ease-in-out infinite;
+  display: block;
+}
+
+.welcome-content h2 {
+  font-size: 36px;
+  margin-bottom: 15px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  font-weight: 900;
+  color: white;
+}
+
+.welcome-content h3 {
+  font-size: 28px;
+  opacity: 0.95;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  font-weight: 300;
+  letter-spacing: 1px;
+  margin-bottom: var(--space-lg);
+}
+
+.welcome-content p {
+  margin-top: var(--space-xl);
+  font-size: var(--font-size-base);
+  opacity: 0.9;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  font-weight: 300;
+}
+
+/* Responsive */
+@media (max-width: 968px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-welcome {
+    min-height: 300px;
+  }
+}

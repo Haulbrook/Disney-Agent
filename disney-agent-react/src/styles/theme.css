@@ -1,0 +1,112 @@
+/* Modern Disney Theme - Based on FrontEndAestheticAgent Patterns */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;600;700;900&display=swap');
+
+:root {
+    /* Color Palette - Agent's Top Balanced Scheme */
+    --primary-purple: #746bab;
+    --vibrant-cyan: #49FCD4;
+    --soft-teal: #76d0c0;
+    --deep-teal: #1ab28a;
+    --bright-gold: #fbbe4f;
+    --accent-blue: #4a62d8;
+    --pearl-white: #F8F6F9;
+    --soft-gray: #909090;
+    --dark-slate: #2c3e50;
+    --light-bg: #f0f8ff;
+
+    /* Spacing */
+    --space-xs: 4px;
+    --space-sm: 8px;
+    --space-md: 12px;
+    --space-lg: 16px;
+    --space-xl: 20px;
+    --space-2xl: 40px;
+
+    /* Typography */
+    --font-size-base: 1rem;
+    --font-size-sm: 0.875rem;
+    --font-size-lg: 1.25rem;
+    --font-size-xl: 1.5rem;
+    --font-size-2xl: 2rem;
+    --font-size-3xl: 2.5rem;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(73, 252, 212, 0.15);
+    --shadow-md: 0 4px 16px rgba(73, 252, 212, 0.2);
+    --shadow-lg: 0 8px 24px rgba(73, 252, 212, 0.25);
+    --shadow-xl: 0 12px 32px rgba(73, 252, 212, 0.3);
+
+    /* Border Radius */
+    --radius-sm: 10px;
+    --radius-md: 15px;
+    --radius-lg: 20px;
+    --radius-full: 50px;
+
+    /* Transitions */
+    --transition-fast: all 0.2s ease;
+    --transition-base: all 0.3s ease;
+    --transition-slow: all 0.5s ease;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Source Sans Pro', 'Helvetica', sans-serif;
+    font-size: var(--font-size-base);
+    color: var(--dark-slate);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+h1 { font-size: var(--font-size-3xl); font-weight: 900; }
+h2 { font-size: var(--font-size-2xl); }
+h3 { font-size: var(--font-size-xl); }
+h4 { font-size: var(--font-size-lg); }
+
+/* Animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.5s ease-out;
+}

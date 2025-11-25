@@ -1,0 +1,43 @@
+.trip-ideas-section {
+  padding: 60px 0;
+  background: white;
+}
+
+.idea-icon {
+  font-size: 3rem;
+  color: var(--vibrant-cyan);
+  margin-bottom: var(--space-xl);
+  transition: var(--transition-base);
+}
+
+.card-idea:hover .idea-icon {
+  transform: scale(1.1) rotate(5deg);
+  color: var(--primary-purple);
+}
+
+.card-idea h4 {
+  color: var(--primary-purple);
+  font-size: 1.375rem;
+  margin-bottom: var(--space-lg);
+  font-weight: 700;
+}
+
+.card-idea p {
+  color: #666;
+  font-size: var(--font-size-base);
+  line-height: 1.7;
+  margin-bottom: var(--space-lg);
+}
+
+.idea-tip {
+  margin-top: var(--space-xl);
+  padding: var(--space-md);
+  background: linear-gradient(135deg, rgba(73, 252, 212, 0.1) 0%, rgba(116, 107, 171, 0.1) 100%);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-sm);
+  color: var(--dark-slate);
+}
+
+.idea-tip strong {
+  color: var(--primary-purple);
+}

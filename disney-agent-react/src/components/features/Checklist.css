@@ -1,0 +1,114 @@
+.checklist-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, var(--pearl-white) 0%, var(--light-bg) 100%);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 80px 20px;
+}
+
+.empty-icon {
+  font-size: 72px;
+  color: var(--primary-purple);
+  opacity: 0.3;
+  display: block;
+  margin-bottom: var(--space-2xl);
+}
+
+.empty-state h3 {
+  color: var(--primary-purple);
+  font-size: 1.75rem;
+  margin-bottom: var(--space-lg);
+}
+
+.empty-state p {
+  color: var(--soft-gray);
+  font-size: var(--font-size-lg);
+}
+
+.checklist-category {
+  margin-bottom: var(--space-2xl);
+}
+
+.category-title {
+  color: var(--primary-purple);
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--space-xl);
+  padding-bottom: var(--space-md);
+  border-bottom: 2px solid var(--soft-teal);
+}
+
+.checklist-grid {
+  display: grid;
+  gap: var(--space-xl);
+}
+
+.checklist-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: var(--space-lg);
+  gap: var(--space-md);
+}
+
+.checklist-header h4 {
+  color: var(--primary-purple);
+  font-size: 1.25rem;
+  margin: 0;
+  flex: 1;
+}
+
+.priority-badge {
+  padding: var(--space-xs) var(--space-md);
+  border-radius: var(--radius-full);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+}
+
+.priority-high {
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  color: white;
+}
+
+.priority-medium {
+  background: linear-gradient(135deg, var(--bright-gold) 0%, #f39c12 100%);
+  color: white;
+}
+
+.priority-low {
+  background: linear-gradient(135deg, #51cf66 0%, #37b24d 100%);
+  color: white;
+}
+
+.checklist-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--soft-teal);
+  gap: var(--space-md);
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+  cursor: pointer;
+  flex: 1;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  accent-color: var(--vibrant-cyan);
+}
+
+.checkbox-label span {
+  color: var(--dark-slate);
+  font-weight: 500;
+}
