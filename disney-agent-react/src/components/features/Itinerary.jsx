@@ -112,7 +112,7 @@ const Itinerary = () => {
   };
 
   return (
-    <section className="itinerary-section">
+    <section id="itinerary" className="itinerary-section">
       <div className="container">
         <div className="section-header">
           <h2>📅 Your Magical Itinerary</h2>
