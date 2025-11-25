@@ -3,6 +3,7 @@ import { TripProvider } from './context/TripContext';
 import Hero from './components/features/Hero';
 import Dashboard from './components/features/Dashboard';
 import Countdown from './components/features/Countdown';
+import Itinerary from './components/features/Itinerary';
 import TripIdeas from './components/features/TripIdeas';
 import Checklist from './components/features/Checklist';
 import TripForm from './components/features/TripForm';
@@ -17,6 +18,7 @@ function App() {
         <Hero />
         <Dashboard />
         <Countdown />
+        <Itinerary />
         <TripIdeas />
         <Checklist />
         <TripForm />

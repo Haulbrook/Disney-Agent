@@ -1,0 +1,296 @@
+/* Itinerary - Disney Magical Kingdom Theme */
+
+.itinerary-section {
+  padding: 60px 0;
+  background: linear-gradient(180deg, var(--disney-ice) 0%, white 50%, var(--disney-sparkle) 100%);
+  position: relative;
+}
+
+/* Castle silhouette watermark */
+.itinerary-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath fill='%231a237e' fill-opacity='0.02' d='M100 180 L100 120 L80 120 L80 100 L70 100 L70 80 L60 80 L60 60 L50 60 L50 40 L70 40 L70 30 L75 30 L75 20 L80 20 L80 30 L90 30 L90 40 L100 40 L100 30 L105 30 L105 20 L110 20 L110 30 L120 30 L120 40 L130 40 L130 60 L140 60 L140 80 L150 80 L150 100 L140 100 L140 120 L120 120 L120 180 Z'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none;
+}
+
+.itinerary-section .section-header {
+  text-align: center;
+  margin-bottom: var(--space-2xl);
+  position: relative;
+  z-index: 1;
+}
+
+.itinerary-section .section-header h2 {
+  font-family: 'Cinzel', serif;
+  font-size: 2.25rem;
+  color: var(--disney-royal-blue);
+  margin-bottom: var(--space-md);
+}
+
+.itinerary-section .section-header p {
+  font-family: 'Quicksand', sans-serif;
+  color: var(--disney-purple);
+  font-size: 1.1rem;
+}
+
+/* Day Tabs */
+.itinerary-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: var(--space-xl);
+  position: relative;
+  z-index: 1;
+}
+
+.itinerary-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 16px;
+  border: 2px solid var(--disney-light-purple);
+  border-radius: var(--radius-lg);
+  background: white;
+  cursor: pointer;
+  transition: var(--transition-base);
+  min-width: 80px;
+}
+
+.itinerary-tab:hover {
+  border-color: var(--disney-gold);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.itinerary-tab.active {
+  background: linear-gradient(135deg, var(--disney-royal-blue) 0%, var(--disney-purple) 100%);
+  border-color: var(--disney-gold);
+  color: white;
+  box-shadow: var(--shadow-lg), 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.itinerary-tab.active .tab-date {
+  color: var(--disney-light-gold);
+}
+
+.tab-icon {
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+}
+
+.tab-date {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--disney-royal-blue);
+}
+
+/* Park-specific tab colors */
+.itinerary-tab.magic-kingdom.active {
+  background: linear-gradient(135deg, #1a237e 0%, #5c6bc0 100%);
+}
+
+.itinerary-tab.animal-kingdom.active {
+  background: linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%);
+}
+
+.itinerary-tab.hollywood-studios.active {
+  background: linear-gradient(135deg, #c62828 0%, #ef5350 100%);
+}
+
+.itinerary-tab.epcot.active {
+  background: linear-gradient(135deg, #7b1fa2 0%, #ce93d8 100%);
+}
+
+/* Content Card */
+.itinerary-content {
+  background: white;
+  border-radius: var(--radius-xl);
+  padding: var(--space-2xl);
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--disney-light-purple);
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Golden corner decoration */
+.itinerary-content::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--disney-gold) 0%, transparent 30%, transparent 70%, var(--disney-gold) 100%);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+}
+
+.day-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+  padding-bottom: var(--space-xl);
+  border-bottom: 2px dashed var(--disney-light-purple);
+  margin-bottom: var(--space-xl);
+}
+
+.day-icon {
+  font-size: 3rem;
+  background: linear-gradient(135deg, var(--disney-sparkle) 0%, var(--disney-light-gold) 100%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid var(--disney-gold);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+.day-info h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 1.5rem;
+  color: var(--disney-royal-blue);
+  margin-bottom: 4px;
+}
+
+.day-info h4 {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.25rem;
+  color: var(--disney-purple);
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.park-hours {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 0.875rem;
+  color: var(--disney-sky);
+  background: var(--disney-ice);
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: inline-block;
+}
+
+/* Highlights List */
+.day-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.highlight-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--disney-ice);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--disney-light-purple);
+  transition: var(--transition-base);
+}
+
+.highlight-item:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Type-specific colors */
+.highlight-item.dining {
+  border-left-color: var(--disney-gold);
+  background: linear-gradient(90deg, rgba(255, 215, 0, 0.1) 0%, var(--disney-ice) 100%);
+}
+
+.highlight-item.ride {
+  border-left-color: var(--disney-teal);
+  background: linear-gradient(90deg, rgba(0, 188, 212, 0.1) 0%, var(--disney-ice) 100%);
+}
+
+.highlight-item.show {
+  border-left-color: var(--disney-purple);
+  background: linear-gradient(90deg, rgba(123, 31, 162, 0.1) 0%, var(--disney-ice) 100%);
+}
+
+.highlight-item.special {
+  border-left-color: #ff6b6b;
+  background: linear-gradient(90deg, rgba(255, 107, 107, 0.15) 0%, var(--disney-ice) 100%);
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.highlight-item.resort,
+.highlight-item.explore,
+.highlight-item.activity {
+  border-left-color: var(--disney-sky);
+}
+
+.highlight-time {
+  font-family: 'Cinzel', serif;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--disney-royal-blue);
+  min-width: 90px;
+}
+
+.highlight-icon {
+  font-size: 1.25rem;
+}
+
+.highlight-event {
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1rem;
+  color: var(--disney-royal-blue);
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .itinerary-tabs {
+    gap: 6px;
+  }
+
+  .itinerary-tab {
+    padding: 8px 10px;
+    min-width: 60px;
+  }
+
+  .tab-icon {
+    font-size: 1.25rem;
+  }
+
+  .tab-date {
+    font-size: 0.65rem;
+  }
+
+  .itinerary-content {
+    padding: var(--space-xl);
+  }
+
+  .day-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .day-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+
+  .highlight-item {
+    flex-wrap: wrap;
+  }
+
+  .highlight-time {
+    min-width: 70px;
+    font-size: 0.75rem;
+  }
+}
