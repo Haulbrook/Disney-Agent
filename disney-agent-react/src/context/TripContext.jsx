@@ -1,7 +1,30 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const TripContext = createContext();
 
+const getInitialTripData = () => {
+  const defaultData = {
+    destination: 'Walt Disney World',
+    partySize: 4,
+    startDate: '2025-12-06',
+    endDate: '2025-12-13',
+    checklist: [],
+    createdAt: null,
+  };
+
+  try {
+    const savedTrip = localStorage.getItem('disneyTripData');
+    if (savedTrip) {
+      return JSON.parse(savedTrip);
+    }
+  } catch (error) {
+    console.error('Error loading trip data from localStorage:', error);
+    localStorage.removeItem('disneyTripData');
+  }
+  return defaultData;
+};
+
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTripContext = () => {
   const context = useContext(TripContext);
   if (!context) {
@@ -11,29 +34,7 @@ export const useTripContext = () => {
 };
 
 export const TripProvider = ({ children }) => {
-  const [tripData, setTripData] = useState({
-    destination: 'Walt Disney World',
-    partySize: 4,
-    startDate: '2025-12-06',
-    endDate: '2025-12-13',
-    checklist: [],
-    createdAt: null,
-  });
-
-  // Load from localStorage on mount
-  useEffect(() => {
-    try {
-      const savedTrip = localStorage.getItem('disneyTripData');
-      if (savedTrip) {
-        const parsed = JSON.parse(savedTrip);
-        setTripData(parsed);
-      }
-    } catch (error) {
-      console.error('Error loading trip data from localStorage:', error);
-      // Clear corrupted data
-      localStorage.removeItem('disneyTripData');
-    }
-  }, []);
+  const [tripData, setTripData] = useState(getInitialTripData);
 
   // Save to localStorage whenever tripData changes
   useEffect(() => {
@@ -110,8 +111,7 @@ export const TripProvider = ({ children }) => {
 };
 
 // Helper function to generate checklist based on trip details
-function generateChecklist(destination, partySize, startDate, endDate) {
-  const daysBefore = Math.floor((new Date(startDate) - new Date()) / (1000 * 60 * 60 * 24));
+function generateChecklist(_destination, _partySize, _startDate, _endDate) {
 
   const baseItems = [
     { category: 'Planning', priority: 'high', title: 'Book Resort Hotel', description: 'Reserve your Disney resort accommodation' },
